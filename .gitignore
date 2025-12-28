@@ -1,0 +1,39 @@
+# =========================
+# LaTeX - arquivos temporários
+# =========================
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.toc
+*.lof
+*.lot
+*.lol
+*.synctex.gz
+
+# =========================
+# PDF gerado
+# =========================
+#*.pdf
+
+
+# =========================
+# TeXstudio
+# =========================
+*.txss
+
+# =========================
+# Editores / IDEs
+# =========================
+.vscode/
+
+# =========================
+# Sistema operacional
+# =========================
+.DS_Store
+Thumbs.db
