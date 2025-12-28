@@ -1,0 +1,20 @@
+Este é um template para dissertações e teses da Pós-Graduação em Engenharia Mecânica da UFU.
+
+Este template também pode ser utilizado para o plano de trabalho e qualificação, tomando as devidas alterações.
+
+Orientações:
+- Este é um template em LATEX, portanto deve ser utilizado em softwares compatíveis como Overleaf, TexStudio Miktex e demais.
+
+- O arquivo main.tex é o principal e o que deve ser compilado. Ele apresenta a disposição geral do texto e a inclusão de cada parte presente nas pastas pretextual, capítulos e postextual.
+
+- Não se esqueça de alterar os itens em vermelho para seus dados, ano, titulo, dados do orientador e coorientador.
+
+- Para a ata de defesa e ficha catalográfica, ao se obter estes documentos é substituir o arquivo presente em pretextual com o mesmo nome e recompilar que será atualizado no documento completo. 
+
+- Para remover essa parte do documento completo, para o envio à banca por exemplo, basta comentar a parte referente no main.tex
+
+- A pasta capítulos apresenta todos os capítulos do documento que são adicionados manualmente ao main.tex
+
+- Na pasta figuras se encontram todas as figuras utilizadas por todo o documento, capa (Logo da UFU) e demais que serão utilizadas ao longo do texto, em cada respectivo capitulo.
+
+- Caso não tenha apêndices ou anexos basta comentar ou excluir essa parte no main.tex

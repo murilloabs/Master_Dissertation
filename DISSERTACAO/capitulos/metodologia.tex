@@ -1,0 +1,355 @@
+% METODOLOGIA
+
+\chapter{\normalsize{METODOLOGIA}} \label{cap:metodologia}
+
+\thispagestyle{empty}
+
+A metodologia adotada neste trabalho possui caráter científico e sistemático,
+sendo definida de modo a atender aos objetivos propostos e garantir a
+reprodutibilidade dos resultados.
+
+O desenvolvimento da pesquisa foi estruturado em etapas, compreendendo a
+definição do problema, o levantamento bibliográfico, a formulação do modelo ou
+procedimento adotado, a implementação computacional ou experimental e a
+análise dos resultados.
+
+Os métodos utilizados foram selecionados com base em sua adequação ao
+problema estudado e em sua ampla aceitação na literatura especializada,
+assegurando coerência entre a abordagem teórica e a aplicação prática.
+
+
+\begin{comment}
+Este capítulo tem como objetivo apresentar e descrever os principais componentes da bancada de mancais magnéticos onde foram realizados todos os testes e implementações dos controladores propostos por este trabalho, localizada no Laboratório de Mecânica de Estruturas ``Prof. José Eduardo Tannus Reis'' (LMEst), na Universidade Federal de Uberlândia. Além disso, é apresentado o controlador PID adaptativo já implementado na bancada e seu funcionamento para fins de posterior coleta de dados e desenvolvimento de metamodelos.
+
+\section{Bancada de testes}
+A bancada utilizada para este trabalho é da fabricante SKF e pode ser dividida em três módulos: a bancada em si, o controlador MB340g4-ERX\textsuperscript{TM} e o módulo de aquisição e injeção de sinais MBResearch\textsuperscript{TM}.
+
+O rotor é formado por um disco, dois mancais magnéticos ativos, cada um com oito bobinas, responsáveis pela levitação do eixo, este construído em aço 1020 e aço laminado M-19 nas regiões onde estão localizados os mancais – o plano de atuação e de sensores (Figuras \ref{fig4_1a} e \ref{fig4_1b}). A bancada também possui dois mancais auxiliares de rolamento, que servem de apoio para o eixo quando o sistema estiver desligado, bem como atuam como proteção para os MMAs em caso de falha no processo de levitação, decorrente de corte no fornecimento de energia ou qualquer outro tipo de distúrbio (Figura \ref{fig4_1c}). A rotação é gerada através de um motor que está acoplado ao eixo. Na Tabela \ref{tab4_1} são apresentados os dados estruturais da bancada. 
+
+\enlargethispage{1\baselineskip}
+
+O módulo MB340g4-ERX\textsuperscript{TM} é encarregado de controlar as bobinas da estrutura por meio de um controlador do tipo PID (Figura \ref{fig4_1d}). A interface deste módulo permite ligar e desligar a bancada, configurar alguns parâmetros básicos, tais como o sentido e a velocidade de rotação (rotações por minuto [rpm] ou Hertz [Hz]), definir se a lógica do controlador será utilizada de forma local ou remota,  além de verificar o histórico de erros, dentre outros. A conexão entre \textit{hardware} e \textit{software} é realizada pelo conversor USB/RS-485. 
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[scale=0.10]{imagens/bancada_frontal_2.jpg}
+		\caption{Visão frontal.}
+		\label{fig4_1a}
+	\end{subfigure}
+	\\ \vspace{10pt}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[angle=270,scale=0.25]{imagens/mancal_magnetico.jpg}
+		\caption{Mancal magnético.}
+		\label{fig4_1b}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[angle=90,scale=0.25]{imagens/mancal_rolamento.jpg}
+		\caption{Mancal auxiliar de rolamento.}
+		\label{fig4_1c}
+	\end{subfigure}
+		\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[scale=0.25]{imagens/Controle_SKF.eps}
+		\caption{Módulo MB340g4-ERX\textsuperscript{TM}.}
+		\label{fig4_1d}
+	\end{subfigure}
+	\caption[Bancada experimental da SKF e seus componentes]{Bancada experimental da SKF e seus componentes.}
+	\label{fig4_1}
+\end{figure}
+
+
+\begin{table}[H]
+	\centering
+	\renewcommand{\arraystretch}{1.5}
+	\caption[Especificações da bancada de mancais magnéticos ativos da SKF]{Especificações da bancada de mancais magnéticos ativos da SKF.}
+	\begin{tabular}{ccc}
+		\hline
+		\textbf{Parâmetro}             & \textbf{Valor} & \textbf{Unidade}            \\ \hline
+		Número de voltas da bobina ($n$) & 276            & -                           \\
+		Entreferro ($g_{0}$)           & 0,364          & mm                        \\
+		Área do pólo ($A_{g}$)         & 430,74         & mm\textsuperscript{2}
+		\\
+		Tensão de operação             & 10             & V                         \\
+		Corrente de base ($i_{0}$)     & 1              & A                         \\
+		Rigidez de corrente ($K_{i}$)  & 99,15          & N/A                       \\
+		Rigidez de posição ($K_{s}$)   & 214,2          & N/m                       \\
+		Corrente máxima ($i$)   & 3            & A                         \\
+		Comprimento do eixo            & 645            & mm                        \\
+		Massa do rotor com o disco     & 5,89           & kg                        \\
+		Potência do motor              & 500            & W                         \\
+		Faixa de operação              & 0-12000        & rpm                       \\ \hline
+	\end{tabular}
+	\label{tab4_1}
+\end{table}
+
+Para identificar a posição do eixo em relação aos mancais, são utilizados sensores de posição localizados no interior dos atuadores magnéticos e estes são independentes entre si. A fim de seguir a nomenclatura do fabricante, os eixos de coordenadas são chamados de V e W, com a numeração 13 para o mancal acoplado, e 24 para o mancal livre, conforme indicado na Figura \ref{fig4_2}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{imagens/coordenadas.png}
+	\caption[Eixos de coordenadas da bancada de teste]{Eixos de coordenadas da bancada de teste. Fonte: \citeonline{SKF2009}.}
+	\label{fig4_2}
+\end{figure}
+
+Para maior controle da bancada, o fabricante fornece o \textit{software} MBScope, onde é possível configurar todos os parâmetros do controlador PID, filtros digitais, assim como obter as funções de transferência do sistema, calibrar os sensores de posição dos mancais, visualizar e coletar em tempo real os sinais de posição e a corrente do sistema.
+
+Para criar uma lógica de controle diferente do fornecido pelo software MBScope, é necessário utilizar o módulo externo MBResearch\textsuperscript{TM} (Figura \ref{fig4_3a}). Este módulo é conectado a uma placa de aquisição de sinais (A/D e D/A), o qual é acoplado a um computador externo. Neste projeto, optou-se pela placa de aquisição MicroLabBox 1202 da dSPACE (Figura \ref{fig4_3b}). A lógica do controlador é  programada em ambiente MATLAB/Simulink e processado no  programa ControlDesk, da própria dSPACE, que funciona como interface entre \textit{software} e \textit{hardware}. Dessa forma, todas as leituras são realizadas em tempo real.
+
+\begin{figure}[H]
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[scale=0.25]{imagens/Placa_aqusicao.eps}
+		\caption{Módulo MBResearch\textsuperscript{TM}.}
+		\label{fig4_3a}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[scale=0.25]{imagens/MicrolabBox.eps}
+		\caption{Placa MicroLabBox 1202 da dSPACE.}
+		\label{fig4_3b}
+	\end{subfigure}
+	\label{fig4_3}
+	\caption[Sistema de aquisição e injeção de sinais]{Sistema de aquisição e injeção de sinais.}
+\end{figure}
+
+\subsection{Análise Modal} 
+
+\enlargethispage{1\baselineskip}
+Com o objetivo de verificar as frequências naturais do rotor, foi realizada uma análise modal na condição livre-livre por meio de um ensaio de impacto, onde o eixo foi retirado da estrutura e suspenso em fios de nylon, conforme indicado na Figura \ref{fig4_4}. Os equipamentos utilizados para o ensaio foram um martelo de impacto, um acelerômetro e um analisador de sinais para leitura dos dados. Na Tabela \ref{tab4_2} estão os dados de sensibilidade de cada um deles. 
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.55]{imagens/ensaio.pdf}
+		\caption[Eixo suspenso em fios de nylon para realização de ensaio]{Eixo suspenso em fios de nylon para realização de ensaio.}
+		\label{fig4_4}
+\end{figure}
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1.5}
+	\centering
+	\caption[Dados dos equipamentos utilizados para realização do ensaio]{Dados dos equipamentos utilizados para realização do ensaio.}
+	\begin{tabular}{cccc}
+		\hline
+		\textbf{Equipamento} & \textbf{Sensibilidade} & \textbf{Unidade} & \textbf{Fabricante}                            \\ \hline
+		Martelo de impacto   & 10,68                  & mV/N           & PCB Piezotronics 
+		 \\
+		Acelerômetro         & 1,061                  & mV/m/s\textsuperscript{2}     & PCB Piezotronics 
+		 \\
+		Analisador de sinais & -                      & -                & Agilent           \\ \hline
+	\end{tabular}
+	\label{tab4_2}
+\end{table}
+
+O ponto de excitação foi no disco do rotor e o acelerômetro foi fixado na área dos planos dos mancais, estes indicados na Figura \ref{fig4_4}. Esta configuração permite a visualização dos três modos de vibrar, como já demonstrado por \citeonline{Oliveira2015}. Tal dissertação foi utilizada como referência para a caracterização numérica da bancada. 
+
+Para a coleta dos dados foi realizada uma média com 20 amostras e os resultados obtidos estão dispostos na Figura \ref{fig4_5}.
+
+Analisando a função de resposta em frequência do rotor, foi possível identificar as três primeiras frequências naturais da estrutura, no intervalo de 0 a 1000 Hz, que corresponde também à banda de frequência do módulo de controle nativo da bancada. O motor que vem acoplado a bancada permite ultrapassar somente a frequência natural de 107 Hz, aproximadamente $\Omega=$ 6420 rpm.
+\begin{figure}[H]
+	\centering
+	\includegraphics{imagens/frf.eps}
+	\caption[Função de resposta em frequência - FRF: Amplitude, fase e coerência da análise modal experimental]{Função de resposta em frequência - FRF: Amplitude, fase e coerência da análise modal experimental.}
+	\label{fig4_5}
+\end{figure}
+
+Com o objetivo de verificar se o resultado obtido é condizente com os estudos prévios já realizados na bancada, foram comparados os dados obtidos experimentalmente com os dados fornecidos por \citeonline{Oliveira2015}. Os dados estão dispostos na Tabela \ref{tab4_3} e pode-se observar que os valores obtidos se encontram próximos dos três primeiros modos de vibrar, com erros médios relativos de 0,56 \%, 1,14 \% e 0,31 \%, respectivamente, considerando os dados experimentais como referência. 
+\enlargethispage{1\baselineskip}
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1.5}
+	\centering
+	\caption[Comparativo entre os dados obtidos nas análises modais]{Comparativo entre os dados obtidos nas análises modais.}
+\begin{tabular}{ccc}
+	\hline
+	\textbf{Modo de vibrar} & \textbf{\begin{tabular}[c]{@{}c@{}}Experimental\\  {[}Hz{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Numérico obtido\\ por \citeonline{Oliveira2015} \\ {[}Hz{]}\end{tabular}} \\ \hline
+	1º modo                 & 107                                                                         & 106,4                                                                                                                        \\
+	2º modo                 & 401                                                                         & 398,4                                                                                                                        \\
+	3º modo                 & 769                                                                         & 766,6                                                                                                                        \\ \hline
+\end{tabular}
+	\label{tab4_3}
+\end{table}
+
+\subsection{Balanceamento}
+
+Inicialmente, percebeu-se um aumento significativo da amplitude de vibração em velocidades próximas a 3000 rpm. Este comportamento resultava no contato direto entre o eixo e o \textit{backup bearing} e, consequentemente, o desligamento da bancada devido ao seu sistema de segurança, que para grandes amplitudes de deslocamento, desacelera o motor para evitar danos à estrutura. 
+
+Para solucionar este problema, foi realizado o balanceamento do rotor a partir do método de quatro rodadas sem fase, sendo necessário somente o uso dos dados de amplitude de vibração para balancear a máquina, o que difere de outros métodos, a exemplo do método de coeficiente de influência, que necessita de informações sobre a fase do sistema \cite{Oliveira2014}. 
+
+Com a bancada em operação na velocidade desejada, como o nome da própria técnica já indica, o procedimento de balanceamento é realizado em quatro etapas, iniciando-se com a coleta de amplitude de vibração nas seguintes condições:
+
+\begin{itemize}
+	\item Desbalanceamento original;
+	\item Desbalanceamento associado a uma massa de teste posicionada em 0° (graus);
+	\item Desbalanceamento associado a uma massa de teste posicionada em 120° (graus);
+	\item Desbalanceamento associado a uma massa de teste posicionada em 240° (graus).
+	\end{itemize}
+	
+A massa de teste adicionada é determinada a partir de informações anteriores da máquina ou de inspeções visuais na estrutura. Com os dados coletados, é construída uma circunferência inicial de raio equivalente a amplitude de vibração do desbalanceamento original do rotor, marcando-se pontos equivalentes a 0°, 120° e 240°. Nestes pontos são construídas circunferências com raios iguais as suas respectivas amplitudes de vibração. Com isso, é traçado um vetor entre o centro da primeira circunferência feita e o ponto de intersecção entre todas as desenhadas, encontrando-se, assim, o módulo e a direção do vetor de correção $V_{c}$. A massa de correção $M_{c}$ pode ser calculada a partir da Equação \ref{eq4_1}, correspondendo $V_{o}$ a amplitude de vibração original e $M_{t}$ à massa de teste utilizada.
+\begin{equation}
+	M_{c}=\frac{V_{o}\times M_{t}}{V_{c}}
+	\label{eq4_1}
+\end{equation}
+
+
+Ao realizar este procedimento, foi encontrada uma massa de correção $M_{c}$ com 3 gramas e angulação de 90° (graus) em relação à posição de 0° determinada durante a aplicação do método. Na Figura \ref{fig4_6} é possível visualizar o antes e o depois do processo de balanceamento. Percebe-se uma redução de em média 50 \textmu m na órbita do mancal acoplado, que era o responsável pelo desligamento da bancada. 
+
+\begin{figure}[H]
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{imagens/desbalanceada.eps}
+		\caption{Antes do balanceamento.}
+		\label{fig4_6a}
+	\end{subfigure}
+	\hspace{6pt}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{imagens/balanceada.eps}
+		\caption{Depois do balanceamento.}
+		\label{fig4_6b}
+	\end{subfigure}
+	\caption[Órbitas nos planos dos sensores para uma velocidade $\Omega = $ 2500 rpm antes e depois do balanceamento]{Órbitas nos planos dos sensores para uma velocidade $\Omega = $ 2500 rpm antes e depois do balanceamento.}
+	\label{fig4_6}
+\end{figure}
+\vspace{-30pt}
+\section{PID adaptativo}
+
+Máquinas rotativas que contêm mancais magnéticos ativos necessitam de um controle em malha fechada para sua operação. A bancada utilizada neste trabalho já vem com um sistema de controle integrado descentralizado, que opera individualmente para os quatro eixos de coordenada dos mancais.
+
+Seu funcionamento é baseado nos controladores do tipo PID, que vêm sendo consolidados desde o século XX nas áreas de engenharia e controle em razão de sua simplicidade e eficácia de operação. O controlador pode variar de acordo com sua ação de controle, podendo ser um controlador proporcional (P), proporcional integral (PI), proporcional derivativo (PD) e o próprio PID (proporcional, integral e derivativo) \cite{Wang2020}. No domínio contínuo, a função de transferência do controlador PID é dado pela Equação \ref{eq4_2}.
+\begin{equation}
+	u(s)=\frac{K_{T}(K_{D}s^{2}+K_{P}s+K_{I})}{s}
+	\label{eq4_2}
+\end{equation}
+
+O ganho proporcional $K_{P}$ influencia a rigidez, já que ele atua no deslocamento do sistema, o ganho derivativo $K_{D}$ age sobre o amortecimento do sistema, pois ele multiplica a velocidade, o ganho integral $K_{I}$ é responsável pela eliminação do erro quando em regime estacionário e o ganho total $K_{T}$ multiplica todos os ganhos simultaneamente.
+\newpage
+O maior desafio destes controladores é a sintonia destes ganhos, pois eles apresentam limitações frente a sistemas que possuem comportamentos dinâmicos e variações paramétricas, exigindo pausas ao longo do tempo para que novos ajustes sejam realizados, mantendo, assim, a segurança e o controle das variáveis dentro dos limites de segurança requisitados pela operação \cite{Abreu2019,Somefun2021}.
+
+Neste contexto, surge o controle adaptativo onde o controlador se modifica para atender a dinâmica do sistema, ou seja, a lei de controle ajusta os parâmetros de saída de acordo com o processo e suas características. Buscando adaptar o já existente PID convencional, o PID adaptativo conta com a ponderação do ganho proporcional e derivativo em tempo real para se adaptar às mudanças do sistema.
+
+Este tipo de controlador pode ser chamado de PID de dois graus de liberdade pois ele possui duas entradas: a referência $r(s)$, muitas vezes determinada como zero para mancais, e a resposta do sistema $y(s)$. O erro é determinado pela diferença entre $r(s)$ e $y(s)$. O diagrama de blocos do controlador pode ser visualizado na Figura \ref{fig4_7}.
+\vspace{-15pt}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{imagens/Diagrama_novo.eps}
+	\caption[Diagrama de blocos do PID adaptativo]{Diagrama de blocos do PID adaptativo.}
+	\label{fig4_7}
+\end{figure}
+\vspace{-10pt}
+O conjunto das entradas $C_{r}(s)$ e $C_{y}(s)$ resulta no controlador PID adaptativo $C(s)$ onde são adicionados os pesos para o termo proporcional e derivativo, além do filtro derivativo, responsável pela minimização de ruídos que surgem em razão da presença da derivada no controle em caso de sinais naturalmente ruidosos ou de alta frequência. Assim, o controlador pode ser demonstrado a partir das seguintes equações:
+\begin{equation}
+	u(s)=K_{P}(br-y)+\frac{K_{I}}{s}(r-y)+\frac{K_{D}s}{T_{f}s+1}(cr-y)
+	\label{eq4_3}
+\end{equation}
+\vspace{-20pt}
+\begin{equation}
+	C_{r}(s)=bK_{P}+\frac{K_{I}}{s}+\frac{cK_{D}s}{T_{f}s+1}
+	\label{eq4_4}
+\end{equation}
+\vspace{-20pt}
+\begin{equation}
+	C_{y}(s)=-\left [ K_{P} +\frac{K_{I}}{s} + \frac{K_{D}s}{T_{f}s+1}\right ]
+	\label{eq4_5}
+\end{equation}
+sendo $K_{P}$, $K_{I}$ e $K_{D}$ os parâmetros convencionais do PID, $T_{f}$, o coeficiente do filtro derivativo, $b$ o peso do termo proporcional e $c$, o peso do termo derivativo.
+
+ \citeonline{Oliveira2019} e \citeonline{Carvalho2020} mostraram em seus trabalhos um melhor desempenho do controlador PID adaptativo quando comparado ao PI nativo da bancada. Além disso, durante a realização dos testes iniciais, foi identificada a dificuldade do sistema em operar acima de 3500 rpm com técnicas mais convencionais. Desta forma, optou-se pela implementação de um controlador do tipo PID adaptativo na bancada de mancais magnéticos em ambiente Simulink/MATLAB. Os resultados obtidos podem ser observados nas Figuras \ref{fig4_8} e \ref{fig4_9}. 
+ 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{imagens/Figura4_8a.eps}
+		\label{fig:4_8a}
+	\end{subfigure}
+	\hspace{6pt}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{imagens/Figura4_8b.eps}
+		\label{fig:4_8b} 
+	\end{subfigure}
+	\\
+	\vspace{6pt}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{imagens/Figura4_8c.eps}
+		\label{fig:4_8c} 
+	\end{subfigure}
+	\hspace{6pt}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{imagens/Figura4_8d.eps}
+		\label{fig:4_8d} 
+	\end{subfigure}
+	\caption[Sinal de deslocamento no domínio do tempo para diferentes velocidades utilizando o controlador PID adaptativo]{Sinal de deslocamento no domínio do tempo para diferentes velocidades utilizando o controlador PID adaptativo.}
+	\label{fig4_8}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{imagens/Figura4_9a.eps}
+		\label{fig:4_9a}
+	\end{subfigure}
+	\hspace{6pt}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{imagens/Figura4_9b.eps}
+		\label{fig:4_9b} 
+	\end{subfigure}
+	\\
+	\vspace{6pt}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{imagens/Figura4_9c.eps}
+		\label{fig:4_9c} 
+	\end{subfigure}
+	\hspace{6pt}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{imagens/Figura4_9d.eps}
+		\label{fig:4_9d} 
+	\end{subfigure}
+	\caption[Órbitas obtidas para diferentes velocidades utilizando o controlador PID adaptativo]{Órbitas obtidas para diferentes velocidades utilizando o controlador PID adaptativo.}
+	\label{fig4_9}
+\end{figure}
+
+A sintonia do controlador foi feita por meio do uso da ferramenta chamada PID \textit{Tuning}, fornecida pelo \textit{software}, escolhendo-se o melhor parâmetro em tempo real para garantir uma performance robusta de controle frente à dinâmica do sistema. 
+
+Vale destacar também a presença de filtros para garantir o funcionamento de todo o sistema de controle. O diagrama de blocos da estrutura geral pode ser visualizado na Figura \ref{figPID}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{imagens/fluxo_pid.pdf}
+	\caption[Diagrama de blocos do controlador PID adaptativo com os filtros]{Diagrama de blocos do controlador PID adaptativo com os filtros.}
+	\label{figPID}
+\end{figure}
+
+Também chamados de compensadores, os filtros são utilizados para alterar as características do sistema em malha fechada. Inicialmente, foram implementados filtros do tipo avanço e atraso de fase (\textit{lead-lag}, em inglês). O seu uso implica em uma redução da margem de erro em regime permanente, atenuação do pico de ressonância, melhoria da resposta do sistema e redução do tempo de subida.
+
+Ao utilizar um filtro de avanço de fase busca-se melhorar as margens de estabilidade do sistema. Isso ocorre a partir da adição de um polo e um zero na malha de controle, alterando assim a configuração das raízes de maneira a incorporar os novos pólos dominantes do sistema, que são capazes de proporcionar o desempenho desejado. Neste novo intervalo ocorre um ganho na magnitude do sinal e na fase. No contexto de máquinas rotativas, isso implica em melhor controle das frequências naturais do sistema, visto que ocorre o amortecimento dos modos. O seu uso resulta também em uma melhor resposta transitória \cite{Bacharel2012}.
+
+O uso de um filtro de atraso de fase também implica na adição de um polo e um zero no sistema, com o objetivo de atenuar as regiões de alta frequência do sistema conforme o aumento da sua velocidade. Em sua essência, esses filtros são do tipo-passa baixa e resultam em um ganho elevado para baixas frequências, melhorando assim a resposta estacionária e o desempenho do sistema. Intervir no estado estacionário implica em corrigir o erro presente no regime permanente \cite{ogata2010engenharia}. Na sua configuração, se o polo for colocado em uma frequência inferior à ressonância e o zero for colocado em uma frequência acima da ressonância, a redução de ganho pode fazer com que a ressonância se estabilize.
+
+\enlargethispage{1\baselineskip}
+A formulação destes filtros pode ser visualizada na Equação \ref{eq5_1}.
+\begin{equation}
+	\text{Lead-Lag}=K_{c}\alpha_{i}\frac{T_{i}s+1}{\alpha_{i}T_{i}s+1}
+	\label{eq5_1}
+\end{equation}
+onde $\alpha_{i}$ é o fator de atenuação do compensador, $K_{c}$ é o ganho, $-1/\alpha_{i}T_{i}$ é a localização do polo e $-1/T_{i}$ é a localização do zero. Quando $0 < \alpha_{i} < 1 $ o filtro é de avanço de fase e para $\alpha_{i} > 1$, tem-se um filtro de atraso de fase.
+
+Para auxiliar o ajuste do ganho e da fase do sistema foram implementados também filtros genéricos de segunda ordem. A escolha dos seus pontos de atuação são baseados na Função de Resposta em Frequência (FRF), conforme indicado pelo fabricante da bancada experimental. Com isso, é possível atenuar a resposta do sistema em frequências mais altas. A Equação \ref{eq5_2} mostra a função de transferência do filtro. 
+\begin{equation}
+	Gen=\frac{s^{2}+2\xi_{Ni}\omega_{Ni}s+\omega_{Ni}^{2}}{s^{2}+2\xi_{Di}\omega_{Di}s+\omega_{Di}^{2}}
+	\label{eq5_2}
+\end{equation}
+onde $\omega$ representa a frequência do filtro para o numerador $N$ e o denominador $D$ e, $\xi$ representa o amortecimento para cada fator.
+
+Os parâmetros detalhados para cada filtro podem ser visualizados no Apêndice A deste trabalho.
+
+\end{comment}

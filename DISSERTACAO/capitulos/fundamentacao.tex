@@ -1,0 +1,206 @@
+% REVISÃO BIBLIOGRÁFICA
+
+\chapter{\normalsize{FUNDAMENTAÇÃO TEÓRICA}} \label{cap:fundamentação_teorica}
+
+\thispagestyle{empty}
+
+A fundamentação teórica tem como objetivo apresentar e discutir os principais
+conceitos, definições e abordagens encontrados na literatura científica que
+servem de base para o desenvolvimento deste trabalho.
+
+Inicialmente, são abordados os conceitos fundamentais relacionados ao tema da
+pesquisa, permitindo contextualizar o problema estudado e estabelecer uma
+base conceitual sólida. Em seguida, são discutidos os principais modelos,
+métodos e abordagens propostos por diferentes autores, destacando suas
+vantagens, limitações e campos de aplicação.
+
+A revisão da literatura possibilita identificar lacunas existentes e
+justificar a relevância da pesquisa desenvolvida, além de fornecer subsídios
+para a definição da metodologia adotada e para a análise crítica dos
+resultados obtidos.
+
+Caso necessário a fundamentação teórica pode ser dividia em mais capítulos.
+
+Para fazer uma nota de rodapé faça dessa maneira \footnote[1]{Texto da nota de rodapé}. 
+
+
+\section{Estrutura de Trabalhos Acadêmicos}
+
+A numeração progressiva das seções deve seguir a NBR 6024, permitindo a
+organização hierárquica do conteúdo. Um exemplo de referência cruzada pode
+ser observado no Capítulo~\ref{cap:metodologia}.
+
+\subsection{Uso de Siglas}
+
+Na primeira ocorrência, a sigla deve ser precedida de sua forma por extenso,
+como Associação Brasileira de Normas Técnicas (ABNT). Nas ocorrências
+seguintes, utiliza-se apenas a sigla.
+
+
+
+\section{Inserindo Equações}
+
+A seguir tem um exemplo de como inserir equações no texto. A Equação \ref{eq:modelo} está descrita a seguir.
+
+\begin{equation}
+	M \ddot{x}(t) + C \dot{x}(t) + K x(t) = F(t)
+	\label{eq:modelo}
+\end{equation}
+
+\noindent em que $[M]$ é a matriz de massa, $[C]$ é a matriz de amortecimento, $[K]$ é a matriz de rigidez, $\{x(t)\}$ representa o vetor de deslocamentos, $\{\dot{x}(t)\}$ e $\{\ddot{x}(t)\}$ são as derivadas de primeira e segunda ordem, $\{F(t)\}$ é o vetor de forças externas.
+
+
+Para fazer sequência de equações pode ser feito como apresentado nas Eq.~(\ref{eq:A}) e (\ref{eq:B})
+
+\begin{gather}
+	\oint H \cdot ds=ni
+	\label{eq:A} \\
+	l_{fe} \cdot H_{fe}+2x \cdot H_{x}=ni
+	\label{eq:B}
+\end{gather}
+
+
+\section{Tabelas}
+
+A apresetnação de dados pode ser feito conforme a  Tab.~\ref{tab:parametros}.
+
+\begin{table}[H]
+	\centering
+	
+	\begin{threeparttable}
+		\caption{Modelo coluna e repetições}
+		\label{tab:parametros}
+		
+		
+		\begin{tabular}{cccc}
+			\hline
+			Tratamento 1 & Tratamento 2 & Tratamento 3 & Tratamento 4 \\
+			\hline
+			123 & 4512 & 234 & 807 \\
+			778 & 5678 & 543 & 755 \\
+			409 & 7856 & 465 & 265 \\
+			498 & 8657 & 584 & 646 \\
+			321 & 4535 & 445 & 343 \\
+			456 & 4666 & 243 & 966 \\
+			\hline
+		\end{tabular}
+		
+		% O comando \begin{tablenotes} faz o alinhamento automático
+			\begin{tablenotes}[para, flushleft]
+				\small
+				\item Fonte: Elaborado pelo Autor
+			\end{tablenotes}
+			
+		\end{threeparttable}
+\end{table}
+
+A Tabela~\ref{tab:multicolumn_multirow} apresenta um exemplo do uso de multicoluna e multilinha.
+
+\begin{table}[H]
+	\centering
+	
+	\begin{threeparttable}
+		\caption{Resultados experimentais por grupo e tratamento}
+		\label{tab:multicolumn_multirow}
+		
+		\begin{tabular}{ccccc}
+			\hline
+			\multirow{2}{*}{Grupo} 
+			& \multicolumn{4}{c}{Tratamentos} \\
+			\cline{2-5}
+			& Tratamento 1 & Tratamento 2 & Tratamento 3 & Tratamento 4 \\
+			\hline
+			\multirow{3}{*}{A} 
+			& 123 & 4512 & 234 & 807 \\
+			& 778 & 5678 & 543 & 755 \\
+			& 409 & 7856 & 465 & 265 \\
+			\hline
+			\multirow{3}{*}{B} 
+			& 498 & 8657 & 584 & 646 \\
+			& 321 & 4535 & 445 & 343 \\
+			& 456 & 4666 & 243 & 966 \\
+			\hline
+		\end{tabular}
+		
+		\begin{tablenotes}[para, flushleft]
+			\small
+			\item Fonte: Elaborado pelo autor.
+		\end{tablenotes}
+		
+	\end{threeparttable}
+\end{table}
+
+\newpage
+
+\section{Figuras}
+
+A Figura~\ref{fig:exemplo} ilustra como deve ser colocada uma figura no trabalho.
+
+\begin{figure}[H]
+	\centering
+	\caption{Legenda da Figura}
+	\label{fig:exemplo}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/figura_exemplo.jpg}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
+
+%\newpage
+
+Abaixo está um exemplo de subfiguras \ref{subfig:1} e \ref{subfig:2} presentes na Fig.~\ref{subfigure}.
+
+\begin{comment}
+
+\begin{figure}[H]
+	\caption{Subfigruas}
+%	\label{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/subfigure1.png}
+		\caption{Legenda subfigura A.}
+%		\label{subfig:1}
+	\end{subfigure}
+	\hspace{10pt}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/subfigure2.png}
+		\caption{Legenda subfigrua B.}
+%		\label{subfig:2}
+	\end{subfigure}
+\end{figure}
+\end{comment}
+
+
+\begin{figure}[H]
+	\centering
+	\caption{Subfiguras}
+	\label{subfigure}
+	
+	\begin{minipage}{\textwidth}
+		\centering
+		
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Legenda subfigura A.}
+			\label{subfig:1}
+			\includegraphics[width=\linewidth]{figuras/subfigure1.png}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Legenda subfigura B.}
+			\label{subfig:2}
+			\includegraphics[width=\linewidth]{figuras/subfigure2.png}
+		\end{subfigure}
+		
+		\par\vspace{0.5em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
+
