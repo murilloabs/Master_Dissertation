@@ -15,6 +15,7 @@
 *.lot
 *.lol
 *.synctex.gz
+*.xmpi
 
 # =========================
 # PDF gerado
