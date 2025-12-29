@@ -9,9 +9,9 @@ Orientações:
 
 - Não se esqueça de alterar os itens em vermelho para seus dados, ano, titulo, dados do orientador e coorientador.
 
-- Para a ata de defesa e ficha catalográfica, ao se obter estes documentos é substituir o arquivo presente em pretextual com o mesmo nome e recompilar que será atualizado no documento completo. 
+- Para a ata de defesa e ficha catalográfica, ao se obter estes documentos basta substituir o arquivo presente em pretextual com o mesmo nome e recompilar que será atualizado no documento completo. 
 
-- Para remover essa parte do documento completo, para o envio à banca por exemplo, basta comentar a parte referente no main.tex
+- Para remover a ficha e a ata do documento completo, para o envio à banca por exemplo, basta comentar a parte referente no main.tex
 
 - A pasta capítulos apresenta todos os capítulos do documento que são adicionados manualmente ao main.tex
 
