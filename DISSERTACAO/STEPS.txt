@@ -1,1 +1,3 @@
 TITULO: a definir -> capa, folha de rosto, resumo e abstract.
+
+13/01/2026: new push and add dedicatoria e epigrafe & atualização do template.
