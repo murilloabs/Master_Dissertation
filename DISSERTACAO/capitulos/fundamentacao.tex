@@ -4,6 +4,21 @@
 
 \thispagestyle{empty}
 
+Neste capítulo será apresentada uma revisão e fundamentação teórica a cerca dos temas abordados nesta dissertação. Será apresentado sobre o ROSS, modelagem de rotores pelo métodos dos elementos finitos, engrenagens, e formulação da rigidez de engrenamento. 
+
+\section{\textit{Rotordynamic Open-Source Software} - ROSS}
+
+O \textit{Rotordynamic Open-Source Software}\footnote{\href{ross.readthedocs.io}{Link de acesso: ross.readthedocs.io}} (ROSS) é uma biblioteca, feita em \textit{Python}, para análises e cálculos na área de dinâmica de rotação de código aberto específico, proposto por \citeonline{ross} em parceria da Petrobras, UFRJ e UFU. Com este \textit{software} é possível fazer a modelagem de sistemas rotativos e análises correspondentes. 
+
+A modelagem de um sistema rotativo dividida entre os modelos de eixos, mancais e selos, discos e engrenagens e elementos de acoplamento. Para eixos e discos são necessários parâmetros de material e geométricos, como diâmetro interno, externo e comprimento. Dessa forma é calculada de forma automática os valores de massa, inércia e rigidez utilizado nas matrizes para os cálculos do sistema. Engrenagens são elementos semelhantes à discos, embora, necessitam de variáveis exclusivas como número de dentes, ângulo de pressão, ângulo de hélice, diâmetro primitivo entre outras. Mancais e selos são determinados pelos coeficientes de rigidez e amortecimento diretos e cruzados destes componentes. No caso de mancais é possível modelá-los como mancais de rolamento, hidrodinâmicos ou magnéticos.
+Dessa forma, com os modelos de cada componente é possível juntá-los e fazer a modelo do sistema rotativo completo. No caso de sistemas engrenados são necessários dois ou mais rotores com engrenagens e então deve-se juntá-los com a função do \textit{multi\_rotor}.
+
+Com a modelagem feita, é possível realizar diversas análises do sistema rotativo, entre elas a obtenção de resposta de vibração no tempo, desbalanceamento, função de reposta em frequência (FRF), mapa de velocidade crítica sem amortecimento (UCS), Diagrama de Campbell, análise estática, entre outras. Além disso, é possível executar casos de falhas como desalinhamento, trinca e roçamento. A modelagem e as análises são realizadas utilizando o Método dos Elementos Finitos (MEF). No caso, o ROSS utiliza 6 graus de liberdade (GDL) por nó, sendo 3 translações e 3 rotações. A resolução das equações de movimento pode ser feita a partir do Método de \citeonline{newmark} ou pela metodoligia de solução linear (LSIM) do módulo \textit{Scipy} do \textit{Python}.
+
+
+
+\newpage
+
 A fundamentação teórica tem como objetivo apresentar e discutir os principais
 conceitos, definições e abordagens encontrados na literatura científica que
 servem de base para o desenvolvimento deste trabalho.
@@ -21,7 +36,7 @@ resultados obtidos.
 
 Caso necessário a fundamentação teórica pode ser dividia em mais capítulos.
 
-Para fazer uma nota de rodapé faça dessa maneira \footnote[1]{Texto da nota de rodapé}. 
+Para fazer uma nota de rodapé faça dessa maneira \footnote{Texto da nota de rodapé}. 
 
 
 \section{Estrutura de Trabalhos Acadêmicos}
