@@ -1,3 +1,14 @@
 TITULO: a definir -> capa, folha de rosto, resumo e abstract.
 
 13/01/2026: new push and add dedicatoria e epigrafe & atualização do template.
+
+30/04/2026: resultados para se apresentar na dissertação:
+
+- Implementação do backlash conforme o artigo de Yi et al 2019
+- Validação de acordo com o modelo do artigo
+- Expansão do modelo do artigo
+- Apresentação do cálculo análitico feito e verificação junto do comportamento no diagrama de bifurcação do modelo do artigo
+- Apresentação do modelo replan com um caso de desbalanceamento para exemplificação do funcionamento do modelo.
+
+
+estrutura da dissertação:
