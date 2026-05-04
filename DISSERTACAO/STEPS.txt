@@ -10,5 +10,22 @@ TITULO: a definir -> capa, folha de rosto, resumo e abstract.
 - Apresentação do cálculo análitico feito e verificação junto do comportamento no diagrama de bifurcação do modelo do artigo
 - Apresentação do modelo replan com um caso de desbalanceamento para exemplificação do funcionamento do modelo.
 
-
-estrutura da dissertação:
+04/05/2026
+Estrutura da Dissertação:
+- Introdução
+- Referêncial Teorico
+	- ROSS
+	- Dinâmica de rotação (conveitos fundamentais para utilizados)
+	- Engrenagens (conveitos fundamentais para utilizados)
+	- Backlash
+- Metodologia
+	- Método Analítico Simplificado
+	- Implementação do Backlash
+	- Avanços da Implementação com combinação de mais papers (smooth e helix)
+- Resultados e Discussão
+	- Validação do artigo Yi et al de acordo com o proposto
+	- Apresentação do avanço de acordo com modelo analítico simplificado
+	- Caso Replan
+	- (Apresentação de Resultado comparativo com smooth, helix angle)
+- Conclusão
+- Trabalhos futuros
