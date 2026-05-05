@@ -29,3 +29,5 @@ Estrutura da Dissertação:
 	- (Apresentação de Resultado comparativo com smooth, helix angle)
 - Conclusão
 - Trabalhos futuros
+- Apendice / Anexo
+	- Integração pelo método Newmark e convergência por Newton-Raphson
