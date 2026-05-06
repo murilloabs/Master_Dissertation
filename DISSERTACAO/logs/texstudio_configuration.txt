@@ -1,0 +1,59 @@
+txs:///latexmk
+
+txs:///compile | txs:///view
+
+txs:///pdflatex | txs:///bibtex | txs:///pdflatex | txs:///pdflatex
+
+
+GEMINI:
+
+Opção 1: Usar o latexmk (Inteligente e Rápido)
+Como mencionei brevemente antes, o latexmk é um script que já deve estar no seu MiKTeX. Ele é um "gerente de compilação". Em vez de rodar 4 vezes às cegas, ele faz o seguinte:
+
+Se você só mudou o texto: ele roda o LaTeX 1 vez (super rápido).
+
+Se você adicionou uma citação nova: ele percebe isso sozinho e roda o BibTeX e o LaTeX quantas vezes forem necessárias, apenas nessa vez.
+
+Como configurar:
+
+Vá em Opções > Configurar TeXstudio.
+
+Clique na aba Compilação.
+
+Na linha Compilar e Ver (Build & View), apague aquela sequência gigante e escreva apenas:
+txs:///latexmk
+
+Clique em OK.
+
+Aperte F5 e faça um teste. Na primeira vez ele pode demorar um pouquinho para ler o documento todo, mas nas próximas vezes (se você só alterar o texto) deve ser quase instantâneo.
+
+Opção 2: O Método "Dois Botões" (Rápido e Manual)
+Se o latexmk der algum erro de "comando não encontrado" no seu terminal (pois às vezes ele não vem instalado no MiKTeX padrão), a melhor forma de ter velocidade é separar as tarefas.
+
+Vamos voltar o seu botão principal (F5) para compilar apenas o texto (rápido), e usar a sequência longa apenas quando mexermos no .bib.
+
+Como configurar:
+
+Vá em Opções > Configurar TeXstudio.
+
+Na aba Compilação, mude a linha Compilar e Ver (Build & View) de volta para o padrão normal:
+txs:///compile | txs:///view  (Isso fará o F5 ser rápido de novo, rodando só 1 vez).
+
+Agora, vá no menu esquerdo em Comandos de Usuário (User Commands).
+
+Clique em + Adicionar (Add).
+
+Na primeira caixinha (Nome), escreva: Compilar Referencias
+
+Na segunda caixinha (Comando), cole a nossa "marreta":
+txs:///pdflatex | txs:///bibtex | txs:///pdflatex | txs:///pdflatex
+
+Clique em OK.
+
+Como será sua rotina agora?
+
+No dia a dia escrevendo texto: Aperte F5. O PDF vai atualizar em 1 segundo.
+
+Adicionou uma referência nova no arquivo .bib: Vá no menu superior do TeXstudio em Ferramentas (Tools) > Usuário (User) > Compilar Referencias (ou aperte o atalho que ele criar, geralmente Alt+Shift+F1). Ele fará o trabalho pesado sozinho, atualiza a bibliografia, e depois você volta a usar só o F5.
+
+Recomendo tentar a Opção 1 primeiro! Se funcionar, é o melhor dos dois mundos.
