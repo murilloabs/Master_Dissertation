@@ -1,1 +1,223 @@
 \section{Folga de \textit{Backlash}}
+
+Equações:
+
+\begin{equation}
+	d = \sqrt{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2}
+	\label{eq:distancia_centro}
+\end{equation}
+
+\begin{equation}
+	\beta = \tan^{-1} \frac{y_2 - y_1}{x_2 - x_1 + d_0}
+	\label{eq:angulo_posicao}
+\end{equation}
+
+\begin{equation}
+	\alpha = \cos^{-1} \frac{R_1 + R_2}{d} = \cos^{-1} \frac{R_1 + R_2}{\sqrt{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2}}
+	\label{eq:alpha}
+\end{equation}
+
+\begin{equation}
+	m_p = \frac{[\sqrt{R_{a1}^2 - R_1^2} + \sqrt{R_{a2}^2 - R_2^2} - d \sin \alpha]}{p_b}
+	\label{eq:mp}
+\end{equation}
+
+\begin{equation}
+	\delta(t) = (x_1 - x_2) \sin (\alpha - \beta) + (y_1 - y_2) \cos (\alpha - \beta) + R_1\theta_1 + R_2\theta_2 - e(t)
+	\label{eq:delta}
+\end{equation}
+
+\begin{equation}
+	F_m = k_m f(\delta, b_t) + c_m f_1(\delta, b_t)
+	\label{eq:Fm}
+\end{equation}
+
+\begin{equation}
+	c_m = 2\xi_m \sqrt{k_m J_1 J_2 / (J_2 R_1^2 + J_1 R_2^2)}
+	\label{eq:cm}
+\end{equation}
+
+\begin{equation}
+	f(\delta, b_t) = \begin{cases} 
+		\delta - b_t & (\delta > +b_t) \\
+		0 & (|\delta| \le b_t) \\
+		\delta + b_t & (\delta < -b_t)
+	\end{cases}
+	\label{eq:f_delta}
+\end{equation}
+
+\begin{equation}
+	f_1(\delta, b_t) = \begin{cases} 
+		\dot{\delta} - \dot{b}_t & (\delta > +b_t) \\
+		0 & (|\delta| \le b_t) \\
+		\dot{\delta} + \dot{b}_t & (\delta < -b_t)
+	\end{cases}
+	\label{eq:f1_delta}
+\end{equation}
+
+\begin{equation}
+	2b_t = 2b_0 + 2\Delta b \cos \beta
+	\label{eq:bt_cos}
+\end{equation}
+
+\begin{equation}
+	\Delta b = 2(R_1 + R_2)(\mathrm{inv}(\alpha) - \mathrm{inv}(\alpha_0))
+	\label{eq:delta_b}
+\end{equation}
+
+\begin{equation}
+	\boldsymbol{q} = [x_1 \ y_1 \ \theta_1 \ x_2 \ y_2 \ \theta_2]^{\mathrm{T}}
+	\label{eq:vetor_q}
+\end{equation}
+
+\begin{equation}
+	\boldsymbol{r}_1 = x_1\boldsymbol{i} + y_1\boldsymbol{j}, \quad \boldsymbol{r}_2 = x_2\boldsymbol{i} + y_2\boldsymbol{j}
+	\label{eq:vetores_r1_r2}
+\end{equation}
+
+\begin{equation}
+	T = m_1(\|\dot{\boldsymbol{r}}_1\|)^2 + J_1(\omega_1 + \dot{\theta}_1)^2 + m_2(\|\dot{\boldsymbol{r}}_2\|)^2 + J_2(\omega_2 + \dot{\theta}_2)^2 / 2
+	\label{eq:energia_cinetica}
+\end{equation}
+
+\begin{equation}
+	U = \frac{[ (k_{x1}x_1^2 + k_{y1}y_1^2 + k_{x2}x_2^2 + k_{y2}y_2^2) + k_m f^2(\delta, b_t) ]}{2}
+	\label{eq:energia_potencial}
+\end{equation}
+
+\begin{equation}
+	R = [ (c_{x1}\dot{x}_1^2 + c_{y1}\dot{y}_1^2 + c_{x2}\dot{x}_2^2 + c_{y2}\dot{y}_2^2) + c_m f_1^2(\delta, b_t) ] / 2
+	\label{eq:dissipacao}
+\end{equation}
+
+\begin{equation}
+	\boldsymbol{Q} = [F_{u1x} \ F_{u1y} \ T_1 \ F_{u2x} \ F_{u2y} \ -T_2]^{\mathrm{T}}
+	\label{eq:vetor_forcas}
+\end{equation}
+
+\begin{equation}
+	\begin{cases} 
+		F_{u1x} = m_1 e_1 \omega_1^2 \cos(\omega_1 t) \\
+		F_{u1y} = m_1 e_1 \omega_1^2 \sin(\omega_1 t)
+	\end{cases}
+	\label{eq:desbal_eng1}
+\end{equation}
+
+\begin{equation}
+	\begin{cases} 
+		F_{u2x} = m_2 e_2 \omega_2^2 \cos(\omega_2 t) \\
+		F_{u2y} = m_2 e_2 \omega_2^2 \sin(\omega_2 t)
+	\end{cases}
+	\label{eq:desbal_eng2}
+\end{equation}
+
+\begin{equation}
+	\frac{\mathrm{d}}{\mathrm{d}t} \left( \frac{\partial T}{\partial \dot{q}_j} \right) - \frac{\partial T}{\partial q_j} + \frac{\partial U}{\partial q_j} + \frac{\partial R}{\partial \dot{q}_j} = Q_j
+	\label{eq:lagrange}
+\end{equation}
+
+\begin{equation}
+	\left\{
+	\begin{aligned}
+		& m_1\ddot{x}_1 + c_{x1}\dot{x}_1 + k_{x1}x_1 + F_m \cdot f_{,x_1} = F_{u1x} \\
+		& m_1\ddot{y}_1 + c_{y1}\dot{y}_1 + k_{y1}y_1 + F_m \cdot f_{,y_1} = F_{u1y} \\
+		& J_1\ddot{\theta}_1 + F_m \cdot f_{,\theta_1} = T_1 \\
+		& m_2\ddot{x}_2 + c_{x2}\dot{x}_2 + k_{x2}x_2 + F_m \cdot f_{,x_2} = F_{u2x} \\
+		& m_2\ddot{y}_2 + c_{y2}\dot{y}_2 + k_{y2}y_2 + F_m \cdot f_{,y_2} = F_{u2y} \\
+		& J_2\ddot{\theta}_2 + F_m \cdot f_{,\theta_2} = -T_2
+	\end{aligned}
+	\right.
+	\label{eq:sistema_movimento_simplificado}
+\end{equation}
+
+\begin{equation}
+	\partial_{q_i}\delta = \frac{\partial \delta}{\partial q_i}, \quad \partial_{q_i}f = \frac{\partial f(\delta, b_t)}{\partial q_i}, \quad \partial_{\dot{q}_i}f_1 = \frac{\partial f_1(\delta, b_t)}{\partial \dot{q}_i}
+	\label{eq:derivadas_genericas}
+\end{equation}
+
+\begin{equation}
+	\dot{\delta}(t) = \dot{x}_1 \cdot \partial_{x_1}\delta + \dot{y}_1 \cdot \partial_{y_1}\delta + \dot{\theta}_1 \cdot \partial_{\theta_1}\delta + \dot{x}_2 \cdot \partial_{x_2}\delta + \dot{y}_2 \cdot \partial_{y_2}\delta + \dot{\theta}_2 \cdot \partial_{\theta_2}\delta - \dot{e}(t)
+	\label{eq:dot_delta}
+\end{equation}
+
+\begin{equation}
+	\dot{b}_t = (R_1 + R_2) \tan^2 \alpha \cdot (\dot{x}_1 \cdot \partial_{x_1}\alpha + \dot{y}_1 \cdot \partial_{y_1}\alpha + \dot{x}_2 \cdot \partial_{x_2}\alpha + \dot{y}_2 \cdot \partial_{y_2}\alpha)
+	\label{eq:dot_bt}
+\end{equation}
+
+\begin{equation}
+	\partial_{x_1}\delta = \sin(\alpha - \beta) + [(x_1 - x_2) \cos(\alpha - \beta) - (y_1 - y_2) \sin(\alpha - \beta)](\partial_{x_1}\alpha - \partial_{x_1}\beta)
+	\label{eq:delta_x1}
+\end{equation}
+
+\begin{equation}
+	\partial_{y_1}\delta = \cos(\alpha - \beta) + [(x_1 - x_2) \cos(\alpha - \beta) - (y_1 - y_2) \sin(\alpha - \beta)](\partial_{y_1}\alpha - \partial_{y_1}\beta)
+	\label{eq:delta_y1}
+\end{equation}
+
+\begin{equation}
+	\partial_{x_2}\delta = -\sin(\alpha - \beta) + [(x_1 - x_2) \cos(\alpha - \beta) - (y_1 - y_2) \sin(\alpha - \beta)](\partial_{x_2}\alpha - \partial_{x_2}\beta)
+	\label{eq:delta_x2}
+\end{equation}
+
+\begin{equation}
+	\partial_{y_2}\delta = -\cos(\alpha - \beta) + [(x_1 - x_2) \cos(\alpha - \beta) - (y_1 - y_2) \sin(\alpha - \beta)](\partial_{y_2}\alpha - \partial_{y_2}\beta)
+	\label{eq:delta_y2}
+\end{equation}
+
+\begin{equation}
+	\partial_{\theta_1}\delta = R_1, \quad \partial_{\theta_2}\delta = R_2
+	\label{eq:delta_theta}
+\end{equation}
+
+\begin{equation}
+	\partial_{x_i}f = \begin{cases} 
+		\partial_{x_i}\delta - \partial_{x_i}b_t & (\delta > +b_t) \\
+		0 & (|\delta| \le b_t) \\
+		\partial_{x_i}\delta + \partial_{x_i}b_t & (\delta < -b_t)
+	\end{cases} ; \quad \partial_{x_i}b_t = (R_1 + R_2) \tan^2 \alpha \cdot \partial_{x_i}\alpha \quad (i = 1, 2)
+	\label{eq:f_xi}
+\end{equation}
+
+\begin{equation}
+	\partial_{y_i}f = \begin{cases} 
+		\partial_{y_i}\delta - \partial_{y_i}b_t & (\delta > +b_t) \\
+		0 & (|\delta| \le b_t) \\
+		\partial_{y_i}\delta + \partial_{y_i}b_t & (\delta < -b_t)
+	\end{cases} ; \quad \partial_{y_i}b_t = (R_1 + R_2) \tan^2 \alpha \cdot \partial_{y_i}\alpha \quad (i = 1, 2)
+	\label{eq:f_yi}
+\end{equation}
+
+\begin{equation}
+	\partial_{\theta_1}f = \begin{cases} 
+		R_1 - \partial_{\theta_1}b_t & (\delta > +b_t) \\
+		0 & (|\delta| \le b_t) \\
+		R_1 + \partial_{\theta_1}b_t & (\delta < -b_t)
+	\end{cases} , \; \partial_{\theta_1}b_t = 0; \quad 
+	\partial_{\theta_2}f = \begin{cases} 
+		-R_2 - \partial_{\theta_2}b_t & (\delta > +b_t) \\
+		0 & (|\delta| \le b_t) \\
+		-R_2 + \partial_{\theta_2}b_t & (\delta < -b_t)
+	\end{cases} , \; \partial_{\theta_2}b_t = 0
+	\label{eq:f_theta}
+\end{equation}
+
+\begin{equation}
+	\partial_{\dot{x}_i}f_1 = \partial_{x_i}f; \quad \partial_{\dot{y}_i}f_1 = \partial_{y_i}f; \quad \partial_{\dot{\theta}_i}f_1 = \partial_{\theta_i}f; \quad (i = 1, 2)
+	\label{eq:f1_derivadas}
+\end{equation}
+
+\begin{equation}
+	\partial_{x_1}\alpha = -\partial_{x_2}\alpha = -\frac{(R_1 + R_2)(x_2 - x_1 + d_0)}{\left[ (x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2 \right] \sqrt{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2 - (R_1 + R_2)^2}}
+	\label{eq:alpha_x}
+\end{equation}
+
+\begin{equation}
+	\partial_{y_1}\alpha = -\partial_{y_2}\alpha = -\frac{(R_1 + R_2)(y_2 - y_1)}{\left[ (x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2 \right] \sqrt{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2 - (R_1 + R_2)^2}}
+	\label{eq:alpha_y}
+\end{equation}
+
+\begin{equation}
+	\partial_{x_1}\beta = -\partial_{x_2}\beta = \frac{y_2 - y_1}{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2}, \quad \partial_{y_1}\beta = -\partial_{y_2}\beta = -\frac{x_2 - x_1 + d_0}{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2}
+	\label{eq:beta_xy}
+\end{equation}
