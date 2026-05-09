@@ -1,18 +1,83 @@
 % APÊNDICE
 
 \appendix
-% Appendix A
-\chapter{Título do Apêndice}
-\label{apend:A}Este apêndice apresenta materiais complementares elaborados pelo próprio autor,
-os quais têm como objetivo fornecer informações adicionais que contribuem para
-o aprofundamento e a compreensão dos conteúdos desenvolvidos ao longo do
-trabalho.
+\chapter{Integração Numérica pelo Método de Newmark e Convergência por Newton-Raphson}
+\label{ap:newmark_nr}
 
-O material aqui apresentado não é essencial para a leitura do texto
-principal, porém oferece subsídios técnicos e metodológicos que reforçam a
-clareza, a consistência e a reprodutibilidade dos procedimentos adotados na
-pesquisa.
+O Método de Newmark \cite{newmark} é um procedimento numérico robusto para solucionar equações diferenciais no domínio do tempo. Na análise de sistemas rotativos e engrenagens com severas não linearidades, sua formulação clássica é acoplada a rotinas iterativas de correção para garantir convergência e estabilidade da solução \cite{lais2022}.
 
-A inclusão deste apêndice visa, portanto, complementar o desenvolvimento do
-estudo, permitindo ao leitor acesso a detalhes adicionais que, por questões de
-organização e fluidez, não foram inseridos no corpo principal do trabalho.
+\section{Formulação Clássica do Método}
+
+A formulação baseia-se na expansão em série de Taylor para o vetor de deslocamentos $\{q\}$. Considerando o passo de tempo $\Delta t = t_2 - t_1$, o método introduz os parâmetros $\beta$ e $\gamma$ para controlar a precisão e estabilidade, relacionando os estados do sistema entre dois instantes consecutivos:
+
+\begin{equation}
+	\{q\}_{t_2} = \{q\}_{t_1} + \{\dot{q}\}_{t_1}\Delta t + \left( \frac{1}{2} - \beta \right) \Delta t^2 \{\ddot{q}\}_{t_1} + \beta \Delta t^2 \{\ddot{q}\}_{t_2}
+\end{equation}
+
+\begin{equation}
+	\{\dot{q}\}_{t_2} = \{\dot{q}\}_{t_1} + (1 - \gamma)\Delta t \{\ddot{q}\}_{t_1} + \gamma \Delta t \{\ddot{q}\}_{t_2}
+\end{equation}
+
+Adotando a regra do ponto médio ($\beta = 1/4$ e $\gamma = 1/2$), garante-se um esquema incondicionalmente estável para sistemas lineares e precisão de segunda ordem \cite{lais2022}. O método é implícito, pois as equações dependem da aceleração no próprio instante a ser avaliado ($\{\ddot{q}\}_{t_2}$).
+
+\section{Formulação Preditor-Corretor e Newton-Raphson}
+
+Devido às não linearidades das forças de engrenamento, a solução implícita direta não é possível, adotando-se uma abordagem preditor-corretor com Newton-Raphson. Na etapa de \textbf{previsão}, as estimativas para o próximo passo assumem um incremento nulo de aceleração:
+
+\begin{equation}
+	\{q\}^*_{t_2} = \{q\}_{t_1} + \{\dot{q}\}_{t_1}\Delta t + \left( \frac{1}{2} - \beta \right) \Delta t^2 \{\ddot{q}\}_{t_1}
+\end{equation}
+
+\begin{equation}
+	\{\dot{q}\}^*_{t_2} = \{\dot{q}\}_{t_1} + (1 - \gamma)\Delta t \{\ddot{q}\}_{t_1}
+\end{equation}
+
+\begin{equation}
+	\{\ddot{q}\}^*_{t_2} = \{0\}
+\end{equation}
+
+Em seguida, avalia-se o resíduo dinâmico $\{R\}$ do sistema. Para satisfazer o equilíbrio dinâmico, o resíduo deve tender a zero:
+
+\begin{equation}
+	\{R\}_{t_2} = \{F_{ext}\}_{t_2} + \{F_{nl}(\{q\}_{t_2}, \{\dot{q}\}_{t_2})\} - \left( [M]\{\ddot{q}\}_{t_2} + [C]\{\dot{q}\}_{t_2} + [K]\{q\}_{t_2} \right) = 0
+\end{equation}
+
+Sendo $[M]$, $[C]$ e $[K]$ as matrizes de massa, amortecimento e rigidez; $\{F_{ext}\}$ as forças externas e $\{F_{nl}\}$ as forças não lineares. 
+
+Para anular o resíduo iterativamente, aplica-se o método de Newton-Raphson. A correção dos estados exige a inversão da matriz Jacobiana $[J]$ que, devido à complexidade analítica, é construída numericamente:
+
+\begin{equation}
+	[J] = [M] + \gamma \Delta t [C] + \beta \Delta t^2 [K] - \frac{\partial \{F_{nl}\}}{\partial \{\ddot{q}\}}
+\end{equation}
+
+A derivada numérica é obtida aplicando uma pequena perturbação $\epsilon$ nas acelerações e avaliando a variação da força não linear correspondente. A correção da aceleração ($\Delta \{\ddot{q}\}$) a cada iteração de Newton resolve o sistema:
+
+\begin{equation}
+	[J] \Delta \{\ddot{q}\} = \{R\}
+\end{equation}
+
+Os vetores de estado são então atualizados:
+
+\begin{equation}
+	\{\ddot{q}\}_{t_2} \leftarrow \{\ddot{q}\}_{t_2} + \Delta \{\ddot{q}\}
+\end{equation}
+\begin{equation}
+	\{\dot{q}\}_{t_2} \leftarrow \{\dot{q}\}_{t_2} + \gamma \Delta t \Delta \{\ddot{q}\}
+\end{equation}
+\begin{equation}
+	\{q\}_{t_2} \leftarrow \{q\}_{t_2} + \beta \Delta t^2 \Delta \{\ddot{q}\}
+\end{equation}
+
+O processo iterativo se repete até a norma do resíduo ser inferior à tolerância definida ($tol = 10^{-6}$).
+
+\section{Algoritmo de Passo de Tempo Adaptativo}
+
+Transições abruptas por choques e perda de contato nas engrenagens exigem controle rigoroso do incremento de tempo. Para otimizar o custo computacional mantendo a estabilidade, utiliza-se um passo de tempo adaptativo baseado nas iterações do Newton-Raphson:
+
+\begin{itemize}
+	\item \textbf{Convergência Rápida:} Se atingida em poucas iterações (e.g., $\le 5$), o subpasso ($\Delta t_{sub}$) é duplicado, respeitando o limite do passo macro.
+	\item \textbf{Convergência Lenta:} Se demandar muitas iterações (e.g., $\ge 10$), o subpasso é reduzido à metade, com um limite mínimo para evitar interrupções.
+	\item \textbf{Divergência:} Caso não atinja a tolerância em 15 iterações, o passo é descartado, o subpasso cai para $25\%$ de seu valor e a integração retrocede.
+\end{itemize}
+
+A rotina foi implementada em Python e compilada \textit{just-in-time} (JIT) via \texttt{Numba}, garantindo desempenho computacional análogo a linguagens de baixo nível.
