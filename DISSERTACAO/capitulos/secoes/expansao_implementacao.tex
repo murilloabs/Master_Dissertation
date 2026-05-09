@@ -3,7 +3,10 @@
 Equações do modelo de expansão:
 
 \begin{equation}
-	\delta(t) = \left[ (x_1 - x_2) \sin\psi + (y_1 - y_2) \cos\psi + R_1\theta_{z1} + R_2\theta_{z2} \right] \cos\beta_h + \left[ (z_2 - z_1) + (R_1\theta_{x1} + R_2\theta_{x2}) \sin\psi + (R_1\theta_{y1} + R_2\theta_{y2}) \cos\psi \right] \sin\beta_h - e(t)
+	\begin{split}
+		\delta(t) &= \left[ (x_1 - x_2) \sin\psi + (y_1 - y_2) \cos\psi + R_1\theta_{z1} + R_2\theta_{z2} \right] \cos\beta_h \\
+		&\quad + \left[ (z_2 - z_1) + (R_1\theta_{x1} + R_2\theta_{x2}) \sin\psi + (R_1\theta_{y1} + R_2\theta_{y2}) \cos\psi \right] \sin\beta_h - e(t)
+	\end{split}
 	\label{eq:delta_3d}
 \end{equation}
 
@@ -13,14 +16,20 @@ Equações do modelo de expansão:
 \end{equation}
 
 \begin{equation}
-	\partial_{x_i}b_t = (R_1 + R_2) \tan^2\alpha \cdot \partial_{x_i}\alpha \cdot \cos\beta_h, \quad \partial_{y_i}b_t = (R_1 + R_2) \tan^2\alpha \cdot \partial_{y_i}\alpha \cdot \cos\beta_h
+	\begin{aligned}
+		\partial_{x_i}b_t &= (R_1 + R_2) \tan^2\alpha \cdot \partial_{x_i}\alpha \cdot \cos\beta_h \\
+		\partial_{y_i}b_t &= (R_1 + R_2) \tan^2\alpha \cdot \partial_{y_i}\alpha \cdot \cos\beta_h
+	\end{aligned}
 	\label{eq:dbt_helicoidal}
 \end{equation}
 
 \text{Para as derivadas parciais do DTE (com } $\psi = \alpha - \beta $ \text{), definem-se os termos geométricos auxiliares:}
 
 \begin{equation}
-	\Delta_{\text{trans}} = (x_1 - x_2) \cos\psi - (y_1 - y_2) \sin\psi, \quad \Delta_{\text{rot}} = (R_1\theta_{x1} + R_2\theta_{x2}) \cos\psi - (R_1\theta_{y1} + R_2\theta_{y2}) \sin\psi
+	\begin{aligned}
+		\Delta_{\text{trans}} &= (x_1 - x_2) \cos\psi - (y_1 - y_2) \sin\psi \\
+		\Delta_{\text{rot}} &= (R_1\theta_{x1} + R_2\theta_{x2}) \cos\psi - (R_1\theta_{y1} + R_2\theta_{y2}) \sin\psi
+	\end{aligned}
 	\label{eq:delta_aux}
 \end{equation}
 
@@ -68,8 +77,10 @@ Equações do modelo de expansão:
 
 \begin{equation}
 	\begin{aligned}
-		\partial_{\delta} f &= 1 + \frac{1}{2} \left[ \tanh(\sigma(\delta - b_t)) + \sigma(\delta - b_t)(1 - \tanh^2(\sigma(\delta - b_t))) - \tanh(\sigma(\delta + b_t)) - \sigma(\delta + b_t)(1 - \tanh^2(\sigma(\delta + b_t))) \right] \\
-		\partial_{b_t} f &= \frac{1}{2} \left[ -\tanh(\sigma(\delta - b_t)) - \sigma(\delta - b_t)(1 - \tanh^2(\sigma(\delta - b_t))) - \tanh(\sigma(\delta + b_t)) - \sigma(\delta + b_t)(1 - \tanh^2(\sigma(\delta + b_t))) \right]
+		\partial_{\delta} f &= 1 + \frac{1}{2} \bigg[ \tanh(\sigma(\delta - b_t)) + \sigma(\delta - b_t)(1 - \tanh^2(\sigma(\delta - b_t))) \\
+		&\quad - \tanh(\sigma(\delta + b_t)) - \sigma(\delta + b_t)(1 - \tanh^2(\sigma(\delta + b_t))) \bigg] \\
+		\partial_{b_t} f &= \frac{1}{2} \bigg[ -\tanh(\sigma(\delta - b_t)) - \sigma(\delta - b_t)(1 - \tanh^2(\sigma(\delta - b_t))) \\
+		&\quad - \tanh(\sigma(\delta + b_t)) - \sigma(\delta + b_t)(1 - \tanh^2(\sigma(\delta + b_t))) \bigg]
 	\end{aligned}
 	\label{eq:smooth_df}
 \end{equation}

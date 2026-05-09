@@ -9,7 +9,8 @@
 	$ b_t $ & Folga de \textit{backlash} dinâmica instantânea \\
 	$ [C] $ & Matriz de amortecimento \\
 	$ c_m $ & Coeficiente de amortecimento da malha de engrenamento \\
-	$ c_{xi}, c_{yi} $ & Coeficientes de amortecimento dos mancais da engrenagem $i$ nas direções x e y \\
+	$ c_r $ & Razão de contato entre as engrenagens \\
+	$ c_{xi}, c_{yi} $ & Coeficientes de amortecimento dos mancais da engrenagem $i$ em x e y \\
 	$ d $ & Distância instantânea de centros das engrenagens \\
 	$ d_0 $ & Distância nominal de projeto entre os centros das engrenagens \\
 	$ e(t) $ & Erro estático de transmissão ou excitação cinemática de deslocamento \\
@@ -26,7 +27,6 @@
 	$ [M] $ & Matriz de massa \\
 	$ m_i $ & Massa da engrenagem $i$ \\
 	$ M_{eq} $ & Massa inercial torcional equivalente ($J/R^2$) \\
-	$ m_p $ & Razão de contato entre as engrenagens \\
 	$ p_b $ & Passo base do dente da engrenagem \\
 	$ \boldsymbol{Q} $ & Vetor de forças generalizadas \\
 	$ \boldsymbol{q} $ & Vetor de coordenadas generalizadas \\
@@ -38,7 +38,7 @@
 	$ t $ & Tempo \\
 	$ T_i $ & Torque externo aplicado na engrenagem $i$ \\
 	$ U $ & Energia potencial do sistema \\
-	$ u_i $ & Deslocamento rotacional da engrenagem convertido para a Linha de Ação ($R_i \theta_i$) \\
+	$ u_i $ & Rotação da engrenagem convertido para a Linha de Ação ($R_i \theta_i$) \\
 	$ x_i, y_i, z_i $ & Deslocamentos translacionais do centro da engrenagem $i$ \\
 	$ \{x(t)\} $ & Vetor de posição global do sistema
 \end{longtable}
@@ -64,7 +64,7 @@
 	$ \sigma $ & Parâmetro de suavização da tangente hiperbólica de contato \\
 	$ \psi $ & Ângulo auxiliar cinemático ($\alpha - \beta$) \\
 	$ \Omega $ & Velocidade angular de operação (da máquina) \\
-	$ \omega_i $ & Velocidade angular nominal da engrenagem $i$ / $i$-ésima Frequência natural do sistema \\
+	$ \omega_i $ & $i$-ésima Frequência natural do sistema \\
 	$ \partial_{q_i} $ & Operador de derivada parcial em relação à variável $q_i$ \\
 \end{longtable}
 \endgroup

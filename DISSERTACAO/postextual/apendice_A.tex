@@ -20,9 +20,9 @@ A formulação baseia-se na expansão em série de Taylor para o vetor de desloc
 
 Adotando a regra do ponto médio ($\beta = 1/4$ e $\gamma = 1/2$), garante-se um esquema incondicionalmente estável para sistemas lineares e precisão de segunda ordem \cite{lais2022}. O método é implícito, pois as equações dependem da aceleração no próprio instante a ser avaliado ($\{\ddot{q}\}_{t_2}$).
 
-\section{Formulação Preditor-Corretor e Newton-Raphson}
+\section{Formulação de Convergência e Newton-Raphson}
 
-Devido às não linearidades das forças de engrenamento, a solução implícita direta não é possível, adotando-se uma abordagem preditor-corretor com Newton-Raphson. Na etapa de \textbf{previsão}, as estimativas para o próximo passo assumem um incremento nulo de aceleração:
+Devido às não linearidades a solução implícita direta não é possível, adotando-se uma abordagem preditor-corretor com Newton-Raphson. Na etapa de \textbf{previsão}, as estimativas para o próximo passo assumem um incremento nulo de aceleração:
 
 \begin{equation}
 	\{q\}^*_{t_2} = \{q\}_{t_1} + \{\dot{q}\}_{t_1}\Delta t + \left( \frac{1}{2} - \beta \right) \Delta t^2 \{\ddot{q}\}_{t_1}
@@ -72,7 +72,7 @@ O processo iterativo se repete até a norma do resíduo ser inferior à tolerân
 
 \section{Algoritmo de Passo de Tempo Adaptativo}
 
-Transições abruptas por choques e perda de contato nas engrenagens exigem controle rigoroso do incremento de tempo. Para otimizar o custo computacional mantendo a estabilidade, utiliza-se um passo de tempo adaptativo baseado nas iterações do Newton-Raphson:
+Transições abruptas da força exigem controle do incremento de tempo. Para otimizar o custo computacional mantendo a estabilidade, utiliza-se um passo de tempo adaptativo baseado nas iterações do Newton-Raphson:
 
 \begin{itemize}
 	\item \textbf{Convergência Rápida:} Se atingida em poucas iterações (e.g., $\le 5$), o subpasso ($\Delta t_{sub}$) é duplicado, respeitando o limite do passo macro.
@@ -80,4 +80,4 @@ Transições abruptas por choques e perda de contato nas engrenagens exigem cont
 	\item \textbf{Divergência:} Caso não atinja a tolerância em 15 iterações, o passo é descartado, o subpasso cai para $25\%$ de seu valor e a integração retrocede.
 \end{itemize}
 
-A rotina foi implementada em Python e compilada \textit{just-in-time} (JIT) via \texttt{Numba}, garantindo desempenho computacional análogo a linguagens de baixo nível.
+A rotina foi implementada em Python e compilada \textit{just-in-time} (JIT) via \texttt{Numba}, garantindo desempenho computacional.
