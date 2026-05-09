@@ -5,34 +5,84 @@
 \noindent{\large\textbf{Símbolos latinos:}} \\
 \begingroup
 \begin{longtable}{p{0.2\textwidth-2\tabcolsep-1.33\arrayrulewidth} p{0.8\textwidth-2\tabcolsep-1.33\arrayrulewidth}}
-	$ [M] $ & Matriz de massa \\
-	$ [K] $ & Matriz de rigidez \\
+	$ b_0 $ & Folga de \textit{backlash} estática nominal \\
+	$ b_t $ & Folga de \textit{backlash} dinâmica instantânea \\
 	$ [C] $ & Matriz de amortecimento \\
-	$ \{x(t)\} $ & Vetor de posição \\
-	$t$ & tempo
-
+	$ c_m $ & Coeficiente de amortecimento da malha de engrenamento \\
+	$ c_{xi}, c_{yi} $ & Coeficientes de amortecimento dos mancais da engrenagem $i$ nas direções x e y \\
+	$ d $ & Distância instantânea de centros das engrenagens \\
+	$ d_0 $ & Distância nominal de projeto entre os centros das engrenagens \\
+	$ e(t) $ & Erro estático de transmissão ou excitação cinemática de deslocamento \\
+	$ f(\delta, b_t) $ & Função não-linear do \textit{backlash} \\
+	$ f_1(\delta, b_t) $ & Função não-linear de velocidade relati \textit{backlash} \\
+	$ F_m $ & Força dinâmica de engrenamento na Linha de Ação (LOA) \\
+	$ F_{uix}, F_{uiy} $ & Forças de desbalanceamento da engrenagem $i$ nas direções x e y \\
+	$ g_1, g_2 $ & Funções auxiliares para o modelo de contato suavizado \\
+	$ \mathrm{inv}(\cdot) $ & Função geométrica involuta \\
+	$ J_i $ & Momento de inércia polar/torcional da engrenagem $i$ \\
+	$ [K] $ & Matriz de rigidez \\
+	$ k_m $ & Rigidez da malha de engrenamento \\
+	$ k_{xi}, k_{yi} $ & Rigidez dos mancais da engrenagem $i$ nas direções x e y \\
+	$ [M] $ & Matriz de massa \\
+	$ m_i $ & Massa da engrenagem $i$ \\
+	$ M_{eq} $ & Massa inercial torcional equivalente ($J/R^2$) \\
+	$ m_p $ & Razão de contato entre as engrenagens \\
+	$ p_b $ & Passo base do dente da engrenagem \\
+	$ \boldsymbol{Q} $ & Vetor de forças generalizadas \\
+	$ \boldsymbol{q} $ & Vetor de coordenadas generalizadas \\
+	$ q_i $ & Coordenada generalizada $i$ (grau de liberdade genérico) \\
+	$ R $ & Função de dissipação de Rayleigh \\
+	$ R_i $ & Raio do círculo de base da engrenagem $i$ \\
+	$ R_{ai} $ & Raio do círculo de adendo da engrenagem $i$ \\
+	$ T $ & Energia cinética do sistema \\
+	$ t $ & Tempo \\
+	$ T_i $ & Torque externo aplicado na engrenagem $i$ \\
+	$ U $ & Energia potencial do sistema \\
+	$ u_i $ & Deslocamento rotacional da engrenagem convertido para a Linha de Ação ($R_i \theta_i$) \\
+	$ x_i, y_i, z_i $ & Deslocamentos translacionais do centro da engrenagem $i$ \\
+	$ \{x(t)\} $ & Vetor de posição global do sistema
 \end{longtable}
+\endgroup
 
 \vspace{\baselineskip}
 
 \noindent{\large\textbf{Símbolos gregos:}} \\
+\begingroup
 \begin{longtable}{p{0.2\textwidth-2\tabcolsep-1.33\arrayrulewidth} p{0.8\textwidth-2\tabcolsep-1.33\arrayrulewidth}}
-	$ \alpha $ & alpha \\
-	$ \beta  $ & beta \\
-	$ \Omega $ & omega \\
-
+	$ \alpha $ & Ângulo de pressão instantâneo de operação \\
+	$ \alpha_0 $ & Ângulo de pressão nominal \\
+	$ \beta $ & Ângulo de posição entre os centros das engrenagens \\
+	$ \beta_h $ & Ângulo de hélice da engrenagem \\
+	$ \Delta_{\text{rot}} $ & Termo geométrico auxiliar associado à rotação no espaço 3D \\
+	$ \Delta_{\text{trans}} $ & Termo geométrico auxiliar associado à translação no espaço 3D \\
+	$ \delta(t) $ & Erro de Transmissão Dinâmico (DTE) / Deformação da malha na LOA \\
+	$ \eta_i $ & Deslocamento translacional paralelo à Linha de Ação (LOA) \\
+	$ \theta_{xi}, \theta_{yi} $ & Deslocamentos angulares de flexão (roll e pitch) da engrenagem $i$ \\
+	$ \theta_{zi} $ (ou $ \theta_i $) & Deslocamento angular torcional da engrenagem $i$ \\
+	$ \xi_i $ & Deslocamento translacional perpendicular à Linha de Ação (LOA) \\
+	$ \xi_m $ & Razão de amortecimento da malha de engrenamento \\
+	$ \sigma $ & Parâmetro de suavização da tangente hiperbólica de contato \\
+	$ \psi $ & Ângulo auxiliar cinemático ($\alpha - \beta$) \\
+	$ \Omega $ & Velocidade angular de operação (da máquina) \\
+	$ \omega_i $ & Velocidade angular nominal da engrenagem $i$ / $i$-ésima Frequência natural do sistema \\
+	$ \partial_{q_i} $ & Operador de derivada parcial em relação à variável $q_i$ \\
 \end{longtable}
+\endgroup
 
 \vspace{\baselineskip}
 
 \noindent{\large\textbf{Abreviaturas:}} \\
+\begingroup
 \begin{longtable}{p{0.2\textwidth-2\tabcolsep-1.33\arrayrulewidth} p{0.8\textwidth-2\tabcolsep-1.33\arrayrulewidth}}
+	DTE & Erro de Transmissão Dinâmico (\textit{Dynamic Transmission Error}) \\
 	FRF & Função de Resposta em Frequência \\
-	GDL & Grau de Liberade \\
+	GDL & Grau de Liberdade \\
 	LMEST & Laboratório de Mecânica de Estruturas \\
+	LOA & Linha de Ação (\textit{Line of Action}) \\
 	MEF & Método dos Elementos Finitos \\
 	ROSS & \textit{Rotordynamic Open-Source Software} \\
 	UCS & \textit{Undamped Critical Speed} \\
 	UFRJ & Universidade Federal do Rio de Janeiro\\
 	UFU & Universidade Federal de Uberlândia \\
 \end{longtable}
+\endgroup

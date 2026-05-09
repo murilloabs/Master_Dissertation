@@ -1,1 +1,85 @@
-\section{Avanços na Implementação do Modelo de \textit{Backlash}}
+\section{Expansão da Implementação do Modelo de \textit{Backlash}}
+
+Equações do modelo de expansão:
+
+\begin{equation}
+	\delta(t) = \left[ (x_1 - x_2) \sin\psi + (y_1 - y_2) \cos\psi + R_1\theta_{z1} + R_2\theta_{z2} \right] \cos\beta_h + \left[ (z_2 - z_1) + (R_1\theta_{x1} + R_2\theta_{x2}) \sin\psi + (R_1\theta_{y1} + R_2\theta_{y2}) \cos\psi \right] \sin\beta_h - e(t)
+	\label{eq:delta_3d}
+\end{equation}
+
+\begin{equation}
+	b_t = b_0 + (R_1 + R_2) (\mathrm{inv}(\alpha) - \mathrm{inv}(\alpha_0)) \cos\beta_h
+	\label{eq:bt_helicoidal}
+\end{equation}
+
+\begin{equation}
+	\partial_{x_i}b_t = (R_1 + R_2) \tan^2\alpha \cdot \partial_{x_i}\alpha \cdot \cos\beta_h, \quad \partial_{y_i}b_t = (R_1 + R_2) \tan^2\alpha \cdot \partial_{y_i}\alpha \cdot \cos\beta_h
+	\label{eq:dbt_helicoidal}
+\end{equation}
+
+\text{Para as derivadas parciais do DTE (com } $\psi = \alpha - \beta $ \text{), definem-se os termos geométricos auxiliares:}
+
+\begin{equation}
+	\Delta_{\text{trans}} = (x_1 - x_2) \cos\psi - (y_1 - y_2) \sin\psi, \quad \Delta_{\text{rot}} = (R_1\theta_{x1} + R_2\theta_{x2}) \cos\psi - (R_1\theta_{y1} + R_2\theta_{y2}) \sin\psi
+	\label{eq:delta_aux}
+\end{equation}
+
+\begin{equation}
+	\begin{aligned}
+		\partial_{x_1}\delta &= (\sin\psi + \Delta_{\text{trans}}\partial_{x_1}\psi) \cos\beta_h + (\Delta_{\text{rot}}\partial_{x_1}\psi) \sin\beta_h \\
+		\partial_{y_1}\delta &= (\cos\psi + \Delta_{\text{trans}}\partial_{y_1}\psi) \cos\beta_h + (\Delta_{\text{rot}}\partial_{y_1}\psi) \sin\beta_h \\
+		\partial_{x_2}\delta &= (-\sin\psi + \Delta_{\text{trans}}\partial_{x_2}\psi) \cos\beta_h + (\Delta_{\text{rot}}\partial_{x_2}\psi) \sin\beta_h \\
+		\partial_{y_2}\delta &= (-\cos\psi + \Delta_{\text{trans}}\partial_{y_2}\psi) \cos\beta_h + (\Delta_{\text{rot}}\partial_{y_2}\psi) \sin\beta_h
+	\end{aligned}
+	\label{eq:ddelta_xy}
+\end{equation}
+
+\begin{equation}
+	\partial_{z_1}\delta = -\sin\beta_h, \quad \partial_{z_2}\delta = \sin\beta_h
+	\label{eq:ddelta_z}
+\end{equation}
+
+\begin{equation}
+	\partial_{\theta_{x1}}\delta = R_1 \sin\psi \sin\beta_h, \quad \partial_{\theta_{x2}}\delta = R_2 \sin\psi \sin\beta_h
+	\label{eq:ddelta_thetax}
+\end{equation}
+
+\begin{equation}
+	\partial_{\theta_{y1}}\delta = R_1 \cos\psi \sin\beta_h, \quad \partial_{\theta_{y2}}\delta = R_2 \cos\psi \sin\beta_h
+	\label{eq:ddelta_thetay}
+\end{equation}
+
+\begin{equation}
+	\partial_{\theta_{z1}}\delta = R_1 \cos\beta_h, \quad \partial_{\theta_{z2}}\delta = R_2 \cos\beta_h
+	\label{eq:ddelta_thetaz}
+\end{equation}
+
+\text{Abordagem de Suavização Global (Smooth Operator):}
+
+\begin{equation}
+	g_1 = (\delta - b_t) \tanh(\sigma(\delta - b_t)), \quad g_2 = (\delta + b_t) \tanh(\sigma(\delta + b_t))
+	\label{eq:smooth_g}
+\end{equation}
+
+\begin{equation}
+	f(\delta, b_t) = \delta + \frac{1}{2}(g_1 - g_2)
+	\label{eq:smooth_f}
+\end{equation}
+
+\begin{equation}
+	\begin{aligned}
+		\partial_{\delta} f &= 1 + \frac{1}{2} \left[ \tanh(\sigma(\delta - b_t)) + \sigma(\delta - b_t)(1 - \tanh^2(\sigma(\delta - b_t))) - \tanh(\sigma(\delta + b_t)) - \sigma(\delta + b_t)(1 - \tanh^2(\sigma(\delta + b_t))) \right] \\
+		\partial_{b_t} f &= \frac{1}{2} \left[ -\tanh(\sigma(\delta - b_t)) - \sigma(\delta - b_t)(1 - \tanh^2(\sigma(\delta - b_t))) - \tanh(\sigma(\delta + b_t)) - \sigma(\delta + b_t)(1 - \tanh^2(\sigma(\delta + b_t))) \right]
+	\end{aligned}
+	\label{eq:smooth_df}
+\end{equation}
+
+\begin{equation}
+	f_1(\delta, b_t) = \partial_{\delta} f \cdot \dot{\delta} + \partial_{b_t} f \cdot \dot{b}_t
+	\label{eq:smooth_f1}
+\end{equation}
+
+\begin{equation}
+	\partial_{q_i} f = \partial_{\delta} f \cdot \partial_{q_i}\delta + \partial_{b_t} f \cdot \partial_{q_i}b_t
+	\label{eq:chain_rule_f}
+\end{equation}

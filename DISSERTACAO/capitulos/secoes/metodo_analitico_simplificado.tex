@@ -1,3 +1,64 @@
 \section{Método Analítico Simplificado}
 
 Para compreender melhor a dinâmica de sistema engrenados
+
+Equações:
+
+\begin{equation}
+	\xi_i = x_i \cos\alpha - y_i \sin\alpha, \quad \eta_i = x_i \sin\alpha + y_i \cos\alpha, \quad u_i = R_i \theta_i \quad (i = 1, 2)
+	\label{eq:coord_transform}
+\end{equation}
+
+\begin{equation}
+	\xi_{rel} = \xi_1 - \xi_2, \quad \eta_{rel} = \eta_1 - \eta_2, \quad u_{rel} = u_1 + u_2
+	\label{eq:coord_relativas}
+\end{equation}
+
+\begin{equation}
+	F_m = K_m \delta, \quad \delta = \eta_{rel} + u_{rel}
+	\label{eq:forca_engrenamento_simples}
+\end{equation}
+
+\begin{equation}
+	\begin{bmatrix} 
+		m & 0 & 0 \\ 
+		0 & M_{eq} & 0 \\ 
+		0 & 0 & m 
+	\end{bmatrix} 
+	\begin{Bmatrix} 
+		\ddot{\eta}_{rel} \\ 
+		\ddot{u}_{rel} \\ 
+		\ddot{\xi}_{rel} 
+	\end{Bmatrix} + 
+	\begin{bmatrix} 
+		K + 2K_m & 2K_m & 0 \\ 
+		2K_m & 2K_m & 0 \\ 
+		0 & 0 & K 
+	\end{bmatrix} 
+	\begin{Bmatrix} 
+		\eta_{rel} \\ 
+		u_{rel} \\ 
+		\xi_{rel} 
+	\end{Bmatrix} = 
+	\begin{Bmatrix} 
+		0 \\ 
+		0 \\ 
+		0 
+	\end{Bmatrix}
+	\label{eq:matriz_movimento}
+\end{equation}
+
+\begin{equation}
+	\omega_2 = \sqrt{\frac{K}{m}}
+	\label{eq:freq_n2}
+\end{equation}
+
+\begin{equation}
+	(m M_{eq}) \omega^4 - \left[ M_{eq}(K + 2K_m) + 2mK_m \right] \omega^2 + 2K K_m = 0
+	\label{eq:polinomio_freq}
+\end{equation}
+
+\begin{equation}
+	\omega_{1,3}^2 = \frac{M_{eq}(K + 2K_m) + 2mK_m \pm \sqrt{\left[ M_{eq}(K + 2K_m) + 2mK_m \right]^2 - 8 m M_{eq} K K_m}}{2 m M_{eq}}
+	\label{eq:freq_n1_n3}
+\end{equation}
