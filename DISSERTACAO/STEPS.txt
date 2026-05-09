@@ -1,0 +1,33 @@
+TITULO: a definir -> capa, folha de rosto, resumo e abstract.
+
+13/01/2026: new push and add dedicatoria e epigrafe & atualização do template.
+
+30/04/2026: resultados para se apresentar na dissertação:
+
+- Implementação do backlash conforme o artigo de Yi et al 2019
+- Validação de acordo com o modelo do artigo
+- Expansão do modelo do artigo
+- Apresentação do cálculo análitico feito e verificação junto do comportamento no diagrama de bifurcação do modelo do artigo
+- Apresentação do modelo replan com um caso de desbalanceamento para exemplificação do funcionamento do modelo.
+
+04/05/2026
+Estrutura da Dissertação:
+- Introdução
+- Referêncial Teorico
+	- ROSS
+	- Dinâmica de rotação (conceitos fundamentais para utilizados)
+	- Engrenagens (conveitos fundamentais para utilizados)
+	- Backlash
+- Metodologia
+	- Método Analítico Simplificado
+	- Implementação do Backlash
+	- Expansão da Implementação com combinação de mais papers (smooth e helix)
+- Resultados e Discussão
+	- Validação do artigo Yi et al de acordo com o proposto
+	- Apresentação do avanço de acordo com modelo analítico simplificado
+	- Caso Replan
+	- (Apresentação de Resultado comparativo com smooth, helix angle)
+- Conclusão
+- Trabalhos futuros
+- Apendice / Anexo
+	- Integração pelo método Newmark e convergência por Newton-Raphson
