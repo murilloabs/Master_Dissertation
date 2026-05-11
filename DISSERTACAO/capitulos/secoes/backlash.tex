@@ -1,6 +1,64 @@
 \section{Folga de \textit{Backlash}}
 
-Equações de acordo com o paper \citeonline{yi2019}
+A folga de \textit{backlash} é a folga entre os dentes de duas engrenagens conectadas. Esta folga é projetada para a passagem de óleo lubrificante, expansão térmica e adequação às tolerâncias geométricas \cite{kaplan2015}.
+A Figura \ref{fig:backlash_kaplan} representa o comportamento do engrenamento considerando a folga de \textit{backlash}. $\delta$ representa a deformação da Linha de Ação \textit{LOA} e $b_t$ é a folga de \textit{backlash} instantâneo. A deformação final da malha de engrenamento $f(\delta, b_t)$ é apresentada pela Figura \ref{fig:backlash_graph_kaplan} e é descrita de acordo com a Equação \ref{eq:f_delta}. Essa formulação é adaptada de \citeonline{yi2019} de acordo com o sentido de referência dos graus de liberdade adotados no \textit{ROSS}.
+
+\begin{figure}[H]
+	\centering
+	\caption{Representação da folga de \textit{backlash}}
+	\label{fig:backlash_kaplan}
+	
+	\begin{minipage}{0.7\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/backlash_kaplan.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Adaptado de \citeonline{kaplan2015}}
+	\end{minipage}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\caption{Deformação da malha de engrenamento considerando a folga de \textit{backlash}}
+	\label{fig:backlash_graph_kaplan}
+	
+	\begin{minipage}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/backlash_graph_kaplan.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Adaptado de \citeonline{kaplan2015}}
+	\end{minipage}
+\end{figure}
+
+\begin{equation}
+	f(\delta, b_t) = \begin{cases} 
+		\delta - b_t & (\delta > +b_t) \\
+		0 & (|\delta| \le b_t) \\
+		\delta + b_t & (\delta < -b_t)
+	\end{cases}
+	\label{eq:f_delta}
+\end{equation}
+
+
+A Figura \ref{fig:modelo_yi} apresenta o esquemático utilizado por \citeonline{yi2019} para a construção do modelo de \textinf{backlash} dinâmico que será apresentado. Este modelo de engrenamento e \textit{backlash} dinâmico é amplamente utilizado na literatura por diversos autores como \citeonline{zhu2025}, \citeonline{liu2023}, \citeonline{mo2025} e \citeonline{lais2022}.
+
+\begin{figure}[H]
+	\centering
+	\caption{Modelo de Par Engrenado}
+	\label{fig:modelo_yi}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/modelo_yi.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Adaptado de \citeonline{yi2019}}
+	\end{minipage}
+\end{figure}
+
+Primeiro define-se a distância entre centros $d$ das duas engrenagens. Note que neste caso essa distância é variável no tempo uma vez que considera as posições instantâneas dos centros das duas engrenagens. Por esse mesmo motivo 
 
 \begin{equation}
 	d = \sqrt{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2}
@@ -37,14 +95,7 @@ Equações de acordo com o paper \citeonline{yi2019}
 	\label{eq:cm}
 \end{equation}
 
-\begin{equation}
-	f(\delta, b_t) = \begin{cases} 
-		\delta - b_t & (\delta > +b_t) \\
-		0 & (|\delta| \le b_t) \\
-		\delta + b_t & (\delta < -b_t)
-	\end{cases}
-	\label{eq:f_delta}
-\end{equation}
+
 
 \begin{equation}
 	f_1(\delta, b_t) = \begin{cases} 
