@@ -1,1 +1,114 @@
 \section{Engrenagens}
+
+Engrenagens são componentes mecânicos com a função de transmissão de potência, torque e velocidade.
+
+\subsection{Rigidez do Engrenamento}
+
+Para realizar o movimento conjunto entre os rotores motor e movido, é necessário acoplar as matrizes dos dois rotores nos graus de liberdade correspondentes dos nós correspondentes, representados por $q_i$ e $q_j$. Dessa maneira, a equação do movimento pode ser modificada para Eq.~\ref{Eq:mov-alt}, já contemplando a massa, rigidez e amortecimento dos dois rotores. A Fig.~\ref{fig:mesh_repr} representa esquematicamente o engrenamento, mostrando que a rigidez de acoplamento das engrenagens $K_{mesh}$ é na direção da linha de ação e não na linha que liga os centros das duas engrenagens. A matriz de acoplamento da rigidez $[K_{mesh}]$ pode ser escrita de acordo com Eq.~\ref{Eq:k_mesh} \cite{stringer2008}. A Fig.~\ref{fig:gear_repr} apresenta a representação do par engrenado em elementos finitos. As matrizes $K_{ii}$, $K_{ij}$, $K_{ji}$ e $K_{jj}$ são apresentadas na Eq.~\ref{eq:matrices} de acordo com \citeonline{stringer2008}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{figuras/gear_mesh_spring.png}
+	\caption{Reapresentação do Engrenamento \cite{kaplan2012}}
+	\label{fig:mesh_repr}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\linewidth]{figuras/gear_repr.png}
+	\caption{Representação do par engrenado em elementos finitos \cite{stringer2008}}
+	\label{fig:gear_repr}
+\end{figure}
+
+
+
+\begin{equation}
+	[M]\{\ddot{q}(t)\}+([C]+\Omega [G])\{\dot{q}(t)\}+([K] + [K_{mesh}])\{q(t)\}=\{F(t)\}
+	\label{Eq:mov-alt}
+\end{equation}
+\begin{equation}
+	[K_{mesh}]
+	\begin{Bmatrix}
+		q_i \\
+		q_j
+	\end{Bmatrix}
+	= K_{g}
+	\begin{bmatrix}
+		[K_{ii}] & [K_{ij}] \\
+		[K_{ji}] & [K_{jj}]
+	\end{bmatrix}
+	\begin{Bmatrix}
+		q_i \\
+		q_j
+	\end{Bmatrix}
+	\label{Eq:k_mesh}
+\end{equation}
+
+\begin{equation}
+	\label{eq:k_matrices} % Adiciona um rótulo para referenciar o conjunto de equações
+	\begin{gathered}
+		\resizebox{0.9\linewidth}{!}{
+			$[K_{ii}] = 
+			\begin{bmatrix}
+				(s\phi_c\phi_x + c\phi_c\phi_x)^2 & (s\phi_c\phi_x + c\phi_c\phi_x)(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_x + c\phi_c\phi_x) & & & & \text{sym} \\
+				(s\phi_c\phi_c + c\phi_c\phi_c)^2 & (s\phi_c\phi_c + c\phi_c\phi_c)(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_c + c\phi_c\phi_c) & & & \\
+				c\phi_z(s\phi_c\phi_x + c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z^2 & c^2\phi_c^2r_i^2 & & \\
+				-c\phi_c\phi_x r_i (s\phi_c\phi_x + c\phi_c\phi_x) & -c\phi_c\phi_x r_i (s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c\phi_x c\phi_z r_i & s\phi_c^2 c\phi_z^2 r_i^2 & c\phi_c^2 c\phi_z^2 r_i^2 & \\
+				-c\phi_c\phi_c r_i (s\phi_c\phi_x + c\phi_c\phi_x) & -c\phi_c\phi_c r_i (s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c\phi_c c\phi_z r_i & s\phi_c^2 c\phi_z^2 r_i^2 & c\phi_c^2 c\phi_z^2 r_i^2 & c\phi_c^2 c\phi_z^2 r_i^2 \\
+				-c\phi_c\phi_x r_i & -c\phi_c\phi_c r_i & -c\phi_c\phi_z r_i & -s\phi_c\phi_x c\phi_z^2 r_i & -s\phi_c\phi_c c\phi_z^2 r_i & c\phi_c^2 c\phi_z^2 r_i^2 \\
+			\end{bmatrix}$
+		}
+		\\[1.5em] % Aumentei o espaçamento entre as matrizes para melhor leitura
+		\resizebox{0.9\linewidth}{!}{
+			$[K_{ij}] = 
+			\begin{bmatrix}
+				-(s\phi_c\phi_x + c\phi_c\phi_y)^2 & -c\phi_c\phi_z(s\phi_c\phi_x + c\phi_c\phi_y) & [K_{ij}]_{1,1} & [K_{ij}]_{3,1} & & \\
+				-(s\phi_c\phi_y + c\phi_c\phi_y)^2 & -(s\phi_c\phi_y - c\phi_c\phi_x)^2 & [K_{ij}]_{1,2} & [K_{ij}]_{3,2} & -c\phi_c\phi_x r_i(s\phi_c\phi_x + c\phi_c\phi_y) & \\
+				-c\phi_c\phi_z(s\phi_c\phi_y + c\phi_c\phi_y) & -c\phi_c\phi_z(s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c^2 & -c\phi_c^2 r_j & c\phi_c^2 r_i & s\phi_c^2 c\phi_z^2 r_j \\
+				-s\phi_c\phi_z^2 r_j & s\phi_c\phi_x c\phi_z r_j & -c\phi_c\phi_y r_j(s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c^2 r_j & -c\phi_c\phi_x^3 r_i & -c\phi_c^2 c\phi_z^2 r_i \\
+				c\phi_c\phi_x r_i(s\phi_c\phi_x + c\phi_c\phi_y) & c\phi_c\phi_x r_i(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_c\phi_x c\phi_z r_i & -c\phi_c^2\phi_x c\phi_z r_i & c\phi_c\phi_x c\phi_z r_j & -s\phi_c^2 c\phi_z^2 r_i r_j \\
+				c\phi_c\phi_c r_i(s\phi_c\phi_x + c\phi_c\phi_y) & c\phi_c\phi_c r_i(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_c\phi_c c\phi_z r_i & -c\phi_c^2\phi_c c\phi_z r_i & c\phi_c\phi_c c\phi_z r_j & c\phi_c^2 c\phi_z^2 r_i r_j \\
+				c\phi_c\phi_z r_i & -c\phi_c\phi_z r_i & -c\phi_c^2\phi_z r_i & -c\phi_c^2\phi_z r_j & -c\phi_c^2\phi_z r_i r_j & -c\phi_c^2\phi_z r_i r_j
+			\end{bmatrix}$
+		}
+		\\[1.5em]
+		\resizebox{0.9\linewidth}{!}{
+			$[K_{jj}] = 
+			\begin{bmatrix}
+				(s\phi_c\phi_x + c\phi_c\phi_x)^2 & (s\phi_c\phi_x + c\phi_c\phi_x)(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_x + c\phi_c\phi_x) & & & & \text{sym} \\
+				(s\phi_c\phi_c + c\phi_c\phi_c)^2 & (s\phi_c\phi_c + c\phi_c\phi_c)(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_c + c\phi_c\phi_c) & & & \\
+				c\phi_z(s\phi_c\phi_x + c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z^2 & c^2\phi_c^2r_j^2 & & \\
+				-c\phi_c\phi_x r_j (s\phi_c\phi_x + c\phi_c\phi_x) & -c\phi_c\phi_x r_j (s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c\phi_x c\phi_z r_j & s\phi_c^2 c\phi_z^2 r_j^2 & c\phi_c^2 c\phi_z^2 r_j^2 & \\
+				-c\phi_c\phi_c r_j (s\phi_c\phi_x + c\phi_c\phi_x) & -c\phi_c\phi_c r_j (s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c\phi_c c\phi_z r_j & s\phi_c^2 c\phi_z^2 r_j^2 & c\phi_c^2 c\phi_z^2 r_j^2 & c\phi_c^2 c\phi_z^2 r_j^2 \\
+				-c\phi_c\phi_x r_j & -c\phi_c\phi_c r_j & -c\phi_c\phi_z r_j & -s\phi_c\phi_x c\phi_z^2 r_j & -s\phi_c\phi_c c\phi_z^2 r_j & c\phi_c^2 c\phi_z^2 r_j^2 \\
+			\end{bmatrix}$
+		}
+	\end{gathered}
+\end{equation}
+
+\begin{align*}
+	s\varphi &= \sin\varphi, & s\varphi^2 &= (\sin\varphi)^2 \\
+	c\varphi &= \cos\varphi, & c\varphi^2 &= (\cos\varphi)^2
+\end{align*}
+
+\begin{align*}
+	\cos\phi_x &= \cos\beta \cos\alpha_n & \cos\phi_y &= \sin\alpha_n &   \cos\phi_z &= \sin\beta \sin\alpha_n
+\end{align*}
+
+As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ representam os índices dos nós onde as engrenagens estão posicionadas. O parâmetro $\varphi$ representa o ângulo de orientação entre as engrenagens, $\beta$ é o ângulo de hélice das engrenagens e $\alpha_n$ representa o ângulo de pressão normal do par engrenado. Os ângulos $\phi_x$, $\phi_y$ e $\phi_z$ são de acordo com a Fig.~\ref{fig:force_component}, que representa a decomposição das forças no ponto de contato das engrenagens \cite{kaplan_2013}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\linewidth]{figuras/force_component.png}
+	\caption{Decomposição das forças no ponto de contato das engrenagens.}
+	\label{fig:force_component}
+\end{figure}
+
+O parâmetro $K_g$ representa a rigidez do par engrenado ao longo da linha de ação. \citeonline{kaplan_2013} apresenta uma metodologia de cálculo com base em parâmetros geométricos e do material das engrenagens, apresentada na Eq.~\ref{Eq:Kg}. Neste caso, é assumida a hipótese de que a rigidez dos dentes é mais significativa do que a rigidez do corpo da engrenagem.
+
+\begin{equation}
+	K_g = \frac{c w E_1 E_2}{9(E_1+E_2)}
+	\label{Eq:Kg}
+\end{equation}
+
+Onde $c$ representa a razão de contato do par engrenado, $w$ descreve a largura dos dentes das engrenagens, $E_1$ e $E_2$ são os módulos de elasticidade das engrenagens motriz e movida, respectivamente. 

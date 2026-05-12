@@ -1,1 +1,63 @@
 \section{Dinâmica de Rotação}
+
+
+
+\section{Revisão bibliográfica - Plano de trabalho}
+
+Neste capítulo são apresentados os conceitos fundamentais utilizados no desenvolvimento desta dissertação de mestrado. Esses conceitos incluem: a modelagem matemática da rigidez de acoplamento de um par de engrenagens e o equacionamento de rotores flexíveis, empregado na simulação e validação da implementação de engrenamento.
+
+\subsection{Modelo de rotores flexíveis}
+
+Um rotor flexível é um sistema dinâmico formado por discos, engrenagens, eixos flexíveis, mancais e selos. O modelo leva em consideração a geometria e as características de inércia, rigidez e amortecimento do sistema. Para obter a equação de movimento do rotor, os passos são: calcular a energia cinética e potencial dos componentes, escolher um método de discretização e aplicar as equações de Lagrange (Eq. \ref{eq_lalanne}) \cite{Lalanne1998}.
+
+\begin{equation}
+	\frac{\mathrm{d} }{\mathrm{d} t}\left ( \frac{\partial T}{\partial \dot{q_i}} \right )-\frac{\partial T}{\partial q_i} + \frac{\partial U}{\partial q_i}=F_{qi}
+	\label{eq_lalanne}
+\end{equation}
+
+Onde $N$ é o número de graus de liberdade do sistema e o índice $i$ varia entre $1 \leq i \leq N$, $q_{i}$ são as coordenadas generalizadas, $F_{qi}$ são as forças generalizadas e $T$ e $U$ são as energias cinéticas e potenciais dos componentes, respectivamente.
+Para este modelo, algumas considerações feitas são:
+\begin{itemize}
+	\item O disco é um elemento rígido, logo possui apenas energia cinética;
+	\item Engrenagens podem ser representadas como elementos de disco e estes são adicionados em nós;
+	\item O eixo é representado como um elemento de viga com seção circular constante e é caracterizado por energia cinética e potencial, onde cada elemento possui dois nós e seis graus de liberdade por nó;
+	\item Os mancais e selos podem ser representados por um conjunto de molas e amortecedores lineares.
+\end{itemize}
+
+Assim, a equação diferencial que representa o comportamento dinâmico de um rotor é dada pela Eq. \ref{Eq:movement}.
+
+\begin{equation}
+	[M]\{\ddot{q}(t)\}+([C]+\Omega [G])\{\dot{q}(t)\}+[K]\{q(t)\}=\{F(t)\}
+	\label{Eq:movement}
+\end{equation}
+
+Onde $[M]$, $[C]$, $[G]$ e $[K]$ são as matrizes de massa, amortecimento, efeito giroscópico e rigidez, respectivamente, e $\{\ddot{q}(t)\}$, $\{\dot{q}(t)\}$, $\{q(t)\}$, e $\{F(t)\}$ são os vetores de aceleração, velocidade, deslocamento e força de entrada, respectivamente. A velocidade de rotação é representada por $\Omega$.
+
+O modelo ROSS, proposto por \citeonline{timbo2020}, utiliza a formulação de seis graus de liberdade para cada nó, três de translação e três de rotação, conforme mostrado abaixo.
+
+\begin{equation}
+	\{q(t)\} = \{x,y,z, \theta_x, \theta_y, \theta_z\}^{T}
+	\label{Eq:dof}
+\end{equation}
+
+Onde $x$, $y$ e $z$ correspondem às translações horizontal, vertical e axial, respectivamente. As variáveis $\theta_x$, $\theta_y$ e $\theta_z$ representam a flexão no plano $yz$, a flexão no plano $xz$ e a torção, respectivamente.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[t]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{figuras/rotor1.png}
+		\caption{Esquema de rotor}
+		\label{fig:rotor1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{figuras/rotor2.png}
+		\caption{Representação do modelo}
+		\label{fig:rotor2}
+	\end{subfigure}
+	\caption{Esquema e modelo utilizado em dinâmica de rotação}
+	\label{fig:rotors}
+\end{figure}
+
+\citeonline{jessica2025} Apresenta dados sobre a utilização mundial do pacote ROSS, juntamente com exemplos de utilização e resultados comparativos.
+
