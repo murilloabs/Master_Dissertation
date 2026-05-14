@@ -4,7 +4,7 @@ Engrenagens são componentes mecânicos com a função de transmissão de potên
 
 \subsection{Rigidez do Engrenamento}
 
-Para realizar o movimento conjunto entre os rotores motor e movido, é necessário acoplar as matrizes dos dois rotores nos graus de liberdade correspondentes dos nós correspondentes, representados por $q_i$ e $q_j$. Dessa maneira, a equação do movimento pode ser modificada para Eq.~\ref{Eq:mov-alt}, já contemplando a massa, rigidez e amortecimento dos dois rotores. A Fig.~\ref{fig:mesh_repr} representa esquematicamente o engrenamento, mostrando que a rigidez de acoplamento das engrenagens $K_{mesh}$ é na direção da linha de ação e não na linha que liga os centros das duas engrenagens. A matriz de acoplamento da rigidez $[K_{mesh}]$ pode ser escrita de acordo com Eq.~\ref{Eq:k_mesh} \cite{stringer2008}. A Fig.~\ref{fig:gear_repr} apresenta a representação do par engrenado em elementos finitos. As matrizes $K_{ii}$, $K_{ij}$, $K_{ji}$ e $K_{jj}$ são apresentadas na Eq.~\ref{eq:matrices} de acordo com \citeonline{stringer2008}.
+Para realizar o movimento conjunto entre os rotores motor e movido, é necessário acoplar as matrizes dos dois rotores nos graus de liberdade correspondentes dos nós correspondentes, representados por $q_i$ e $q_j$. Dessa maneira, a equação do movimento pode ser modificada para Eq.~\ref{Eq:mov-alt}, já contemplando a massa, rigidez e amortecimento dos dois rotores. A Fig.~\ref{fig:mesh_repr} representa esquematicamente o engrenamento, mostrando que a rigidez de acoplamento das engrenagens $K_{mesh}$ é na direção da linha de ação e não na linha que liga os centros das duas engrenagens. A matriz de acoplamento da rigidez $[K_{mesh}]$ pode ser escrita de acordo com Eq.~\ref{Eq:k_mesh} \cite{stringer2008}. A Fig.~\ref{fig:gear_repr} apresenta a representação do par engrenado em elementos finitos. As matrizes $K_{ii}$, $K_{ij}$, $K_{ji}$ e $K_{jj}$ são apresentadas na Eq.~\ref{eq:k_matrices} de acordo com \citeonline{stringer2008}.
 
 \begin{figure}
 	\centering
@@ -92,10 +92,10 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 \end{align*}
 
 \begin{align*}
-	\cos\phi_x &= \cos\beta \cos\alpha_n & \cos\phi_y &= \sin\alpha_n &   \cos\phi_z &= \sin\beta \sin\alpha_n
+	\cos\phi_x &= \cos\beta_h \cos\alpha_n & \cos\phi_y &= \sin\alpha_n &   \cos\phi_z &= \sin\beta_h \sin\alpha_n
 \end{align*}
 
-As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ representam os índices dos nós onde as engrenagens estão posicionadas. O parâmetro $\varphi$ representa o ângulo de orientação entre as engrenagens, $\beta$ é o ângulo de hélice das engrenagens e $\alpha_n$ representa o ângulo de pressão normal do par engrenado. Os ângulos $\phi_x$, $\phi_y$ e $\phi_z$ são de acordo com a Fig.~\ref{fig:force_component}, que representa a decomposição das forças no ponto de contato das engrenagens \cite{kaplan_2013}.
+As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ representam os índices dos nós onde as engrenagens estão posicionadas. O parâmetro $\varphi$ representa o ângulo de orientação entre as engrenagens, $\beta_h$ é o ângulo de hélice das engrenagens e $\alpha_n$ representa o ângulo de pressão normal do par engrenado. Os ângulos $\phi_x$, $\phi_y$ e $\phi_z$ são de acordo com a Fig.~\ref{fig:force_component}, que representa a decomposição das forças no ponto de contato das engrenagens \cite{kaplan_paper_2013}.
 
 \begin{figure}
 	\centering
@@ -104,7 +104,7 @@ As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ re
 	\label{fig:force_component}
 \end{figure}
 
-O parâmetro $K_g$ representa a rigidez do par engrenado ao longo da linha de ação. \citeonline{kaplan_2013} apresenta uma metodologia de cálculo com base em parâmetros geométricos e do material das engrenagens, apresentada na Eq.~\ref{Eq:Kg}. Neste caso, é assumida a hipótese de que a rigidez dos dentes é mais significativa do que a rigidez do corpo da engrenagem.
+O parâmetro $K_g$ representa a rigidez do par engrenado ao longo da linha de ação. \citeonline{kaplan_paper_2013} apresenta uma metodologia de cálculo com base em parâmetros geométricos e do material das engrenagens, apresentada na Eq.~\ref{Eq:Kg}. Neste caso, é assumida a hipótese de que a rigidez dos dentes é mais significativa do que a rigidez do corpo da engrenagem.
 
 \begin{equation}
 	K_g = \frac{c w E_1 E_2}{9(E_1+E_2)}
@@ -112,3 +112,44 @@ O parâmetro $K_g$ representa a rigidez do par engrenado ao longo da linha de a�
 \end{equation}
 
 Onde $c$ representa a razão de contato do par engrenado, $w$ descreve a largura dos dentes das engrenagens, $E_1$ e $E_2$ são os módulos de elasticidade das engrenagens motriz e movida, respectivamente. 
+
+
+
+\subsection{Perfis de Rigidez}
+
+O acoplamento entre duas engrenagens gera uma rigidez de malha que deve ser contabilizada na dinâmica do sistema rotativo em questão, assim como visto anteriormente. Essa rigidez, entretanto, não apresenta um valor constante no tempo e pode ser definida por um perfil de  rigidez variável assim como descrito por \citeonline{ma2014}. A Figura \ref{fig:rig_engr} apresenta o comportamento deste perfil de rigidez.
+
+\begin{figure}[H]
+	\centering
+	\caption{Perfil de rigidez do engrenamento}
+	\label{fig:rig_engr}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/filler_jacare_faso.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: REFERENCIAAAAAAAAA}
+	\end{minipage}
+\end{figure}
+
+O formato característico desse perfil tem origem da geometria do dente da engrenagem e do comportamento da malha de engrenamento. Como o perfil do dente não apresenta seção transversal uniforme a rigidez do engrenamento é alterada a cada passo de tempo devido ao contato entre os dentes acontecer em regiões de alteração da área de seção \cite{ma2014}. A periodicidade característica e a amplitude deste perfil tem correlação com a razão de contato do par engrenado que define a média de pares de dentes em contato. Quando há somente um par de dentes em contato a rigidez assume a região de menor valor. Ao passo que, quando há dois pares de dentes em contato as rigidezes se somam e, portanto, o perfil de rigidez apresenta a região de maior valor  assim como apresentado por \citeonline{lais202} e \citeonline{chico2025}.
+
+\begin{figure}[H]
+	\centering
+	\caption{Perfil de rigidez do engrenamento correlacionado com razao de contato}
+	\label{fig:rig_engr}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/filler_honest_reaction.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: LAIS}
+	\end{minipage}
+\end{figure}
+
+
+\subsection{Geometria de Engrenagens}
+
+apresentar sobre a geometria das engrenagens
