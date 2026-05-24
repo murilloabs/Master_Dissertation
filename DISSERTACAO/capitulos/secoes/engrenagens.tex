@@ -144,21 +144,23 @@ Entretanto, devido à dinâmica do contato entre  os dentes, a rigidez associada
 
 Para se considerara a variação da rigidez do engrenamento ao longo do tempo, uma das primeiras considerações foi  utilização de um modelo de perfil retangular, assim como apresentado por \citeonline{lin2002}. Tal modelagem simplifica a dinâmica de contato entre os dentes de um par engrenado,  mas ainda mantém sua característica principal, a variação da amplitude de rigidez e a periodicidade no tempo.
 
-\citeonline{kaplan2015} apresenta tal perfil retangular, de acordo com a modelagem de \citeonline{lin2002}. A Equação \ref{eq:stiffness_Kv} apresenta tal formulação, que pode ser descrita como a soma de uma parcela constante  $K_m$ e uma parcela variável $K_v$ (Equação \ref{eq:stiffness_K}) que oscila por uma Série de Fourrier com uma amplitude $K_a$ proporcional à $K_m$.
+\citeonline{kaplan2015} apresenta tal perfil retangular, de acordo com a modelagem de \citeonline{lin2002}. A Equação \ref{eq:stiffness_Kv} apresenta tal formulação, que pode ser descrita como a soma de uma parcela constante  $K_m$ e uma parcela variável $K_v$ (Equação \ref{eq:stiffness_K}) que oscila por uma Série de Fourier com uma amplitude $K_a$ proporcional à $K_m$.
 
 \begin{equation} \label{eq:stiffness_K}
 	K = K_m + K_v(\Omega, t)
 \end{equation}
 
 \begin{equation} \label{eq:stiffness_Kv}
-	K_v(t) = 2K_a \sum_{s=1}^{\infty} \left( a^{(s)} \sin(sN_i\Omega_i t) + b^{(s)} \cos(sN_i\Omega_i t) \right)
+	K_v(t) = 2K_a \sum_{s=1}^{\infty} \left( a^{(s)} \sin(sZ_1\Omega_i t) + b^{(s)} \cos(sZ_1\Omega t) \right)
 \end{equation}
 
 \begin{align} \label{eq:coeficientes_ab}
-	a^{(s)} &= -\frac{2}{s\pi} \sin[s\pi(c_r - 2p)] \sin(s\pi c_r) \nonumber \\
-	b^{(s)} &= -\frac{2}{s\pi} \cos[s\pi(c_r - 2p)] \sin(s\pi c_r)
+	a^{(s)} &= -\frac{2}{s\pi} \sin[s\pi(c_r - 2\beta)] \sin(s\pi c_r) \nonumber \\
+	b^{(s)} &= -\frac{2}{s\pi} \cos[s\pi(c_r - 2\beta)] \sin(s\pi c_r)
 \end{align}
 
+$Z_1$ representa o número de dentes da engrenagem menor, $\Omega$ é a velocidade de rotação da engrenagem menor, $c_r$ é a razão de contato e $\beta$ é o angulo de posição das engrenagens. $a^{(s)}$ e $b^{(s)}$ são os coeficientes da série de Fourier. A Figura \ref{fig:rig_engr} apresenta o perfil retangular desejado para essa simplificação, já a Figura \ref{fig:rig_engr1} apresenta a composição completa da Série de Fourier para essa função. Quando maior o número de temos $s$, mais suave é a função. Pode se observar como o valor da razão de contato $c_r$ influencia no período da função de rigidez. Esta variável indica a quantidade média de pares de dentes engrenados, ao longo do tempo há a alternância  entre 1 par e 2 pares de dentes engrenados. Quando há somente 1 par o perfil de rigidez encontra seu valor mínimo, já com 2 pares ele encontra seu valor máximo.
+No \textit{ROSS} a implementação dessa função contempla uma correção para que ela não apresente as frequências maiores vinda da Série de Fourier e tenha, somente, o perfil retangular.
 
 \begin{figure}[H]
 	\centering
@@ -177,7 +179,7 @@ Para se considerara a variação da rigidez do engrenamento ao longo do tempo, u
 \begin{figure}[H]
 	\centering
 	\caption{Perfil de rigidez do engrenamento correlacionado com razão de contato}
-	\label{fig:rig_engr}
+	\label{fig:rig_engr1}
 	
 	\begin{minipage}{0.7\textwidth}
 		\centering
