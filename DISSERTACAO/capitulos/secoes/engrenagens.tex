@@ -23,7 +23,7 @@ onde $a_w$ é a distância real de operação entre os centros geométricos e os
 \section{Modelagem Dinâmica e Acoplamento de Rotores}
 A incorporação da dinâmica de engrenamentos na análise de rotores exige que os subsistemas individuais sejam acoplados nas matrizes globais (massa, amortecimento, rigidez e giroscópica).
 
-Em sistemas tridimensionais, onde cada nó da malha possui seis graus de liberdade (translações $x, y, z$ e rotações $\theta_x, \theta_y, \theta_z$), a formulação das matrizes de acoplamento deve decompor a força de contato normal na linha de ação considerando a cinemática 3D \cite{stringer2008}. Isso forma submatrizes interconectadas ($K_{ii}, K_{jj}, K_{ji}, K_{ij}$) que relacionam vibrações laterais e torcionais através da projeção vetorial governada pelo ângulo de pressão ($\alpha_0$), o ângulo de hélice ($\beta_h$) e o ângulo de orientação espacial do acoplamento ($\phi$).
+Em sistemas tridimensionais, onde cada nó da malha possui seis graus de liberdade (translações $x, y, z$ e rotações $\theta_x, \theta_y, \theta_z$), a formulação das matrizes de acoplamento deve decompor a força de contato normal na linha de ação considerando a cinemática 3D \cite{stringer2008}. Isso forma submatrizes interconectadas ($K_{ii}, K_{jj}, K_{ji}, K_{ij}$) que relacionam vibrações laterais e torcionais através da projeção vetorial governada pelo ângulo de pressão ($\alpha$), o ângulo de hélice ($\beta_h$) e o ângulo de orientação espacial do acoplamento ($\phi$).
 
 
 \subsection{Rigidez de Acoplamento de Rotores Engrenados}
@@ -56,7 +56,7 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 		q_i \\
 		q_j
 	\end{Bmatrix}
-	= K_{g}
+	= K_{m}
 	\begin{bmatrix}
 		[K_{ii}] & [K_{ij}] \\
 		[K_{ji}] & [K_{jj}]
@@ -128,21 +128,36 @@ As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ re
 	\label{fig:force_component}
 \end{figure}
 
-O parâmetro $K_g$ representa a rigidez do par engrenado ao longo da linha de ação. \citeonline{kaplan_paper_2013} apresenta uma metodologia de cálculo com base em parâmetros geométricos e do material das engrenagens, apresentada na Eq.~\ref{Eq:Kg}. Neste caso, é assumida a hipótese de que a rigidez dos dentes é mais significativa do que a rigidez do corpo da engrenagem.
+O parâmetro $K_m$ representa a rigidez do par engrenado ao longo da linha de ação. \citeonline{kaplan_paper_2013} apresenta uma metodologia de cálculo com base em parâmetros geométricos e do material das engrenagens, apresentada na Eq.~\ref{Eq:Kg}. Neste caso, é assumida a hipótese de que a rigidez dos dentes é mais significativa do que a rigidez do corpo da engrenagem.
 
 \begin{equation}
-	K_g = \frac{c w E_1 E_2}{9(E_1+E_2)}
+	K_m = \frac{c_r w E_1 E_2}{9(E_1+E_2)}
 	\label{Eq:Kg}
 \end{equation}
 
-Onde $c$ representa a razão de contato do par engrenado, $w$ descreve a largura dos dentes das engrenagens, $E_1$ e $E_2$ são os módulos de elasticidade das engrenagens motriz e movida, respectivamente. 
+Onde $c_r$ representa a razão de contato do par engrenado, $w$ descreve a largura dos dentes das engrenagens, $E_1$ e $E_2$ são os módulos de elasticidade das engrenagens motriz e movida, respectivamente. Dessa forma, a rigidez do engrenamento é considerada como constante ao longo do tempo.
 
-Vale lembrar que, devido à dinâmica do contato entre  os dentes, a rigidez associada ao engrenamento, na realidade, é uma grandeza variável no tempo e dependente da  razão de contato entre as engrenagens. Abaixo será apresentado  a primeira metodologia encontrada na literatura (Perfil Retangular) e o modelo completo  atualmente utilizado.
+Entretanto, devido à dinâmica do contato entre  os dentes, a rigidez associada ao engrenamento, na realidade, é uma grandeza variável no tempo e dependente da  razão de contato entre as engrenagens. A seguir será apresentado a primeira metodologia encontrada na literatura (Perfil Retangular) e o Perfil Completo atualmente utilizado.
 
 
 \subsection{Perfil Retangular de Rigidez de Engrenamento}
 
-Além disso, uma simplificação muito comum quando se trata de análise dinâmica da rigidez do engrenamento é a consideração do perfil de rigidez como uma onda retangular assim como proposta por \citeonline{lin2002}.
+Para se considerara a variação da rigidez do engrenamento ao longo do tempo, uma das primeiras considerações foi  utilização de um modelo de perfil retangular, assim como apresentado por \citeonline{lin2002}. Tal modelagem simplifica a dinâmica de contato entre os dentes de um par engrenado,  mas ainda mantém sua característica principal, a variação da amplitude de rigidez e a periodicidade no tempo.
+
+\citeonline{kaplan2015} apresenta tal perfil retangular, de acordo com a modelagem de \citeonline{lin2002}. A Equação \ref{eq:stiffness_Kv} apresenta tal formulação, que pode ser descrita como a soma de uma parcela constante  $K_m$ e uma parcela variável $K_v$ (Equação \ref{eq:stiffness_K}) que oscila por uma Série de Fourrier com uma amplitude $K_a$ proporcional à $K_m$.
+
+\begin{equation} \label{eq:stiffness_K}
+	K = K_m + K_v(\Omega, t)
+\end{equation}
+
+\begin{equation} \label{eq:stiffness_Kv}
+	K_v(t) = 2K_a \sum_{s=1}^{\infty} \left( a^{(s)} \sin(sN_i\Omega_i t) + b^{(s)} \cos(sN_i\Omega_i t) \right)
+\end{equation}
+
+\begin{align} \label{eq:coeficientes_ab}
+	a^{(s)} &= -\frac{2}{s\pi} \sin[s\pi(c_r - 2p)] \sin(s\pi c_r) \nonumber \\
+	b^{(s)} &= -\frac{2}{s\pi} \cos[s\pi(c_r - 2p)] \sin(s\pi c_r)
+\end{align}
 
 
 \begin{figure}[H]
@@ -161,7 +176,7 @@ Além disso, uma simplificação muito comum quando se trata de análise dinâmi
 
 \begin{figure}[H]
 	\centering
-	\caption{Perfil de rigidez do engrenamento correlacionado com razao de contato}
+	\caption{Perfil de rigidez do engrenamento correlacionado com razão de contato}
 	\label{fig:rig_engr}
 	
 	\begin{minipage}{0.7\textwidth}
@@ -173,18 +188,6 @@ Além disso, uma simplificação muito comum quando se trata de análise dinâmi
 	\end{minipage}
 \end{figure}
 
-\begin{equation} \label{eq:stiffness_K}
-	K = K_g + K_v(\Omega, t)
-\end{equation}
-
-\begin{equation} \label{eq:stiffness_Kv}
-	K_v(t) = 2K_a \sum_{s=1}^{\infty} \left( a^{(s)} \sin(sN_i\Omega_i t) + b^{(s)} \cos(sN_i\Omega_i t) \right)
-\end{equation}
-
-\begin{align} \label{eq:coeficientes_ab}
-	a^{(s)} &= -\frac{2}{s\pi} \sin[s\pi(c - 2p)] \sin(s\pi c) \nonumber \\
-	b^{(s)} &= -\frac{2}{s\pi} \cos[s\pi(c - 2p)] \sin(s\pi c)
-\end{align}
 
 
 \subsection{Perfil Completo de Rigidez de Engrenamento}
