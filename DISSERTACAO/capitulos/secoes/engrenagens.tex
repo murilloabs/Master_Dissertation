@@ -4,6 +4,48 @@ Engrenagens são componentes mecânicos com a função de transmissão de potên
 
 A transmissão de potência através de engrenagens é um dos métodos mais fundamentais em sistemas rotodinâmicos, garantindo acoplamento cinemático rigoroso entre eixos. A geometria do dente, predominantemente modelada pelo perfil evolvente, garante uma relação de transmissão constante mesmo sob pequenas variações radiais entre os centros das engrenagens \cite{shigley2011, norton2013}.
 
+\subsection{Geometria e Projeto de Engrenagens}
+
+O dimensionamento geométrico e cinemático de um par engrenado constitui a base para o desenvolvimento de modelos dinâmicos e vibratórios precisos. A principal premissa no projeto de engrenagens cilíndricas é a garantia de uma relação de transmissão de velocidade angular estritamente constante, princípio regido pela teoria do engrenamento conjugado \cite{norton2013}. Para assegurar que essa condição seja atendida mesmo diante de pequenas variações na distância entre eixos, adota-se universalmente o perfil de dente baseado na evolvente de círculo \cite{shigley2011}.
+
+A macrogeometria de um par engrenado — composto pelo pinhão (elemento motriz, índice 1) e pela coroa (elemento movido, índice 2) — é definida por um conjunto de parâmetros primários normatizados de fabricação. Estes incluem o número de dentes ($Z_1$ e $Z_2$), o módulo normal ($m_n$), o ângulo de pressão normal ($\alpha_n$) e o ângulo de hélice ($\beta_h$). Em engrenagens helicoidais, as propriedades geométricas devem ser projetadas do plano normal (plano gerador do dente) para o plano transversal (plano de rotação), de acordo com as relações mecânicas estabelecidas por \citeonline{shigley2011}:
+\begin{equation}
+	m_t = \frac{m_n}{\cos(\beta_h)}
+\end{equation}
+\begin{equation}
+	\tan(\alpha_t) = \frac{\tan(\alpha_n)}{\cos(\beta_h)}
+\end{equation}
+em que $m_t$ representa o módulo transversal e $\alpha_t$ denota o ângulo de pressão transversal. Para o caso particular de engrenagens cilíndricas de dentes retos, o ângulo de hélice é nulo ($\beta_h = 0$), o que simplifica as equações analíticas uma vez que $m_t = m_n$ e $\alpha_t = \alpha_n$.
+
+A partir dessas definições primárias, determinam-se os diâmetros primitivos de referência ($d_{p1}, d_{p2}$) e seus respectivos raios primitivos ($R_{p1}, R_{p2}$), os quais estabelecem a linha geométrica teórica de rolamento puro entre os componentes:
+\begin{equation}
+	d_p = m_t Z \quad \Rightarrow \quad R_p = \frac{m_t Z}{2}
+\end{equation}
+
+O perfil de evolvente propriamente dito é gerado mecanicamente a partir do cilindro de base, cujo raio de base ($R_b$) delimita geometricamente a menor região onde ocorre a ação efetiva de contato conjugado. O raio de base é calculado em função do raio primitivo e do ângulo de pressão transversal por \cite{norton2013}:
+\begin{equation}
+	R_b = R_p \cos(\alpha_t)
+\end{equation}
+
+Ao longo do flanco do dente, a geometria e a espessura angular variam continuamente. Matematicamente, a curva do perfil do dente é descrita pela função evolvente (ou função Involuta, $\text{inv}$), definida analiticamente como:
+\begin{equation}
+	\text{inv}(\alpha) = \tan(\alpha) - \alpha
+\end{equation}
+onde $\alpha$ representa o ângulo de pressão cinemático instantâneo calculado para um raio arbitrário do perfil do dente.
+
+Em condições operacionais reais, a distância real de operação entre os centros geométricos dos eixos ($a_w$) pode divergir da distância nominal de referência devido a folgas estruturais, dilatações térmicas ou desalinhamentos. Essa variação altera o ponto de tangência dos círculos de operação, definindo o ângulo de pressão de operação ($\alpha_w$) através da relação:
+\begin{equation}
+	\cos(\alpha_w) = \frac{R_{b1} + R_{b2}}{a_w}
+\end{equation}
+
+Uma propriedade crítica para a avaliação do desempenho dinâmico e da distribuição de tensões na malha de engrenamento é a razão de contato transversal ($\epsilon$), também tratada na modelagem dinâmica como $c_r$. Esta métrica adimensional quantifica o número médio de pares de dentes que compartilham o carregamento mecânico simultaneamente ao longo do segmento da linha de ação. Sua determinação analítica baseia-se na intersecção dos raios de adendo ($R_{a1}, R_{a2}$) com a linha de ação teórica, conforme expresso na Equação~(\ref{eq:razao_contato}):
+\begin{equation}
+	\label{eq:razao_contato}
+	c_r = \epsilon = \frac{\sqrt{R_{a1}^2 - R_{b1}^2} + \sqrt{R_{a2}^2 - R_{b2}^2} - a_w \sin(\alpha_w)}{\pi m_t \cos(\alpha_t)}
+\end{equation}
+
+Para o desenvolvimento de projetos robustos utilizando perfis de dentes padrão, a restrição geométrica exige que $1 < c_r < 2$. Sob a ótica cinemática, garantir que $c_r \ge 1$ impede a ocorrência de descontinuidades cinemáticas e choques na transmissão de torque. Sob o ponto de vista da dinâmica estrutural, o fato de $c_r$ não assumir um valor inteiro implica que o sistema alterna ciclicamente entre períodos de contato simples (um par de dentes suportando toda a carga elástica) e contato duplo (dois pares dividindo o esforço). Essa alternância geométrica induz uma flutuação periódica na rigidez global do engrenamento, estabelecendo o elo conceitual para a caracterização da rigidez variante no tempo (TVMS) detalhada nas seções subsequentes.
+
 \subsection{Geometria de Engrenagens}
 
 A geometria básica de uma malha de engrenamento (pinhão e coroa) é definida por parâmetros primários: o número de dentes ($Z$), o módulo ($m$), o ângulo de pressão normal ($\alpha_0$) e o ângulo de hélice ($\beta_h$). A partir destes, derivam-se parâmetros fundamentais como o diâmetro primitivo ($d_p = m Z$) e o raio de base ($R_b$), dado por:
