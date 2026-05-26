@@ -8,7 +8,7 @@ A transmissão de potência através de engrenagens é um dos métodos fundament
 
 O projeto de sistemas engrenados contempla o dimensionamento geométrico apropriado para garantir a relação de transmissão desejada (aumento ou redução de torque e velocidade angular)  assim como a integridade física e dinâmica deste sistema.  Com isso em mente, as engrenagens apresentam geometrias características para o pleno funcionamento do par engrenado. 
 
-Um par engrenado apresenta 
+Um par engrenado apresenta variáveis comuns às duas engrenagens que são o ângulo de pressão $\alpha$, módulo $m$, ângulo de hélice $\beta$ e espessura do dente $w$. 
 
 
 -------------------------------------------------------------
@@ -69,7 +69,7 @@ Uma métrica fundamental do engrenamento é a razão de contato ($\epsilon$), qu
 onde $a_w$ é a distância real de operação entre os centros geométricos e os índices 1 e 2 denotam o pinhão e a coroa, respectivamente.
 
 \section{Modelagem Dinâmica e Acoplamento de Rotores}
-A incorporação da dinâmica de engrenamentos na análise de rotores exige que os subsistemas individuais sejam acoplados nas matrizes globais (massa, amortecimento, rigidez e giroscópica).
+A incorporação da dinâmica de engrenamentos na análise de rotores exige que os subsistemas individuais sejam acoplados nas matrizes globais (massa, amortecimento, rigidez e giroscópica). \citeonline{ozguven1988} faz uma revisão dos primeiros modelos propostos para a modelagem dinâmica de sistema engrenados. Nesta seção será apresentado o modelo proposto por \citeonline{kaplan2015}
 
 Em sistemas tridimensionais, onde cada nó da malha possui seis graus de liberdade (translações $x, y, z$ e rotações $\theta_x, \theta_y, \theta_z$), a formulação das matrizes de acoplamento deve decompor a força de contato normal na linha de ação considerando a cinemática 3D \cite{stringer2008}. Isso forma submatrizes interconectadas ($K_{ii}, K_{jj}, K_{ji}, K_{ij}$) que relacionam vibrações laterais e torcionais através da projeção vetorial governada pelo ângulo de pressão ($\alpha$), o ângulo de hélice ($\beta_h$) e o ângulo de orientação espacial do acoplamento ($\phi$).
 
