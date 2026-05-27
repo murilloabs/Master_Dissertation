@@ -21,5 +21,20 @@ Dessa forma, com os modelos de cada componente é possível juntá-los e fazer a
 \end{figure}
 
 
+\begin{figure}[H]
+	\centering
+	\caption{Exemplo de caixa de  engrenagem}
+	\label{fig: ross ex}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/gearbox_lim.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: \citeonline{lim1991}}
+	\end{minipage}
+\end{figure}
+
+
 
 Com a modelagem feita, é possível realizar diversas análises do sistema rotativo, entre elas a obtenção de resposta de vibração no tempo, órbitas, desbalanceamento, função de reposta em frequência (FRF), mapa de velocidade crítica sem amortecimento (UCS), Diagrama de Campbell, análise estática, entre outras. Além disso, é possível executar casos de falhas como desalinhamento, trinca e roçamento. A modelagem e as análises são realizadas utilizando o Método dos Elementos Finitos (MEF). No caso, o ROSS utiliza 6 graus de liberdade (GDL) por nó, sendo 3 translações e 3 rotações. A resolução das equações de movimento pode ser feita a partir do Método de \citeonline{newmark} ou pela metodoligia de solução linear (LSIM) do módulo \textit{Scipy} do \textit{Python}.
