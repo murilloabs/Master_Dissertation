@@ -6,13 +6,18 @@ A transmissão de potência através de engrenagens é um dos métodos fundament
 
 \subsection{Projeto e Geometria de Engrenagens}
 
-O projeto de sistemas engrenados contempla o dimensionamento geométrico apropriado para garantir a relação de transmissão desejada (aumento ou redução de torque e velocidade angular)  assim como a integridade física e dinâmica deste sistema.  Com isso em mente, as engrenagens apresentam geometrias características para o pleno funcionamento do par engrenado.  O projeto de engrenagens é feito tendo como base normas internacionais como \citeonline{agma2004} e \citeonline{iso2019}.
+O projeto de sistemas engrenados contempla o dimensionamento geométrico apropriado para garantir a relação de transmissão desejada (aumento ou redução de torque e velocidade angular)  assim como a integridade física e dinâmica deste sistema.  Com isso em mente, as engrenagens apresentam geometrias características para o pleno funcionamento do par engrenado.  O projeto de engrenagens é feito tendo como base normas internacionais como \citeonline{agma2004} e \citeonline{iso2019}, orientação de livros textos como \citeonline{shigley2020, norton2020, mott2018} e \textit{handbook} como o de \citeonline{dudley2021}.
 
-\citeonline{dudley2021} apresenta que há dois tipos de engrenagens cilíndrica, as de dentes retos e dentes helicoidais. Tal diferença geométrica vem da inclinação dos dentes em relação ao eixo de rotação da engrenagem, este ângulo é denominado ângulo de hélice $\beta_h$. Este é um parâmetro crucial no projeto de engrenagens pois determina a aplicação e força nos eixos. Engrenagens de dentes helicoidais, apesar de conseguirem transmitir uma potência maior, adicionam uma força axial no eixo do rotor \cite{shigley2020}. A Figura \ref{fig:helix_gear} apresenta um esquemático de uma engrenagem de dentes helicoidais.
+Um par engrenado apresenta  relações comuns às duas engrenagens como ângulo de pressão $\alpha_0$, módulo $m$ e espessura da engrenagem  $w$. O módulo determina a proporcionalidade das engrenagens, razão entre  o diâmetro primitivo e o número de dentes $m = 2R_p/Z$. Já, o ângulo de pressão é obtido a partir da inclinação da Linha de Ação \textit{LOA} em relação à linha tangente dos diâmetros primitivos. A \textit{LOA} é a linha onde há aplicação de força e a transmissão de torque e potência entre as engrenagens \cite{norton2020}.  Além disso, para garantir a transmissão de potência e torque de maneira suave e contínua, os dentes das engrenagens tem um perfil característico, denominado perfil envolvente ou involuta, de acordo com a Equação \ref{eq:inv} \cite{shigley2020}. 
 
-Cada engrenagem, independente do seu tipo, apresenta quarto raios/diâmetros principais que são de raiz, de base, de adendo e o primitivo. O diâmetro de raiz é onde se inicia o dente, o base é onde se inicia o perfil envolvente do dente eo de adendo é o diâmetro máximo da engrenagem, ou seja, na extremidade do dente. Já o diâmetro primitivo determina onde haverá o contato de dentes num par engrenado. 
 
-Além desta variável, um par engrenado apresenta  outras  relações comuns às duas engrenagens como ângulo de pressão $\alpha$, módulo $m$ e espessura da engrenagem  $w$. O módulo determina a proporcionalidade das engrenagens, razão entre  o diâmetro primitivo e o número de dentes. Já, o ângulo de pressão é obtido a partir da inclinação da Linha de Ação \textit{LOA} em relação à linha tangente dos diâmetros primitivos. A \textit{LOA} é a linha onde há aplicação de força e a transmissão de torque e potência entre as engrenagens \cite{norton2020}. Além disso, para garantir a transmissão de potência e torque de maneira suave e contínua, os dentes das engrenagens tem um perfil característico, denominado perfil envolvente ou involuta, de acordo com a equação  $\mathrm{inv}(\alpha) = \tan \alpha - \alpha$ \cite{shigley2020}.
+\begin{equation}
+	\mathrm{inv}(\alpha) = \tan(\alpha) - \alpha
+	\label{eq:inv}
+\end{equation}
+
+\citeonline{dudley2021} apresenta que há dois tipos de engrenagens cilíndrica, as de dentes retos e dentes helicoidais. Tal diferença geométrica vem da inclinação dos dentes em relação ao eixo de rotação da engrenagem, este ângulo é denominado ângulo de hélice $\beta_h$. Este é um parâmetro crucial no projeto de engrenagens pois determina a direção de aplicação e força nos eixos. Engrenagens de dentes helicoidais, apesar de conseguirem transmitir uma potência maior, adicionam uma força axial no eixo do rotor \cite{shigley2020}. Além disso, como este ângulo decompõe as forças há dois planos principais de análise, o plano normal e o plano tangencial. Para a dinâmica do sistema, são utilizadas as variáveis referente ao plano normal \cite{tang2018}. 
+A Figura \ref{fig:helix_gear} apresenta um esquemático de uma engrenagem de dentes helicoidais, orientando também sobre o ângulo de pressão.
 
 \begin{figure}[H]
 	\centering
@@ -21,6 +26,23 @@ Além desta variável, um par engrenado apresenta  outras  relações comuns às
 	\label{fig:helix_gear}
 \end{figure}
 
+Cada engrenagem, independente do seu tipo, apresenta quarto diâmetros principais que são de raiz, de base, de adendo e o primitivo. O diâmetro de raiz $2R_r$ é onde se inicia o dente e o de adendo $2R_a$ é o diâmetro máximo da engrenagem, ou seja, na extremidade do dente. Já o diâmetro primitivo $2R_p$ determina onde haverá o contato de dentes num par engrenado, sendo assim uma das principais variáveis de uma engrenagem. Portanto, a partir da soma dos raios primitivos é possível determinar a distância entre centros das duas engrenagens $d_0 = R_{p1} + R_{p2}$.
+
+Os raios de base ($R_1$ e $R_2$), utilizados para os cálculos da implementação realizada neste trabalho, de acordo com \cite{yi2019}, representam os raios dos círculos geradores do perfil evolvente \cite{norton2020}. Eles relacionam-se com os raios primitivos através do ângulo de pressão normal inicial $\alpha_0$, conforme a Equação \ref{eq:raios_base}:
+
+\begin{equation}
+	R_1 = R_{p1} \cos \alpha_0, \quad R_2 = R_{p2} \cos \alpha_0
+	\label{eq:raios_base}
+\end{equation}
+
+Além disso, o passo base ($p_b$), define a distância entre dentes consecutivos medida ao longo do círculo de base, sendo expresso pela Equação \ref{eq:passo_base}:
+
+\begin{equation}
+	p_b = \frac{2 \pi R_1}{Z_1} = \pi m_n \cos \alpha_0
+	\label{eq:passo_base}
+\end{equation}
+
+Dessa forma é possível determinar a razão de contato $c_r$.
 
 
 
