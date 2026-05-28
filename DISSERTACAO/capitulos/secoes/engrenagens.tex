@@ -8,7 +8,11 @@ A transmissão de potência através de engrenagens é um dos métodos fundament
 
 O projeto de sistemas engrenados contempla o dimensionamento geométrico apropriado para garantir a relação de transmissão desejada (aumento ou redução de torque e velocidade angular)  assim como a integridade física e dinâmica deste sistema.  Com isso em mente, as engrenagens apresentam geometrias características para o pleno funcionamento do par engrenado.  O projeto de engrenagens é feito tendo como base normas internacionais como \citeonline{agma2004} e \citeonline{iso2019}.
 
-\citeonline{dudley2021} apresenta que há dois tipos de engrenagens cilíndrica, as de dentes retos e dentes helicoidais. Tal diferença geométrica vem da inclinação dos dentes em relação ao eixo de rotação da engrenagem, este ângulo é denominado ângulo de hélice $\beta_h$. Este é um parâmetro crucial no projeto de engrenagens pois determina a aplicação e força nos eixos. Engrenagens de dentes helicoidais, apesar de conseguirem transmitir uma potência maior, adicionam uma força axial no eixo do rotor \cite{shigley2020}. A Figura \ref{fig:helix_gear} apresenta um esquemático de uma engrenagem de dentes helicoidais. 
+\citeonline{dudley2021} apresenta que há dois tipos de engrenagens cilíndrica, as de dentes retos e dentes helicoidais. Tal diferença geométrica vem da inclinação dos dentes em relação ao eixo de rotação da engrenagem, este ângulo é denominado ângulo de hélice $\beta_h$. Este é um parâmetro crucial no projeto de engrenagens pois determina a aplicação e força nos eixos. Engrenagens de dentes helicoidais, apesar de conseguirem transmitir uma potência maior, adicionam uma força axial no eixo do rotor \cite{shigley2020}. A Figura \ref{fig:helix_gear} apresenta um esquemático de uma engrenagem de dentes helicoidais.
+
+Cada engrenagem, independente do seu tipo, apresenta quarto raios/diâmetros principais que são de raiz, de base, de adendo e o primitivo. O diâmetro de raiz é onde se inicia o dente, o base é onde se inicia o perfil envolvente do dente eo de adendo é o diâmetro máximo da engrenagem, ou seja, na extremidade do dente. Já o diâmetro primitivo determina onde haverá o contato de dentes num par engrenado. 
+
+Além desta variável, um par engrenado apresenta  outras  relações comuns às duas engrenagens como ângulo de pressão $\alpha$, módulo $m$ e espessura da engrenagem  $w$. O módulo determina a proporcionalidade das engrenagens, razão entre  o diâmetro primitivo e o número de dentes. Já, o ângulo de pressão é obtido a partir da inclinação da Linha de Ação \textit{LOA} em relação à linha tangente dos diâmetros primitivos. A \textit{LOA} é a linha onde há aplicação de força e a transmissão de torque e potência entre as engrenagens \cite{norton2020}. Além disso, para garantir a transmissão de potência e torque de maneira suave e contínua, os dentes das engrenagens tem um perfil característico, denominado perfil envolvente ou involuta, de acordo com a equação  $\mathrm{inv}(\alpha) = \tan \alpha - \alpha$ \cite{shigley2020}.
 
 \begin{figure}[H]
 	\centering
@@ -17,7 +21,9 @@ O projeto de sistemas engrenados contempla o dimensionamento geométrico apropri
 	\label{fig:helix_gear}
 \end{figure}
 
-Além desta variável, um par engrenado apresenta  outras  relações comuns às duas engrenagens como ângulo de pressão $\alpha$, módulo $m$ e espessura da engrenagem  $w$. O módulo determina a proporcionalidade das engrenagens , razão entre  o diâmetro primitivo e o número de dentes. Já, o ângulo de pressão é obtido a partir da inclinação da Linha de Ação \textit{LOA} em relação à linha tangente dos diâmetros primitivos. A \textit{LOA} é a linha onde há aplicação de força e a transmissão de torque e potência entre as engrenagens \cite{norton2020}. 
+
+
+
 
 
 -------------------------------------------------------------
@@ -142,7 +148,7 @@ Em sistemas tridimensionais, onde cada nó da malha possui seis graus de liberda
 
 Para realizar o movimento conjunto entre os rotores motor e movido, é necessário acoplar as matrizes dos dois rotores nos graus de liberdade correspondentes dos nós correspondentes, representados por $q_i$ e $q_j$. Dessa maneira, a equação do movimento pode ser modificada para Eq.~\ref{Eq:mov-alt}, já contemplando a massa, rigidez e amortecimento dos dois rotores. A Fig.~\ref{fig:mesh_repr} representa esquematicamente o engrenamento, mostrando que a rigidez de acoplamento das engrenagens $K_{mesh}$ é na direção da linha de ação e não na linha que liga os centros das duas engrenagens. A matriz de acoplamento da rigidez $[K_{mesh}]$ pode ser escrita de acordo com Eq.~\ref{Eq:k_mesh} \cite{stringer2008}. A Fig.~\ref{fig:gear_repr} apresenta a representação do par engrenado em elementos finitos. As matrizes $K_{ii}$, $K_{ij}$, $K_{ji}$ e $K_{jj}$ são apresentadas na Eq.~\ref{eq:k_matrices} de acordo com \citeonline{stringer2008}.
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{figuras/gear_mesh_spring.png}
 	\caption{Reapresentação do Engrenamento \cite{kaplan2012}}
@@ -233,7 +239,7 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 
 As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ representam os índices dos nós onde as engrenagens estão posicionadas. O parâmetro $\varphi$ representa o ângulo de orientação entre as engrenagens, $\beta_h$ é o ângulo de hélice das engrenagens e $\alpha_n$ representa o ângulo de pressão normal do par engrenado. Os ângulos $\phi_x$, $\phi_y$ e $\phi_z$ são de acordo com a Fig.~\ref{fig:force_component}, que representa a decomposição das forças no ponto de contato das engrenagens \cite{kaplan_paper_2013}.
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{figuras/force_component.png}
 	\caption{Decomposição das forças no ponto de contato das engrenagens.}
