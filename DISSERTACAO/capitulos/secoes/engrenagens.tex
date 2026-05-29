@@ -1,8 +1,6 @@
 \section{Engrenagens}
 
-Engrenagens são componentes mecânicos com a função de transmissão de potência, torque e velocidade.
-
-A transmissão de potência através de engrenagens é um dos métodos fundamentais em sistemas rotativos, garantindo acoplamento cinemático entre eixos. A geometria do dente modelada pelo perfil de involuta, garante que a relação de transmissão de potência seja feita da melhor maneira possível \cite{shigley2020, norton2020, mott2018}.
+Engrenagens são componentes mecânicos com a função de transmissão de potência, torque e velocidade entre eixos conectados. Este é um dos métodos fundamentais em sistemas rotativos, garantindo acoplamento cinemático entre eixos \cite{shigley2020, norton2020}. A seguir será apresentado sobre as principais variáveis do projeto e geometria de engrenagens pertinentes para a análise dinâmica e implementação realizada neste trabalho. Além disso, será discutido sobre a rigidez associada ao engrenamento e sua variação no tempo. Posteriormente, será apresentado a formulação da folga de \textit{backlash} dinâmica, objeto de estudo deste trabalho.
 
 \subsection{Projeto e Geometria de Engrenagens}
 
@@ -17,18 +15,39 @@ Um par engrenado apresenta  relações comuns às duas engrenagens como ângulo 
 \end{equation}
 
 \citeonline{dudley2021} apresenta que há dois tipos de engrenagens cilíndrica, as de dentes retos e dentes helicoidais. Tal diferença geométrica vem da inclinação dos dentes em relação ao eixo de rotação da engrenagem, este ângulo é denominado ângulo de hélice $\beta_h$. Este é um parâmetro crucial no projeto de engrenagens pois determina a direção de aplicação e força nos eixos. Engrenagens de dentes helicoidais, apesar de conseguirem transmitir uma potência maior, adicionam uma força axial no eixo do rotor \cite{shigley2020}. Além disso, como este ângulo decompõe as forças há dois planos principais de análise, o plano normal e o plano tangencial. Para a dinâmica do sistema, são utilizadas as variáveis referente ao plano normal \cite{tang2018}. 
-A Figura \ref{fig:helix_gear} apresenta um esquemático de uma engrenagem de dentes helicoidais, orientando também sobre o ângulo de pressão.
+A Figura \ref{fig:gear_esquema} apresenta um esquemático de uma engrenagem de dentes helicoidais, orientando também sobre o ângulo de pressão.
+
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\linewidth]{figuras/filler_jacare_faso.png}
-	\caption{Representação esquemática de engrenagem de dente helicoidal.}
-	\label{fig:helix_gear}
+	\caption{Representação esquemática de uma engrenagem.}
+	\label{fig:gear_esquema}
+	
+	\begin{minipage}{0.7\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/gear_esquema.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Adaptado de \citeonline{rao1998}}
+	\end{minipage}
 \end{figure}
 
-Cada engrenagem, independente do seu tipo, apresenta quarto diâmetros principais que são de raiz, de base, de adendo e o primitivo. O diâmetro de raiz $2R_r$ é onde se inicia o dente e o de adendo $2R_a$ é o diâmetro máximo da engrenagem, ou seja, na extremidade do dente. Já o diâmetro primitivo $2R_p$ determina onde haverá o contato de dentes num par engrenado, sendo assim uma das principais variáveis de uma engrenagem. Portanto, a partir da soma dos raios primitivos é possível determinar a distância entre centros das duas engrenagens $d_0 = R_{p1} + R_{p2}$.
 
-Os raios de base ($R_1$ e $R_2$), utilizados para os cálculos da implementação realizada neste trabalho, de acordo com \cite{yi2019}, representam os raios dos círculos geradores do perfil evolvente \cite{norton2020}. Eles relacionam-se com os raios primitivos através do ângulo de pressão normal inicial $\alpha_0$, conforme a Equação \ref{eq:raios_base}:
+Cada engrenagem, independente do seu tipo, apresenta quarto diâmetros principais que são de raiz, de base, de adendo e o primitivo. O diâmetro de raiz $2R_r$ é onde se inicia o dente. O raio de adendo ($R_a$) é o diâmetro máximo da engrenagem, ou seja, na extremidade do dente. Além disso, é necessário para o cálculo da razão de contato $c_r$ (Equação \ref{eq:razao_contato}). Adotando-se o perfil padrão de dente inteiro sem modificação geométrica, recomendado por \citeonline{dudley2021} e normalizado pela AGMA \cite{agma2004}, o adendo é tomado como igual ao módulo normal $m$, conforme apresentado por \citeonline{shigley2020}, resultando na Equação \ref{eq:raios_adendo}.
+
+\begin{equation}
+	R_{a1} = R_{p1} + m, \quad R_{a2} = R_{p2} + m
+	\label{eq:raios_adendo}
+\end{equation}
+
+Já o diâmetro primitivo $2R_p$ determina onde haverá o contato de dentes num par engrenado, sendo assim uma das principais variáveis de uma engrenagem. Portanto, a partir da soma dos raios primitivos é possível determinar a distância entre centros das duas engrenagens como mostrado na Equação \ref{eq:dist_cent}.
+
+\begin{equation}
+	d_0 = R_{p1} + R_{p2}
+	\label{eq:dist_cent}
+\end{equation}
+
+Os raios de base ($R_1$ e $R_2$), utilizados para os cálculos da implementação realizada neste trabalho, de acordo com \cite{yi2019}, representam os raios dos círculos geradores do perfil evolvente \cite{norton2020}. Eles relacionam-se com os raios primitivos através do ângulo de pressão normal inicial $\alpha_0$, conforme a Equação \ref{eq:raios_base}.
 
 \begin{equation}
 	R_1 = R_{p1} \cos \alpha_0, \quad R_2 = R_{p2} \cos \alpha_0
@@ -38,158 +57,38 @@ Os raios de base ($R_1$ e $R_2$), utilizados para os cálculos da implementaçã
 Além disso, o passo base ($p_b$), define a distância entre dentes consecutivos medida ao longo do círculo de base, sendo expresso pela Equação \ref{eq:passo_base}:
 
 \begin{equation}
-	p_b = \frac{2 \pi R_1}{Z_1} = \pi m_n \cos \alpha_0
+	p_b = \frac{2 \pi R_1}{Z_1} = \pi m \cos \alpha_0
 	\label{eq:passo_base}
 \end{equation}
 
-Dessa forma é possível determinar a razão de contato $c_r$.
+Dessa forma é possível determinar a razão de contato $c_r$ que representa o número médio de pares de dentes em contato, ou seja que compartilham o carregamento ao longo da Linha de Ação \textit{LOA}. A Equação \ref{eq:razao_contato} representa a su formulação. 
 
-
-
-
-
--------------------------------------------------------------
-
-
-\subsection{Projeto e Parâmetros Geométricos Fundamentais}
-
-Para a formulação do acoplamento dinâmico e para a determinação da folga de \textit{backlash} variante no tempo, é fundamental estabelecer as propriedades geométricas estáticas e de projeto que definem as variáveis cinemáticas do par engrenado. O perfil geométrico dos dentes baseia-se na teoria da evolvente, cujas características construtivas e cinemáticas são detalhadas por \citeonline{dudley2021} e \citeonline{norton2020}. Essas propriedades determinam a condição nominal do sistema antes da introdução dos deslocamentos dinâmicos dos rotores \cite{shigley2020}.
-
-Os parâmetros primários de projeto para engrenagens cilíndricas helicoidais ou retas seguem as padronizações e proporções de dentes normalizadas por comitês internacionais, como a ISO \cite{iso2019} e a AGMA \cite{agma2004}. Esses parâmetros compreendem o módulo normal ($m_n$), o número de dentes de cada engrenagem ($Z_1$ e $Z_2$), a largura dos dentes ($w$), o ângulo de pressão normal inicial ($\alpha_0$) e o ângulo de hélice ($\beta_h$). A partir dessas definições, os raios primitivos nominais ($R_{p1}$ e $R_{p2}$) podem ser expressos de acordo com a Eq.~\ref{eq:raios_primitivos}:
-
-\begin{equation}
-	R_{p1} = \frac{m_n Z_1}{2 \cos \beta_h}, \quad R_{p2} = \frac{m_n Z_2}{2 \cos \beta_h}
-	\label{eq:raios_primitivos}
-\end{equation}
-
-A distância entre centros nominal ($d_0$), que atua como referência geométrica nas equações do movimento (Eq.~\ref{eq:distancia_centro} e Eq.~\ref{eq:alpha}), é obtida diretamente pela soma dos raios primitivos nominais, conforme apresentado na Eq.~\ref{eq:d0_nominal}:
-
-\begin{equation}
-	d_0 = R_{p1} + R_{p2} = \frac{m_n (Z_1 + Z_2)}{2 \cos \beta_h}
-	\label{eq:d0_nominal}
-\end{equation}
-
-O \textbf{módulo normal ($m_n$)} é o parâmetro dimensional que quantifica a escala e o tamanho dos dentes das engrenagens, sendo diretamente proporcional à espessura e à altura do perfil. Sob a ótica da dinâmica estrutural, o módulo define a capacidade de carga geométrica e altera as rigidezes elementares à flexão ($k_b$), ao cisalhamento ($k_s$) e à compressão ($k_a$). Um aumento no módulo normal resulta em dentes mais robustos, o que eleva a amplitude da rigidez média de engrenamento ($K_m$) e desloca as frequências naturais do sistema acoplado para patamares mais elevados \cite{shigley2020}.
-
-O \textbf{ângulo de pressão normal inicial ($\alpha_0$)} governa a inclinação da Linha de Ação (\textit{LOA}) em relação à tangente comum aos círculos primitivos. Ele define a direção vetorial ao longo da qual a força normal de contato e as componentes de rigidez da malha interagem. Fisicamente, o ângulo de pressão gerencia a decomposição de forças no engrenamento: ângulos maiores reduzem o risco de interferência geométrica na raiz do dente e aumentam a capacidade de carga superficial, porém induzem maiores forças radiais espúrias nos mancais do rotor. Na análise dinâmica não-linear, $\alpha_0$ dita a sensibilidade da folga cinemática complementar ($\Delta b$), uma vez que pequenas variações na distância entre centros ($d$) modulam o ângulo instantâneo $\alpha$ através de uma relação cossidirecional expressa na Eq.~\ref{eq:alpha} \cite{norton2020}.
-
-Os raios de base ($R_1$ e $R_2$), utilizados para o cálculo do ângulo de pressão instantâneo $\alpha$ na Eq.~\ref{eq:alpha} e do coeficiente de amortecimento $c_m$ na Eq.~\ref{eq:cm}, representam os raios dos círculos geradores da evolvente \cite{norton2020}. Eles relacionam-se com os raios primitivos através do ângulo de pressão normal inicial $\alpha_0$, conforme a Eq.~\ref{eq:raios_base}:
-
-\begin{equation}
-	R_1 = R_{p1} \cos \alpha_0, \quad R_2 = R_{p2} \cos \alpha_0
-	\label{eq:raios_base}
-\end{equation}
-
-Em engrenagens helicoidais, o \textbf{ângulo de hélice ($\beta_h$)} introduz uma inclinação longitudinal aos dentes em relação ao eixo de rotação. Esse parâmetro é o responsável direto pelo acoplamento tridimensional de matrizes ($K_{ii}, K_{ij}, K_{ji}, K_{jj}$), acionando o vínculo mecânico entre os graus de liberdade translacionais laterais ($x, y$), transversais/axiais ($z$) e torcionais ($\theta$). Conforme demonstrado matematicamente através das projeções angulares $\phi_x, \phi_y$ e $\phi_z$, a presença de $\beta_h$ gera uma força axial reconduzida aos eixos, modificando o amortecimento giroscópico ($\Omega [G]$) e a estabilidade dinâmica global do rotor sob carregamento transiente \cite{dudley2021}.
-
-Os raios de adendo ($R_{a1}$ e $R_{a2}$), necessários para a quantificação da razão de contato instantânea $c_r$ (Eq.~\ref{eq:cr}), delimitam a transição para o topo do dente. Adotando-se o perfil padrão de dente inteiro (\textit{full-depth}) sem modificação geométrica, recomendado por \citeonline{dudley2021} e normalizado pela AGMA \cite{agma2004}, o adendo é tomado como igual ao módulo normal $m_n$, resultando na Eq.~\ref{eq:raios_adendo}:
-
-\begin{equation}
-	R_{a1} = R_{p1} + m_n, \quad R_{a2} = R_{p2} + m_n
-	\label{eq:raios_adendo}
-\end{equation}
-
-O passo base ($p_b$), utilizado como denominador na determinação de $c_r$ (Eq.~\ref{eq:cr}), define a distância entre dentes consecutivos medida ao longo do círculo de base, sendo expresso pela Eq.~\ref{eq:passo_base}:
-
-\begin{equation}
-	p_b = \frac{2 \pi R_1}{Z_1} = \pi m_n \cos \alpha_0
-	\label{eq:passo_base}
-\end{equation}
-
-A \textbf{razão de contato ($c_r$)} representa o número médio de pares de dentes que compartilham a carga simultaneamente durante o ciclo de engrenamento. Em engrenagens de perfil convencional, onde tipicamente $1 < c_r < 2$, esse parâmetro dita a periodicidade e a forma do perfil de rigidez variante no tempo (\textit{TVMS}). O valor de $c_r$ estabelece as frações temporais em que o sistema alterna entre regimes de contato simples (menor rigidez) e contato duplo (maior rigidez), atuando como o principal gatilho interno para a excitação paramétrica do sistema de rotores. Uma razão de contato mais elevada, viabilizada pelo ajuste do ângulo de hélice ou pelo aumento do número de dentes, suaviza as transições de rigidez da malha, mitigando as amplitudes de vibração e atenuando os impactos severos decorrentes da perda de contato na folga de \textit{backlash} \cite{yi2019, kaplan2015}.
-
-Como observado na modelagem dinâmica baseada em \citeonline{yi2019}, qualquer vibração ou deslocamento lateral nos nós das engrenagens ($x_i, y_i$) altera a distância entre centros instantânea $d$ (Eq.~\ref{eq:distancia_centro}), forçando o par a operar fora de sua condição nominal $d_0$. Consequentemente, o ângulo de pressão operacional $\alpha$ (Eq.~\ref{eq:alpha}) varia dinamicamente a cada passo de tempo. Essa flutuação altera diretamente o valor da função involuta ($\mathrm{inv}(\alpha) = \tan \alpha - \alpha$), governando a parcela dinâmica do \textit{backlash} ($\Delta b$) descrita na Eq.~\ref{eq:delta_b}. Portanto, as constantes e parâmetros estáticos detalhados nesta subseção fornecem as condições de contorno geométricas necessárias para resolver o comportamento não-linear do engrenamento.
-
-
------------------------------------------------------
-
-
-O dimensionamento geométrico e projeto de um par engrenado é de fundamental importância para o desenvolvimento de modelos dinâmicos e vibratórios precisos. A principal premissa no projeto de engrenagens cilíndricas é a garantia de uma relação de transmissão de velocidade angular estritamente constante, princípio regido pela teoria do engrenamento conjugado \cite{norton2020}. Para assegurar que essa condição seja atendida mesmo diante de pequenas variações na distância entre eixos, adota-se universalmente o perfil de dente baseado na evolvente de círculo \cite{shigley2020}.
-
-A geometria de um par engrenado — composto pelo pinhão (elemento motriz, índice 1) e pela coroa (elemento movido, índice 2) — é definida por um conjunto de parâmetros primários normatizados de fabricação. Estes incluem o número de dentes ($Z_1$ e $Z_2$), o módulo normal ($m_n$), o ângulo de pressão normal ($\alpha_n$) e o ângulo de hélice ($\beta_h$). Em engrenagens helicoidais, as propriedades geométricas devem ser projetadas do plano normal (plano gerador do dente) para o plano transversal (plano de rotação), de acordo com as relações mecânicas estabelecidas por \citeonline{shigley2011}:
-\begin{equation}
-	m_t = \frac{m_n}{\cos(\beta_h)}
-\end{equation}
-\begin{equation}
-	\tan(\alpha_t) = \frac{\tan(\alpha_n)}{\cos(\beta_h)}
-\end{equation}
-em que $m_t$ representa o módulo transversal e $\alpha_t$ denota o ângulo de pressão transversal. Para o caso particular de engrenagens cilíndricas de dentes retos, o ângulo de hélice é nulo ($\beta_h = 0$), o que simplifica as equações analíticas uma vez que $m_t = m_n$ e $\alpha_t = \alpha_n$.
-
-A partir dessas definições primárias, determinam-se os diâmetros primitivos de referência ($d_{p1}, d_{p2}$) e seus respectivos raios primitivos ($R_{p1}, R_{p2}$), os quais estabelecem a linha geométrica teórica de rolamento puro entre os componentes:
-\begin{equation}
-	d_p = m_t Z \quad \Rightarrow \quad R_p = \frac{m_t Z}{2}
-\end{equation}
-
-O perfil de evolvente propriamente dito é gerado mecanicamente a partir do cilindro de base, cujo raio de base ($R_b$) delimita geometricamente a menor região onde ocorre a ação efetiva de contato conjugado. O raio de base é calculado em função do raio primitivo e do ângulo de pressão transversal por \cite{norton2013}:
-\begin{equation}
-	R_b = R_p \cos(\alpha_t)
-\end{equation}
-
-Ao longo do flanco do dente, a geometria e a espessura angular variam continuamente. Matematicamente, a curva do perfil do dente é descrita pela função evolvente (ou função Involuta, $\text{inv}$), definida analiticamente como:
-\begin{equation}
-	\text{inv}(\alpha) = \tan(\alpha) - \alpha
-\end{equation}
-onde $\alpha$ representa o ângulo de pressão cinemático instantâneo calculado para um raio arbitrário do perfil do dente.
-
-Em condições operacionais reais, a distância real de operação entre os centros geométricos dos eixos ($a_w$) pode divergir da distância nominal de referência devido a folgas estruturais, dilatações térmicas ou desalinhamentos. Essa variação altera o ponto de tangência dos círculos de operação, definindo o ângulo de pressão de operação ($\alpha_w$) através da relação:
-\begin{equation}
-	\cos(\alpha_w) = \frac{R_{b1} + R_{b2}}{a_w}
-\end{equation}
-
-Uma propriedade crítica para a avaliação do desempenho dinâmico e da distribuição de tensões na malha de engrenamento é a razão de contato transversal ($\epsilon$), também tratada na modelagem dinâmica como $c_r$. Esta métrica adimensional quantifica o número médio de pares de dentes que compartilham o carregamento mecânico simultaneamente ao longo do segmento da linha de ação. Sua determinação analítica baseia-se na intersecção dos raios de adendo ($R_{a1}, R_{a2}$) com a linha de ação teórica, conforme expresso na Equação~(\ref{eq:razao_contato}):
 \begin{equation}
 	\label{eq:razao_contato}
-	c_r = \epsilon = \frac{\sqrt{R_{a1}^2 - R_{b1}^2} + \sqrt{R_{a2}^2 - R_{b2}^2} - a_w \sin(\alpha_w)}{\pi m_t \cos(\alpha_t)}
+	c_r = \frac{[\sqrt{R_{a1}^2 - R_1^2} + \sqrt{R_{a2}^2 - R_2^2} - d_0 \sin \alpha_0]}{p_b}
 \end{equation}
 
-Para o desenvolvimento de projetos robustos utilizando perfis de dentes padrão, a restrição geométrica exige que $1 < c_r < 2$. Sob a ótica cinemática, garantir que $c_r \ge 1$ impede a ocorrência de descontinuidades cinemáticas e choques na transmissão de torque. Sob o ponto de vista da dinâmica estrutural, o fato de $c_r$ não assumir um valor inteiro implica que o sistema alterna ciclicamente entre períodos de contato simples (um par de dentes suportando toda a carga elástica) e contato duplo (dois pares dividindo o esforço). Essa alternância geométrica induz uma flutuação periódica na rigidez global do engrenamento, estabelecendo o elo conceitual para a caracterização da rigidez variante no tempo (TVMS) detalhada nas seções subsequentes.
+No projeto de engrenagens é recomentada que o valor de $c_r$ varie entre $1$ e $2$, podendo em certos casos ser maior que o limite superior. Garantir que $c_r \ge 1$ impede a ocorrência de descontinuidades na transmissão de torque e potência além de prevenir choques abruptos entre dentes \cite{shigley2020}. Entretanto, quanto maior o valor de $c_r$ mais rígido se torna o sistema, sendo exigido uma energia maior para seu movimento. 
 
-\subsection{Geometria de Engrenagens}
-
-A geometria básica de uma malha de engrenamento (pinhão e coroa) é definida por parâmetros primários: o número de dentes ($Z$), o módulo ($m$), o ângulo de pressão normal ($\alpha_0$) e o ângulo de hélice ($\beta_h$). A partir destes, derivam-se parâmetros fundamentais como o diâmetro primitivo ($d_p = m Z$) e o raio de base ($R_b$), dado por:
-\begin{equation}
-	R_b = R_p \cos(\alpha_0)
-\end{equation}
-onde $R_p = d_p / 2$. O contato mecânico ocorre ao longo da linha de ação, e a curva do perfil do dente é descrita pela função evolvente (involuta), matematicamente definida por:
-\begin{equation}
-	\text{inv}(\alpha) = \tan(\alpha) - \alpha
-\end{equation}
-Uma métrica fundamental do engrenamento é a razão de contato ($\epsilon$), que expressa o número médio de pares de dentes que suportam a carga em um dado instante de tempo. Ela é calculada através da intersecção dos diâmetros de adendo ($R_a$) e a linha de ação:
-\begin{equation}
-	\epsilon = \frac{\sqrt{R_{a1}^2 - R_{b1}^2} + \sqrt{R_{a2}^2 - R_{b2}^2} - a_w \sin(\alpha)}{\pi m \cos(\alpha_0)}
-\end{equation}
-onde $a_w$ é a distância real de operação entre os centros geométricos e os índices 1 e 2 denotam o pinhão e a coroa, respectivamente.
+ Sob o ponto de vista da dinâmica estrutural do sistema, o fato de $c_r$ não assumir um valor inteiro implica que o sistema alterna ciclicamente entre períodos de contato simples (um par de dentes) e contato duplo (dois pares de dentes). Essa alternância geométrica induz uma variação periódica na rigidez global do engrenamento. Portanto, desta forma, a rigidez associada ao engrenamento pode ser classificada como variante no tempo \textit{TVMS}, como será retratado em breve.
+ 
 
 \section{Modelagem Dinâmica e Acoplamento de Rotores}
 A incorporação da dinâmica de engrenamentos na análise de rotores exige que os subsistemas individuais sejam acoplados nas matrizes globais (massa, amortecimento, rigidez e giroscópica). \citeonline{ozguven1988} faz uma revisão dos primeiros modelos propostos para a modelagem dinâmica de sistema engrenados. Nesta seção será apresentado o modelo proposto por \citeonline{kaplan2015}
 
-Em sistemas tridimensionais, onde cada nó da malha possui seis graus de liberdade (translações $x, y, z$ e rotações $\theta_x, \theta_y, \theta_z$), a formulação das matrizes de acoplamento deve decompor a força de contato normal na linha de ação considerando a cinemática 3D \cite{stringer2008}. Isso forma submatrizes interconectadas ($K_{ii}, K_{jj}, K_{ji}, K_{ij}$) que relacionam vibrações laterais e torcionais através da projeção vetorial governada pelo ângulo de pressão ($\alpha$), o ângulo de hélice ($\beta_h$) e o ângulo de orientação espacial do acoplamento ($\phi$).
+Em sistemas tridimensionais, onde cada nó da malha possui seis graus de liberdade (translações $x, y, z$ e rotações $\theta_x, \theta_y, \theta_z$), a formulação das matrizes de acoplamento deve decompor a força de contato normal na linha de ação considerando a cinemática 3D \cite{stringer2008}. Isso forma submatrizes interconectadas ($K_{ii}, K_{jj}, K_{ji}, K_{ij}$) que relacionam vibrações laterais e torcionais através da projeção vetorial governada pelo ângulo de pressão, o ângulo de hélice, e o ângulo de orientação espacial do acoplamento.
 
 
 \subsection{Rigidez de Acoplamento de Rotores Engrenados}
 
-Para realizar o movimento conjunto entre os rotores motor e movido, é necessário acoplar as matrizes dos dois rotores nos graus de liberdade correspondentes dos nós correspondentes, representados por $q_i$ e $q_j$. Dessa maneira, a equação do movimento pode ser modificada para Eq.~\ref{Eq:mov-alt}, já contemplando a massa, rigidez e amortecimento dos dois rotores. A Fig.~\ref{fig:mesh_repr} representa esquematicamente o engrenamento, mostrando que a rigidez de acoplamento das engrenagens $K_{mesh}$ é na direção da linha de ação e não na linha que liga os centros das duas engrenagens. A matriz de acoplamento da rigidez $[K_{mesh}]$ pode ser escrita de acordo com Eq.~\ref{Eq:k_mesh} \cite{stringer2008}. A Fig.~\ref{fig:gear_repr} apresenta a representação do par engrenado em elementos finitos. As matrizes $K_{ii}$, $K_{ij}$, $K_{ji}$ e $K_{jj}$ são apresentadas na Eq.~\ref{eq:k_matrices} de acordo com \citeonline{stringer2008}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\linewidth]{figuras/gear_mesh_spring.png}
-	\caption{Reapresentação do Engrenamento \cite{kaplan2012}}
-	\label{fig:mesh_repr}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.6\linewidth]{figuras/gear_repr.png}
-	\caption{Representação do par engrenado em elementos finitos \cite{stringer2008}}
-	\label{fig:gear_repr}
-\end{figure}
-
+Para realizar o movimento conjunto entre os rotores motor e movido, é necessário acoplar as matrizes dos dois rotores nos graus de liberdade correspondentes dos nós correspondentes, representados por $q_i$ e $q_j$. Dessa maneira, a equação do movimento pode ser modificada para Equação \ref{Eq:mov-alt}, já contemplando a massa, rigidez e amortecimento dos dois rotores. A Figura \ref{fig:mesh_repr} representa esquematicamente o engrenamento, mostrando que a rigidez de acoplamento das engrenagens $K_{mesh}$ é na direção da linha de ação e não na linha que liga os centros das duas engrenagens. A matriz de acoplamento da rigidez $[K_{mesh}]$ pode ser escrita de acordo com Equação \ref{Eq:k_mesh} \cite{stringer2008}. A Figura \ref{fig:gear_repr} apresenta a representação do par engrenado em elementos finitos. As matrizes $K_{ii}$, $K_{ij}$, $K_{ji}$ e $K_{jj}$ são apresentadas na Equação \ref{eq:k_matrices} de acordo com \citeonline{stringer2008}.
 
 
 \begin{equation}
 	[M]\{\ddot{q}(t)\}+([C]+\Omega [G])\{\dot{q}(t)\}+([K] + [K_{mesh}])\{q(t)\}=\{F(t)\}
 	\label{Eq:mov-alt}
 \end{equation}
+
 \begin{equation}
 	[K_{mesh}]
 	\begin{Bmatrix}
@@ -207,6 +106,36 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 	\end{Bmatrix}
 	\label{Eq:k_mesh}
 \end{equation}
+
+
+\begin{figure}[H]
+	\centering
+	\caption{Reapresentação do Engrenamento}
+	\label{fig:mesh_repr}
+	
+	\begin{minipage}{0.8\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/gear_mesh_spring.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: \citeonline{kaplan2012}}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Representação do par engrenado em elementos finitos}
+	\label{fig:gear_repr}
+	
+	\begin{minipage}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/gear_repr.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: \citeonline{stringer2008}}
+	\end{minipage}
+\end{figure}
+
 
 \begin{equation}
 	\label{eq:k_matrices} % Adiciona um rótulo para referenciar o conjunto de equações
@@ -261,12 +190,21 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 
 As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ representam os índices dos nós onde as engrenagens estão posicionadas. O parâmetro $\varphi$ representa o ângulo de orientação entre as engrenagens, $\beta_h$ é o ângulo de hélice das engrenagens e $\alpha_n$ representa o ângulo de pressão normal do par engrenado. Os ângulos $\phi_x$, $\phi_y$ e $\phi_z$ são de acordo com a Fig.~\ref{fig:force_component}, que representa a decomposição das forças no ponto de contato das engrenagens \cite{kaplan_paper_2013}.
 
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\linewidth]{figuras/force_component.png}
 	\caption{Decomposição das forças no ponto de contato das engrenagens.}
 	\label{fig:force_component}
+	
+	\begin{minipage}{0.9\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/force_component.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: \citeonline{kaplan2012}}
+	\end{minipage}
 \end{figure}
+
 
 O parâmetro $K_m$ representa a rigidez do par engrenado ao longo da linha de ação. \citeonline{kaplan_paper_2013} apresenta uma metodologia de cálculo com base em parâmetros geométricos e do material das engrenagens, apresentada na Eq.~\ref{Eq:Kg}. Neste caso, é assumida a hipótese de que a rigidez dos dentes é mais significativa do que a rigidez do corpo da engrenagem.
 
