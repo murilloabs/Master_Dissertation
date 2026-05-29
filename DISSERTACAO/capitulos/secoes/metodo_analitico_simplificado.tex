@@ -1,7 +1,6 @@
 \section{Método Analítico Simplificado}
 
 Para compreender melhor a dinâmica de sistema engrenados considerando a folga de \textit{backlash}, foi desenvolvido um modelo analítico simplificado. Este modelo, assim como apresentado na Figura \ref{fig:modelo_simplificado}, mostra as duas engrenagens $(i = 1,2)$ suportadas por seus respectivos mancais de rigidez $K$ nas direções $x$ e $y$ e conectadas por um mola de rigidez $K_m$ ao longo da Linha de Ação da engrenagem (\textit{Line of Action - LOA}). Cada engrenagem apresenta uma massa $m$, um raio de base $R_1 = R_2 = R$ e momento polar de inércia $J_1 = J_2 = J$.
-
 \begin{figure}[H]
 	\centering
 	\caption{Modelo analítico simplificado}
@@ -19,14 +18,12 @@ Para compreender melhor a dinâmica de sistema engrenados considerando a folga d
 Nesta formulação é feita a alteração dos 6 graus de liberdade $x_1, y_1, \theta_1, x_2, y_2, \theta_2$ para 3 graus de liberdade $\xi_{rel}, \eta_{rel}, u_{rel}$. Onde $\xi_{rel}$ representa a translação relativa perpendicular à linha de ação \textit{LOA}, $\eta_{rel}$ representa a translação relativa perpendicular à \textit{LOA} e $u_{rel}$ representa o deslocamento linear relativo ao longo da \textit{LOA} associado à torção das engrenagens. 
 
 Com isso em mente, define-se as coordenadas de $\xi_i, \eta_i, u_i$ para cada engrenagem $i = 1, 2$, assim como mostrado nas equações \ref{eq:coord_transform} sendo $\alpha$ o ângulo de pressão do conjunto engrenado.
-
 \begin{equation}
 	\xi_i = x_i \cos\alpha - y_i \sin\alpha, \quad \eta_i = x_i \sin\alpha + y_i \cos\alpha, \quad u_i = R_i \theta_i \quad (i = 1, 2)
 	\label{eq:coord_transform}
 \end{equation}
 
 A definição das coordenadas relativas é apresentada na Equação \ref{eq:coord_relativas}.
-
 \begin{equation}
 	\begin{aligned}
 		\xi_{rel} &= \xi_1 - \xi_2 && \text{(Translação relativa perpendicular à \textit{LOA})} \\
@@ -37,7 +34,6 @@ A definição das coordenadas relativas é apresentada na Equação \ref{eq:coor
 \end{equation}
 
 Para se obter as equações do movimento para as coordenadas relativas primeiro escreve-se as equações do movimento para as coordenadas $\xi_i, \eta_i, u_i (i = 1, 2)$ conforme apresentado pela Equação \ref{eq:sistema_movimento_fundamental}. Para as coordenadas $\xi_i$ não há força de engrenamento perpendicular à \textit{LOA}. Já para as coordenadas de $\eta_i$ existe a ação e reação da força de engrenamento paralela à \textit{LOA}. Se tratando das coordenadas $u_i$ a força de engrenamento é traduzida em torque e por isso é multiplicada pelo valor do raio de base.  
-
 \begin{equation}
 	\begin{aligned}
 		m\ddot{\eta}_1 + K\eta_1 + F_M &= 0 \\
@@ -51,18 +47,14 @@ Para se obter as equações do movimento para as coordenadas relativas primeiro 
 \end{equation}
 
 Considerando a mudança de coordenada de $\theta_i$ para $u_i$ e adotando a massa equivalente à torção $M_{eq_i}$ (equações \ref{eq:transformacao_u} e \ref{eq:inercia_eq_resumo}). E aplicando-se a relação de coordenadas relativas (Equação \ref{eq:coord_relativas}) às equações de movimento da \ref{eq:sistema_movimento_fundamental} são obtidas as relações presentes em \ref{eq:sistema_movimento_relativo_Fm}.
-
 \begin{equation}
 	u_i = R_i\theta_i \implies \ddot{\theta}_i = \frac{\ddot{u}_i}{R_i}
 	\label{eq:transformacao_u}
 \end{equation}
-
 \begin{equation}
 	M_{eq_i} = \frac{J_i}{R_i^2}
 	\label{eq:inercia_eq_resumo}
 \end{equation}
-
-
 \begin{equation}
 	\begin{aligned}
 		m\ddot{\eta}_{rel} + K\eta_{rel} + 2F_M &= 0 \\
@@ -73,12 +65,10 @@ Considerando a mudança de coordenada de $\theta_i$ para $u_i$ e adotando a mass
 \end{equation}
 
 Considerando a definição da força $F_m$ de acordo com a Equação \ref{eq:forca_engrenamento_simples} e realizando as operações algébricas necessárias obtêm-se as equações de movimento para as coordenadas generalizadas $\xi_{rel}, \eta_{rel}, u_{rel}$ \ref{eq:sistema_movimento_relativo}.
-
 \begin{equation}
 	F_m = K_m \delta, \quad \delta = \eta_{rel} + u_{rel}
 	\label{eq:forca_engrenamento_simples}
 \end{equation}
-
 \begin{equation}
 	\begin{aligned}
 		m\ddot{\eta}_{rel} + (K + 2K_m)\eta_{rel} + 2K_m u_{rel} &= 0 \\
@@ -88,10 +78,7 @@ Considerando a definição da força $F_m$ de acordo com a Equação \ref{eq:for
 	\label{eq:sistema_movimento_relativo}
 \end{equation}
 
-
 Dessa maneira, é possível escrever as equações de forma matricial assim como mostrado pela Equação \ref{eq:matriz_sistema_detalhado}.
-
-
 \begin{equation}
 	\begin{bmatrix} 
 		m & 0 & 0 \\ 
@@ -124,7 +111,6 @@ Dessa maneira, é possível escrever as equações de forma matricial assim como
 \end{equation}
 
 Assim, a partir da resolução dos autovalores é possível determinar as frequências naturais desse sistema de engrenagens simplificado conforme apresentado pelas equações \ref{eq:determinante_autovalores}, \ref{eq:polinomio_freq}, \ref{eq:freq_n1_n3} e \ref{eq:deducao_freq2}.
-
 \begin{equation}
 	\det \begin{bmatrix} 
 		(K+2K_m) - m\omega^2 & 2K_m & 0 \\ 
@@ -133,17 +119,14 @@ Assim, a partir da resolução dos autovalores é possível determinar as frequ�
 	\end{bmatrix} = 0
 	\label{eq:determinante_autovalores}
 \end{equation}
-
 \begin{equation}
 	(m M_{eq}) \omega^4 - \left[ M_{eq}(K + 2K_m) + 2mK_m \right] \omega^2 + 2K K_m = 0
 	\label{eq:polinomio_freq}
 \end{equation}
-
 \begin{equation}
 	\omega_{1,3}^2 = \frac{M_{eq}(K + 2K_m) + 2mK_m \pm \sqrt{\left[ M_{eq}(K + 2K_m) + 2mK_m \right]^2 - 8 m M_{eq} K K_m}}{2 m M_{eq}}
 	\label{eq:freq_n1_n3}
 \end{equation}
-
 \begin{equation}
 	K - m\omega_2^2  = 0 \implies 
 	\omega_2 = \sqrt{\frac{K}{m}}

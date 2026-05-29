@@ -4,15 +4,12 @@
 \subsection{Expansão para 6 Graus de Liberdade}
 
 Para poder implementar o modelo da folga de \textit{backlash} dinâmico proposto por \citeonline{yi2019} e pode utilizá-lo com o \textit{ROSS} foi necessário a expansão do modelo de 3 \textit{gdl} por nó, como mostrado na Equação \ref{eq:vetor_q} para o sistema de 6 \textit{gld} por nó como apresentado na Equação \ref{Eq:dof}. Dessa maneira foi adicionado a translação axial $z_i$ e as rotações em torno dos eixos $X$ e $Y$, ${\theta_x}_i$ e ${\theta_y}_i$ respectivamente. Portanto, a formulação agora utiliza os graus de liberdade  por nó dispostos conforme a Equação \ref{eq:6dof}, sendo $i$ o nó em questão. Neste caso, $i=1$ representa a engrenagem pinhão e $i=2$ representa a  engrenagem coroa.
-
 \begin{equation}
 	\{q(t)\} = \{x_i,y_i,z_i, {\theta_x}_i, {\theta_y}_i, {\theta_z}_i\}^{T}
 	\label{eq:6dof}
 \end{equation}
 
 Tal expansão não é exigida para o funcionamento do modelo, uma vez que poderia se atribuir valores nulos aos \textit{gdl} não presentes no modelo. Entretanto, a expansão foi  utilizada pois desta maneira é possível atribuir a este modelo a influência do ângulo de hélice do engrenamento. \citeonline{kubur2004} apresenta uma formulação para  o DTE que contempla o ângulo de hélice das engrenagens e os \textit{gdl} não considerado anteriormente. A Figura \ref{fig:modelo_6gdl} apresenta um esquemático utilizado para a formulação e a Equação \ref{eq:delta_3d} apresenta a formulação matemática utilizada em questão.
-
-
 \begin{figure}[H]
 	\centering
 	\caption{Modelo de 6 \textit{gdl}}
@@ -26,8 +23,6 @@ Tal expansão não é exigida para o funcionamento do modelo, uma vez que poderi
 		{\small Fonte: Adaptado de \citeonline{kubur2004}}
 	\end{minipage}
 \end{figure}
-
-
 \begin{equation}
 	\begin{split}
 		\delta(t) &= \left[ (x_1 - x_2) \sin\psi + (y_1 - y_2) \cos\psi + R_1\theta_{z1} + R_2\theta_{z2} \right] \cos\beta_h \\
@@ -36,16 +31,13 @@ Tal expansão não é exigida para o funcionamento do modelo, uma vez que poderi
 	\label{eq:delta_3d}
 \end{equation}
 
-
 Dessa forma, como agora o ângulo de hélice  está  incluído na modelagem do DTE, ele deve ser considerado também para o cálculo da folga de \textit{backlash} dinâmico $b_t$. \citeonline{mo2025} apresenta uma formulação de $b_t$ que contempla a característica de engrenagens helicoidais. Tal  adaptação do modelo de \citeonline{yi2019} considerando a formulação de \citeonline{mo2025} é apresentado na Equação \ref{eq:bt_helicoidal}. 
-
 \begin{equation}
 	b_t = b_0 + (R_1 + R_2) (\mathrm{inv}(\alpha) - \mathrm{inv}(\alpha_0)) \cos\beta_h
 	\label{eq:bt_helicoidal}
 \end{equation}
 
 Além disso, como foi feita a adição de \textit{gdl} e a inclusão do ângulo de hélice, é necessária a correção das equações do movimento (Equação \ref{eq:sistema_movimento_expandido}) uma vez que agora as derivadas  $\partial_{q_i}$ contemplam mais graus de liberdade e as funções $\delta$ e $b_t$ apresentam mais mais variáveis. As Equações \ref{eq:dbt_helicoidal} até \ref{eq:ddelta_thetaz} apresenta a formulação dessas derivadas.
-
 \begin{equation}
 	\begin{aligned}
 		\partial_{x_i}b_t &= (R_1 + R_2) \tan^2\alpha \cdot \partial_{x_i}\alpha \cdot \cos\beta_h \\
@@ -55,7 +47,6 @@ Além disso, como foi feita a adição de \textit{gdl} e a inclusão do ângulo 
 \end{equation}
 
 \text{Para as derivadas parciais do DTE (com } $\psi = \alpha - \beta $ \text{), definem-se os termos geométricos auxiliares:}
-
 \begin{equation}
 	\begin{aligned}
 		\Delta_{\text{trans}} &= (x_1 - x_2) \cos\psi - (y_1 - y_2) \sin\psi \\
@@ -63,7 +54,6 @@ Além disso, como foi feita a adição de \textit{gdl} e a inclusão do ângulo 
 	\end{aligned}
 	\label{eq:delta_aux}
 \end{equation}
-
 \begin{equation}
 	\begin{aligned}
 		\partial_{x_1}\delta &= (\sin\psi + \Delta_{\text{trans}}\partial_{x_1}\psi) \cos\beta_h + (\Delta_{\text{rot}}\partial_{x_1}\psi) \sin\beta_h \\
@@ -73,34 +63,28 @@ Além disso, como foi feita a adição de \textit{gdl} e a inclusão do ângulo 
 	\end{aligned}
 	\label{eq:ddelta_xy}
 \end{equation}
-
 \begin{equation}
 	\partial_{z_1}\delta = -\sin\beta_h, \quad \partial_{z_2}\delta = \sin\beta_h
 	\label{eq:ddelta_z}
 \end{equation}
-
 \begin{equation}
 	\partial_{\theta_{x1}}\delta = R_1 \sin\psi \sin\beta_h, \quad \partial_{\theta_{x2}}\delta = R_2 \sin\psi \sin\beta_h
 	\label{eq:ddelta_thetax}
 \end{equation}
-
 \begin{equation}
 	\partial_{\theta_{y1}}\delta = R_1 \cos\psi \sin\beta_h, \quad \partial_{\theta_{y2}}\delta = R_2 \cos\psi \sin\beta_h
 	\label{eq:ddelta_thetay}
 \end{equation}
-
 \begin{equation}
 	\partial_{\theta_{z1}}\delta = R_1 \cos\beta_h, \quad \partial_{\theta_{z2}}\delta = R_2 \cos\beta_h
 	\label{eq:ddelta_thetaz}
 \end{equation}
-
 
 \subsection{Suavização de Descontinuidades}
 
 Como a função da deformação efetiva na \textit{LOA} é dada por uma relação condicional, conforme apresentado na Equação \ref{eq:f_delta}, os integradores numéricos pode apresentar dificuldade de convergência devido às descontinuidades.  Com isso em mente, \citeonline{walha2006} apresenta uma metodologia que utiliza funções trigonométricas para suavizar a não linearidade da Equação \ref{eq:f_delta}. \citeonline{walha2006} utiliza funções de tangente hiperbólica em associação com a variável $\sigma$ que controla o quão suave será a e próxima à função original será a nova  função. A Figura \ref{fig:suavizacao} apresenta a suavização utilizada por \citeonline{walha2006} em seu estudo, onde ${\tilde{h}}_i$ representa $f$.
 
 No código implementado há a opção de selecionar se será utilizado ou não o método de suavização. Por padrão, ao se utilizar esta metodologia à variável $\sigma$ é atribuída o valor de $10^4$.
- 
 \begin{figure}[H]
 	\centering
 	\caption{Exemplo de suavização e relação com $\sigma$}
@@ -116,29 +100,24 @@ No código implementado há a opção de selecionar se será utilizado ou não o
 \end{figure}
 
 Com respeito à formulação utilizada as Equações \ref{eq:smooth_g} apresentam as funções de tangente hiperbólica utilizadas. Com isso, temos uma nova formulação para $f$ disposto na Equação \ref{eq:smooth_f}. 
-
 \begin{equation}
 	g_1 = (\delta - b_t) \tanh(\sigma(\delta - b_t)), \quad g_2 = (\delta + b_t) \tanh(\sigma(\delta + b_t))
 	\label{eq:smooth_g}
 \end{equation}
-
 \begin{equation}
 	f(\delta, b_t) = \delta + \frac{1}{2}(g_1 - g_2)
 	\label{eq:smooth_f}
 \end{equation}
 
 Dessa forma, com essa nova definição da função  $f$ é necessário derivá-la em relação ao tempo para obter  a função $f_1$ que representa a velocidade da deformação da linha de ação. A Equação \ref{eq:smooth_f1} apresenta a formulação de $f_1$, a Equação \ref{eq:chain_rule_f} apresenta a formulação da regra da cadeia para as derivadas $\partial_{q_i}$ e a Equação \ref{eq:smooth_df} apresenta a expressão destas derivadas.
-
 \begin{equation}
 	f_1(\delta, b_t) = \partial_{\delta} f \cdot \dot{\delta} + \partial_{b_t} f \cdot \dot{b}_t
 	\label{eq:smooth_f1}
 \end{equation}
-
 \begin{equation}
 	\partial_{q_i} f = \partial_{\delta} f \cdot \partial_{q_i}\delta + \partial_{b_t} f \cdot \partial_{q_i}b_t
 	\label{eq:chain_rule_f}
 \end{equation}
-
 \begin{equation}
 	\begin{aligned}
 		\partial_{\delta} f &= 1 + \frac{1}{2} \bigg[ \tanh(\sigma(\delta - b_t)) + \sigma(\delta - b_t)(1 - \tanh^2(\sigma(\delta - b_t))) \\

@@ -7,8 +7,6 @@ Engrenagens são componentes mecânicos com a função de transmissão de potên
 O projeto de sistemas engrenados contempla o dimensionamento geométrico apropriado para garantir a relação de transmissão desejada (aumento ou redução de torque e velocidade angular)  assim como a integridade física e dinâmica deste sistema.  Com isso em mente, as engrenagens apresentam geometrias características para o pleno funcionamento do par engrenado.  O projeto de engrenagens é feito tendo como base normas internacionais como \citeonline{agma2004} e \citeonline{iso2019}, orientação de livros textos como \citeonline{shigley2020, norton2020, mott2018} e \textit{handbook} como o de \citeonline{dudley2021}.
 
 Um par engrenado apresenta  relações comuns às duas engrenagens como ângulo de pressão $\alpha_0$, módulo $m$ e espessura da engrenagem  $w$. O módulo determina a proporcionalidade das engrenagens, razão entre  o diâmetro primitivo e o número de dentes $m = 2R_p/Z$. Já, o ângulo de pressão é obtido a partir da inclinação da Linha de Ação \textit{LOA} em relação à linha tangente dos diâmetros primitivos. A \textit{LOA} é a linha onde há aplicação de força e a transmissão de torque e potência entre as engrenagens \cite{norton2020}.  Além disso, para garantir a transmissão de potência e torque de maneira suave e contínua, os dentes das engrenagens tem um perfil característico, denominado perfil envolvente ou involuta, de acordo com a Equação \ref{eq:inv} \cite{shigley2020}. 
-
-
 \begin{equation}
 	\mathrm{inv}(\alpha) = \tan(\alpha) - \alpha
 	\label{eq:inv}
@@ -16,8 +14,6 @@ Um par engrenado apresenta  relações comuns às duas engrenagens como ângulo 
 
 \citeonline{dudley2021} apresenta que há dois tipos de engrenagens cilíndrica, as de dentes retos e dentes helicoidais. Tal diferença geométrica vem da inclinação dos dentes em relação ao eixo de rotação da engrenagem, este ângulo é denominado ângulo de hélice $\beta_h$. Este é um parâmetro crucial no projeto de engrenagens pois determina a direção de aplicação e força nos eixos. Engrenagens de dentes helicoidais, apesar de conseguirem transmitir uma potência maior, adicionam uma força axial no eixo do rotor \cite{shigley2020}. Além disso, como este ângulo decompõe as forças há dois planos principais de análise, o plano normal e o plano tangencial. Para a dinâmica do sistema, são utilizadas as variáveis referente ao plano normal \cite{tang2018}. 
 A Figura \ref{fig:gear_esquema} apresenta um esquemático de uma engrenagem de dentes helicoidais, orientando também sobre o ângulo de pressão.
-
-
 \begin{figure}[H]
 	\centering
 	\caption{Representação esquemática de uma engrenagem.}
@@ -32,37 +28,31 @@ A Figura \ref{fig:gear_esquema} apresenta um esquemático de uma engrenagem de d
 	\end{minipage}
 \end{figure}
 
-
 Cada engrenagem, independente do seu tipo, apresenta quarto diâmetros principais que são de raiz, de base, de adendo e o primitivo. O diâmetro de raiz $2R_r$ é onde se inicia o dente. O raio de adendo ($R_a$) é o diâmetro máximo da engrenagem, ou seja, na extremidade do dente. Além disso, é necessário para o cálculo da razão de contato $c_r$ (Equação \ref{eq:razao_contato}). Adotando-se o perfil padrão de dente inteiro sem modificação geométrica, recomendado por \citeonline{dudley2021} e normalizado pela AGMA \cite{agma2004}, o adendo é tomado como igual ao módulo normal $m$, conforme apresentado por \citeonline{shigley2020}, resultando na Equação \ref{eq:raios_adendo}.
-
 \begin{equation}
 	R_{a1} = R_{p1} + m, \quad R_{a2} = R_{p2} + m
 	\label{eq:raios_adendo}
 \end{equation}
 
 Já o diâmetro primitivo $2R_p$ determina onde haverá o contato de dentes num par engrenado, sendo assim uma das principais variáveis de uma engrenagem. Portanto, a partir da soma dos raios primitivos é possível determinar a distância entre centros das duas engrenagens como mostrado na Equação \ref{eq:dist_cent}.
-
 \begin{equation}
 	d_0 = R_{p1} + R_{p2}
 	\label{eq:dist_cent}
 \end{equation}
 
 Os raios de base ($R_1$ e $R_2$), utilizados para os cálculos da implementação realizada neste trabalho, de acordo com \cite{yi2019}, representam os raios dos círculos geradores do perfil evolvente \cite{norton2020}. Eles relacionam-se com os raios primitivos através do ângulo de pressão normal inicial $\alpha_0$, conforme a Equação \ref{eq:raios_base}.
-
 \begin{equation}
 	R_1 = R_{p1} \cos \alpha_0, \quad R_2 = R_{p2} \cos \alpha_0
 	\label{eq:raios_base}
 \end{equation}
 
 Além disso, o passo base ($p_b$), define a distância entre dentes consecutivos medida ao longo do círculo de base, sendo expresso pela Equação \ref{eq:passo_base}:
-
 \begin{equation}
 	p_b = \frac{2 \pi R_1}{Z_1} = \pi m \cos \alpha_0
 	\label{eq:passo_base}
 \end{equation}
 
 Dessa forma é possível determinar a razão de contato $c_r$ que representa o número médio de pares de dentes em contato, ou seja que compartilham o carregamento ao longo da Linha de Ação \textit{LOA}. A Equação \ref{eq:razao_contato} representa a su formulação. 
-
 \begin{equation}
 	\label{eq:razao_contato}
 	c_r = \frac{[\sqrt{R_{a1}^2 - R_1^2} + \sqrt{R_{a2}^2 - R_2^2} - d_0 \sin \alpha_0]}{p_b}
@@ -72,23 +62,18 @@ No projeto de engrenagens é recomentada que o valor de $c_r$ varie entre $1$ e 
 
  Sob o ponto de vista da dinâmica estrutural do sistema, o fato de $c_r$ não assumir um valor inteiro implica que o sistema alterna ciclicamente entre períodos de contato simples (um par de dentes) e contato duplo (dois pares de dentes). Essa alternância geométrica induz uma variação periódica na rigidez global do engrenamento. Portanto, desta forma, a rigidez associada ao engrenamento pode ser classificada como variante no tempo \textit{TVMS}, como será retratado em breve.
  
-
 \section{Modelagem Dinâmica e Acoplamento de Rotores}
 A incorporação da dinâmica de engrenamentos na análise de rotores exige que os subsistemas individuais sejam acoplados nas matrizes globais (massa, amortecimento, rigidez e giroscópica). \citeonline{ozguven1988} faz uma revisão dos primeiros modelos propostos para a modelagem dinâmica de sistema engrenados. Nesta seção será apresentado o modelo proposto por \citeonline{kaplan2015}
 
 Em sistemas tridimensionais, onde cada nó da malha possui seis graus de liberdade (translações $x, y, z$ e rotações $\theta_x, \theta_y, \theta_z$), a formulação das matrizes de acoplamento deve decompor a força de contato normal na linha de ação considerando a cinemática 3D \cite{stringer2008}. Isso forma submatrizes interconectadas ($K_{ii}, K_{jj}, K_{ji}, K_{ij}$) que relacionam vibrações laterais e torcionais através da projeção vetorial governada pelo ângulo de pressão, o ângulo de hélice, e o ângulo de orientação espacial do acoplamento.
 
-
 \subsection{Rigidez de Acoplamento de Rotores Engrenados}
 
 Para realizar o movimento conjunto entre os rotores motor e movido, é necessário acoplar as matrizes dos dois rotores nos graus de liberdade correspondentes dos nós correspondentes, representados por $q_i$ e $q_j$. Dessa maneira, a equação do movimento pode ser modificada para Equação \ref{Eq:mov-alt}, já contemplando a massa, rigidez e amortecimento dos dois rotores. A Figura \ref{fig:mesh_repr} representa esquematicamente o engrenamento, mostrando que a rigidez de acoplamento das engrenagens $K_{mesh}$ é na direção da linha de ação e não na linha que liga os centros das duas engrenagens. A matriz de acoplamento da rigidez $[K_{mesh}]$ pode ser escrita de acordo com Equação \ref{Eq:k_mesh} \cite{stringer2008}. A Figura \ref{fig:gear_repr} apresenta a representação do par engrenado em elementos finitos. As matrizes $K_{ii}$, $K_{ij}$, $K_{ji}$ e $K_{jj}$ são apresentadas na Equação \ref{eq:k_matrices} de acordo com \citeonline{stringer2008}.
-
-
 \begin{equation}
 	[M]\{\ddot{q}(t)\}+([C]+\Omega [G])\{\dot{q}(t)\}+([K] + [K_{mesh}])\{q(t)\}=\{F(t)\}
 	\label{Eq:mov-alt}
 \end{equation}
-
 \begin{equation}
 	[K_{mesh}]
 	\begin{Bmatrix}
@@ -106,8 +91,6 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 	\end{Bmatrix}
 	\label{Eq:k_mesh}
 \end{equation}
-
-
 \begin{figure}[H]
 	\centering
 	\caption{Reapresentação do Engrenamento}
@@ -121,7 +104,6 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 		{\small Fonte: \citeonline{kaplan2012}}
 	\end{minipage}
 \end{figure}
-
 \begin{figure}[H]
 	\centering
 	\caption{Representação do par engrenado em elementos finitos}
@@ -135,8 +117,6 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 		{\small Fonte: \citeonline{stringer2008}}
 	\end{minipage}
 \end{figure}
-
-
 \begin{equation}
 	\label{eq:k_matrices} % Adiciona um rótulo para referenciar o conjunto de equações
 	\begin{gathered}
@@ -178,19 +158,15 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 		}
 	\end{gathered}
 \end{equation}
-
 \begin{align*}
 	s\varphi &= \sin\varphi, & s\varphi^2 &= (\sin\varphi)^2 \\
 	c\varphi &= \cos\varphi, & c\varphi^2 &= (\cos\varphi)^2
 \end{align*}
-
 \begin{align*}
 	\cos\phi_x &= \cos\beta_h \cos\alpha_n & \cos\phi_y &= \sin\alpha_n &   \cos\phi_z &= \sin\beta_h \sin\alpha_n
 \end{align*}
 
 As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ representam os índices dos nós onde as engrenagens estão posicionadas. O parâmetro $\varphi$ representa o ângulo de orientação entre as engrenagens, $\beta_h$ é o ângulo de hélice das engrenagens e $\alpha_n$ representa o ângulo de pressão normal do par engrenado. Os ângulos $\phi_x$, $\phi_y$ e $\phi_z$ são de acordo com a Fig.~\ref{fig:force_component}, que representa a decomposição das forças no ponto de contato das engrenagens \cite{kaplan_paper_2013}.
-
-
 \begin{figure}[H]
 	\centering
 	\caption{Decomposição das forças no ponto de contato das engrenagens.}
@@ -207,7 +183,6 @@ As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ re
 
 
 O parâmetro $K_m$ representa a rigidez do par engrenado ao longo da linha de ação. \citeonline{kaplan_paper_2013} apresenta uma metodologia de cálculo com base em parâmetros geométricos e do material das engrenagens, apresentada na Eq.~\ref{Eq:Kg}. Neste caso, é assumida a hipótese de que a rigidez dos dentes é mais significativa do que a rigidez do corpo da engrenagem.
-
 \begin{equation}
 	K_m = \frac{c_r w E_1 E_2}{9(E_1+E_2)}
 	\label{Eq:Kg}
@@ -217,21 +192,17 @@ Onde $c_r$ representa a razão de contato do par engrenado, $w$ descreve a largu
 
 Entretanto, devido à dinâmica do contato entre  os dentes, a rigidez associada ao engrenamento, na realidade, é uma grandeza variável no tempo e dependente da  razão de contato entre as engrenagens. A seguir será apresentado a primeira metodologia encontrada na literatura (Perfil Retangular) e o Perfil Completo atualmente utilizado.
 
-
 \subsection{Perfil Retangular de Rigidez de Engrenamento}
 
 Para se considerara a variação da rigidez do engrenamento ao longo do tempo, uma das primeiras considerações foi  utilização de um modelo de perfil retangular, assim como apresentado por \citeonline{lin2002}. Tal modelagem simplifica a dinâmica de contato entre os dentes de um par engrenado,  mas ainda mantém sua característica principal, a variação da amplitude de rigidez e a periodicidade no tempo.
 
 \citeonline{kaplan2015} apresenta tal perfil retangular, de acordo com a modelagem de \citeonline{lin2002}. A Equação \ref{eq:stiffness_Kv} apresenta tal formulação, que pode ser descrita como a soma de uma parcela constante  $K_m$ e uma parcela variável $K_v$ (Equação \ref{eq:stiffness_K}) que oscila por uma Série de Fourier com uma amplitude $K_a$ proporcional à $K_m$.
-
 \begin{equation} \label{eq:stiffness_K}
 	K = K_m + K_v(\Omega, t)
 \end{equation}
-
 \begin{equation} \label{eq:stiffness_Kv}
 	K_v(t) = 2K_a \sum_{s=1}^{\infty} \left( a^{(s)} \sin(sZ_1\Omega_i t) + b^{(s)} \cos(sZ_1\Omega t) \right)
 \end{equation}
-
 \begin{align} \label{eq:coeficientes_ab}
 	a^{(s)} &= -\frac{2}{s\pi} \sin[s\pi(c_r - 2\beta)] \sin(s\pi c_r) \nonumber \\
 	b^{(s)} &= -\frac{2}{s\pi} \cos[s\pi(c_r - 2\beta)] \sin(s\pi c_r)
@@ -241,7 +212,6 @@ $Z_1$ representa o número de dentes da engrenagem menor, $\Omega$ é a velocida
 
 Pode se observar como o valor da razão de contato $c_r$ influencia no período da função de rigidez. Esta variável indica a quantidade média de pares de dentes engrenados, ao longo do tempo há a alternância  entre um par e dois pares de dentes engrenados. Quando há somente um par o perfil de rigidez encontra seu valor mínimo, já com dois pares ele encontra seu valor máximo.
 No \textit{ROSS} a implementação dessa função contempla uma correção para que ela não apresente as frequências maiores vinda da Série de Fourier e tenha, somente, o perfil retangular.
-
 \begin{figure}[H]
 	\centering
 	\caption{Perfil de rigidez do engrenamento correlacionado com razão de contato}
@@ -255,7 +225,6 @@ No \textit{ROSS} a implementação dessa função contempla uma correção para 
 		{\small Fonte: \citeonline{kaplan2015}}
 	\end{minipage}
 \end{figure}
-
 \begin{figure}[H]
 	\centering
 	\caption{Perfil de rigidez do engrenamento correlacionado com razão de contato}
@@ -270,14 +239,11 @@ No \textit{ROSS} a implementação dessa função contempla uma correção para 
 	\end{minipage}
 \end{figure}
 
-
-
 \subsection{Perfil Completo de Rigidez de Engrenamento}
 
 O formato característico desse perfil tem origem da geometria do dente da engrenagem e do comportamento da malha de engrenamento. Como o perfil do dente não apresenta seção transversal uniforme a rigidez do engrenamento é alterada a cada passo de tempo devido ao contato entre os dentes acontecer em regiões de alteração da área de seção. Além disso, \citeonline{ma2014} descreve que há outras rigidezes que influenciam neste calculo que serão apresentadas a seguir.
 
 A Figura \ref{fig:rig_engr_lais} apresenta o comportamento deste perfil de rigidez. A periodicidade característica e a amplitude deste perfil tem correlação com a razão de contato $c_r$ do par engrenado que define a média de pares de dentes em contato. Quando há somente um par de dentes em contato a rigidez assume a região de menor valor. Ao passo que, quando há dois pares de dentes em contato as rigidezes se somam e, portanto, o perfil de rigidez apresenta a região de maior valor  assim como apresentado por \citeonline{lais2022} e \citeonline{chico2025}. Portanto, o perfil de rigidez $K_m$ é composto pelo par de dente anterior ${k_p}_{i-1}$, atual ${k_p}_{i}$ e posterior ${k_p}_{i+1}$.
-
 \begin{figure}[H]
 	\centering
 	\caption{Perfil de rigidez do engrenamento correlacionado com razão de contato}
@@ -292,19 +258,14 @@ A Figura \ref{fig:rig_engr_lais} apresenta o comportamento deste perfil de rigid
 	\end{minipage}
 \end{figure}
 
-
 Para fazer a determinação do perfil apresentado na Figura \ref{fig:rig_engr_lais} são consideradas diferentes rigidezes para os dentes das engrenagens. A rigidez total do engrenamento é calculada a partir da associação de rigidezes, onde $k_h$ é a Rigidez de Contato de Hertz, $k_b$ é a Rigidez à Flexão, $k_s$ ao Cisalhamento e $k_a$ à Compressão Axial. Adicionalmente, $k_f$ incorpora a rigidez do pé do dente na conexão com o corpo da engrenagem \cite{ma2014}. Tal calculo é feito a partir de métodos analíticos com base na energia potencial, apresentados pela Equação \ref{eq:componentes_energia} e Equação \ref{eq:energia_total}. A Figura \ref{fig:ma_gear_model} representa a modelagem utilizada por \citeonline{ma2014}, onde a variável $\beta$ representa o ângulo de pressão de operação.
-
-
 \begin{equation} \label{eq:componentes_energia}
 	U_h = \frac{F^2}{2k_h}, \ U_b = \frac{F^2}{2k_b}, \ U_s = \frac{F^2}{2k_s}, \ U_a = \frac{F^2}{2k_a}, \ U_f = \frac{F^2}{2k_f},
 \end{equation}
-
 \begin{align} \label{eq:energia_total}
 	U &= \frac{F^2}{2k} = U_h + U_{b1} + U_{s1} + U_{a1} + U_{f1} + U_{b2} + U_{s2} + U_{a2} + U_{f2} \nonumber \\
 	&= \frac{F^2}{2} \left( \frac{1}{k_h} + \frac{1}{k_{b1}} + \frac{1}{k_{s1}} + \frac{1}{k_{a1}} + \frac{1}{k_{f1}} + \frac{1}{k_{b2}} + \frac{1}{k_{s2}} + \frac{1}{k_{a2}} + \frac{1}{k_{f2}} \right),
 \end{align}
-
 \begin{figure}[H]
 	\centering
 	\caption{Modelo geométrico do perfil do dente da engrenagem}
@@ -327,50 +288,40 @@ Para fazer a determinação do perfil apresentado na Figura \ref{fig:rig_engr_la
 
 
 Portanto, a rigidez do engrenamento é determinada pela Equação \ref{eq:rigidez_malha}, considerando as duas engrenagens.
-
 \begin{equation} \label{eq:rigidez_malha}
 	K_m = \frac{1}{\frac{1}{k_h} + \frac{1}{k_{b1}} + \frac{1}{k_{s1}} + \frac{1}{k_{a1}} + \frac{1}{k_{f1}} + \frac{1}{k_{b2}} + \frac{1}{k_{s2}} + \frac{1}{k_{a2}} + \frac{1}{k_{f2}}}.
 \end{equation}
 
 A Equação \ref{eq:kh} apresenta a formulação para Rigidez do Contato de Hertz, onde $E$ é o Módulo de de Elasticidade, $w$ é a espessura do dente e $\nu$ é o Módulo de Poisson.
-
 \begin{equation} \label{eq:kh}
 	k_h = \frac{\pi E w}{4(1 - \nu^2)},
 \end{equation}
 
 A Equação \ref{eq:kf} apresenta o cálculo da rigidez associada à rigidez do pé do dente na conexão com o corpo da engrenagem. As variáveis $u_f$, $S_f$, $L^*$, $M^*$, $P^*$ e $Q^*$ são apresentados por \citeonline{sainsot2004}.
-
 \begin{equation} \label{eq:kf}
 	\frac{1}{k_f} = \frac{\cos^2 \beta}{Ew} \left\{ L^* \left(\frac{u_f}{S_f}\right)^2 + M^* \left(\frac{u_f}{S_f}\right) + P^*(1 + Q^* \tan^2 \beta) \right\},
 \end{equation}
 
 A partir da teoria de vigas é possível determinar a rigidez associada á flexão, cisalhamento e compressão axial. As Equações \ref{eq:Ua}, \ref{eq:Ub} e \ref{eq:Us} apresentam a formulação da energia potencial.
-
 \begin{equation} \label{eq:Ua}
 	U_a = \frac{F^2}{2k_a} = \int_{y_D}^{y_C} \frac{F_a^2}{2EA_{y1}} dy_1 + \int_{y_C}^{y_\beta} \frac{F_a^2}{2EA_{y2}} dy_2,
 \end{equation}
-
 \begin{equation} \label{eq:Ub}
 	U_b = \frac{F^2}{2k_b} = \int_{y_D}^{y_C} \frac{M_1^2}{2EI_{y1}} dy_1 + \int_{y_C}^{y_\beta} \frac{M_2^2}{2EI_{y2}} dy_2,
 \end{equation}
-
 \begin{equation} \label{eq:Us}
 	U_s = \frac{F^2}{2k_s} = \int_{y_D}^{y_C} \frac{1.2F_b^2}{2GA_{y1}} dy_1 + \int_{y_C}^{y_\beta} \frac{1.2F_b^2}{2GA_{y2}} dy_2,
 \end{equation}
 
-
 Em que $F_b = F \cos \beta$, $F_a = F \sin \beta$, $x_\beta$ é a distância entre o ponto de contato e a linha central do dente, $y_\beta$ é a distância entre o ponto de contato e o ponto de origem na direção horizontal, $G = \frac{E}{2(1+\nu)}$ é o módulo de cisalhamento, $y_1, y_2$ representam as coordenadas horizontais de um ponto arbitrário na curva de transição e na curva da involuta, $y_C, y_D$ denotam o ponto inicial e o ponto final da curva de transição, $I_{y1}, A_{y1}, I_{y2}, A_{y2}$ representam o momento de inércia da área e a área da seção transversal, respectivamente; os torques $M_1 = F_b(y_\beta - y_1) - F_a x_\beta$ e $M_2 = F_b(y_\beta - y_2) - F_a x_\beta$ denotam o efeito de flexão de $F_b$ e $F_a$ na parte das curvas de transição e evolvente.
 
 Neste cálculo é adotado o deslocamento angular. De acordo com as características da curva da involuta e da curva de transição, $x_\beta, y_\beta, x_1, y_1, x_2, y_2, I_{y1}, I_{y2}, A_{y1}$ e $A_{y2}$ podem ser expressos como funções dos ângulos $\gamma$, $\beta$ ou $\tau$ como apresentado por \citeonline{ma2014}, e então as rigidezes à compressão axial, à flexão e ao cisalhamento podem ser escritas da seguinte forma com base nas Equações \ref{eq:inv_ka}, \ref{eq:inv_kb} e \ref{eq:inv_ks}.
-
 \begin{equation} \label{eq:inv_ka}
 	\frac{1}{k_a} = \int_{\frac{\pi}{2}}^{\alpha} \frac{\sin^2 \beta}{EA_{y1}} \frac{dy_1}{d\gamma} d\gamma + \int_{\tau_c}^{\beta} \frac{\sin^2 \beta}{EA_{y2}} \frac{dy_2}{d\tau} d\tau,
 \end{equation}
-
 \begin{equation} \label{eq:inv_kb}
 	\frac{1}{k_b} = \int_{\frac{\pi}{2}}^{\alpha} \frac{[\cos \beta(y_\beta - y_1) - x_\beta \sin \beta]^2}{EI_{y1}} \frac{dy_1}{d\gamma} d\gamma + \int_{\tau_c}^{\beta} \frac{(\cos \beta(y_\beta - y_2) - x_\beta \sin \beta)^2}{EI_{y2}} \frac{dy_2}{d\tau} d\tau,
 \end{equation}
-
 \begin{equation} \label{eq:inv_ks}
 	\frac{1}{k_s} = \int_{\frac{\pi}{2}}^{\alpha} \frac{1.2 \cos^2 \beta}{GA_{y1}} \frac{dy_1}{d\gamma} d\gamma + \int_{\tau_c}^{\beta} \frac{1.2 \cos^2 \beta}{GA_{y2}} \frac{dy_2}{d\tau} d\tau,
 \end{equation}
