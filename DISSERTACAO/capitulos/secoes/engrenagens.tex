@@ -95,7 +95,6 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 	\centering
 	\caption{Reapresentação do Engrenamento}
 	\label{fig:mesh_repr}
-	
 	\begin{minipage}{0.8\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/gear_mesh_spring.png}
@@ -108,7 +107,6 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 	\centering
 	\caption{Representação do par engrenado em elementos finitos}
 	\label{fig:gear_repr}
-	
 	\begin{minipage}{0.6\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/gear_repr.png}
@@ -171,7 +169,6 @@ As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ re
 	\centering
 	\caption{Decomposição das forças no ponto de contato das engrenagens.}
 	\label{fig:force_component}
-	
 	\begin{minipage}{0.9\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/force_component.png}
@@ -180,7 +177,6 @@ As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ re
 		{\small Fonte: \citeonline{kaplan2012}}
 	\end{minipage}
 \end{figure}
-
 
 O parâmetro $K_m$ representa a rigidez do par engrenado ao longo da linha de ação. \citeonline{kaplan_paper_2013} apresenta uma metodologia de cálculo com base em parâmetros geométricos e do material das engrenagens, apresentada na Eq.~\ref{Eq:Kg}. Neste caso, é assumida a hipótese de que a rigidez dos dentes é mais significativa do que a rigidez do corpo da engrenagem.
 \begin{equation}
@@ -216,7 +212,6 @@ No \textit{ROSS} a implementação dessa função contempla uma correção para 
 	\centering
 	\caption{Perfil de rigidez do engrenamento correlacionado com razão de contato}
 	\label{fig:rig_engr_kapl}
-	
 	\begin{minipage}{0.7\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/kv_kaplan}
@@ -229,7 +224,6 @@ No \textit{ROSS} a implementação dessa função contempla uma correção para 
 	\centering
 	\caption{Perfil de rigidez do engrenamento correlacionado com razão de contato}
 	\label{fig:rig_engr1}
-	
 	\begin{minipage}{0.7\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/tvms_ret_kaplan}
@@ -248,7 +242,6 @@ A Figura \ref{fig:rig_engr_lais} apresenta o comportamento deste perfil de rigid
 	\centering
 	\caption{Perfil de rigidez do engrenamento correlacionado com razão de contato}
 	\label{fig:rig_engr_lais}
-	
 	\begin{minipage}{0.7\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/cr_km.png}
@@ -270,7 +263,6 @@ Para fazer a determinação do perfil apresentado na Figura \ref{fig:rig_engr_la
 	\centering
 	\caption{Modelo geométrico do perfil do dente da engrenagem}
 	\label{fig:ma_gear_model}
-	
 	\begin{minipage}{0.7\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/ma_gear_model.png}
@@ -279,13 +271,6 @@ Para fazer a determinação do perfil apresentado na Figura \ref{fig:rig_engr_la
 		{\small Fonte: \citeonline{ma2014}}
 	\end{minipage}
 \end{figure}
-
-
-%\begin{equation}
-%	\frac{1}{k_{g}} = \frac{1}{k_h} + \sum \left( \frac{1}{k_b} + \frac{1}{k_s} + \frac{1}{k_a} + \frac{1}{k_f} \right)
-%	\label{eq:calc_k}
-%\end{equation}
-
 
 Portanto, a rigidez do engrenamento é determinada pela Equação \ref{eq:rigidez_malha}, considerando as duas engrenagens.
 \begin{equation} \label{eq:rigidez_malha}
