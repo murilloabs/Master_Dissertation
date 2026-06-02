@@ -4,22 +4,7 @@ Classifica-se como rotor um equipamento mecânico que está sujeito à rotação
 
 A análise estática de rotores tem sua base nas teoria s já fundamentadas da análise estrutural \cite{martha2010} e resistência dos materiais \cite{hibbeler2010}. Entretanto, quando se trata de análise dinâmica há diversas diferenças, isso pois ao se adicionar a velocidade de rotação $\Omega$ ao sistema diferentes fenômenos são observados. Entre eles, o principal é o Efeito Giroscópico, que representa o acoplamento de direções laterais devido à conservação do Momento Angular do sistema \cite{Lalanne1998}. Este é o mesmo efeito que promove, por exemplo, estabilidade para motocicletas e bicicletas ao se deslocarem em duas rodas.
 
-Além disso, ao girar em velocidade de rotação constante o sistema dinâmico e considerando o efeito giroscópico, agora, apresenta duas frequências naturais para cada modo de vibrar lateral. Com isso, surge o efeito da Precessão Direta (\textit{Forward}) ou Precessão Inversa (\textit{Backward}). A precessão do tipo \textit{Forward} o ocorre quando a órbita desenhada pelo movimento do cento do eixo está no mesmo sentido de rotação do próprio eixo. Enquanto a precessão do tipo \textit{Backward} ocorre quando a órbita gira no sentido oposto à rotação do eixo.
-
-A Figura \ref{fig:campbell} apresenta o Diagrama de Campbell onde é possível visualizar que para cada velocidade de rotação $\Omega$ o sistema apresenta duas frequências naturais para cada modo lateral de vibração. Já a Figura \ref{fig:precessao} apresenta os movimentos de \textit{Forward} e \textit{Backward}.
-\begin{figure}[H]
-	\centering
-	\caption{Diagrama de Campbell}
-	\label{fig:campbell}
-	
-	\begin{minipage}{0.7\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figuras/campbell.png}
-		\par\vspace{0.3em}
-		\raggedright
-		{\small Fonte: \citeonline{Friswell2010}}
-	\end{minipage}
-\end{figure}
+Além disso, ao girar em velocidade de rotação constante o sistema dinâmico e considerando o efeito giroscópico, agora, apresenta duas frequências naturais para cada modo de vibrar lateral. Com isso, surge o efeito da Precessão Direta, do inglês \textit{Forward} (\textit{FW}) ou Precessão Inversa do inglês \textit{Backward} (\textit{BW}). A precessão do tipo \textit{Forward} o ocorre quando a órbita desenhada pelo movimento do cento do eixo está no mesmo sentido de rotação do próprio eixo. Enquanto a precessão do tipo \textit{Backward} ocorre quando a órbita gira no sentido oposto à rotação do eixo. Assim como apresentado pela Figura \ref{fig:precessao}.
 \begin{figure}[H]
 	\centering
 	\caption{Precessão Direta e Inversa }
@@ -34,9 +19,24 @@ A Figura \ref{fig:campbell} apresenta o Diagrama de Campbell onde é possível v
 	\end{minipage}
 \end{figure}
 
-Dessa maneira, a correta modelagem matemática é essencial para o desenvolver análises e resultados robustos e confiáveis. A modelagem de sistemas de dinâmica de rotação é feita de acordo com \citeonline{Lalanne1998} e foi utilizada como referência para diversos trabalhos entre artigos, dissertações e teses. 
+A Figura \ref{fig:campbell} apresenta o Diagrama de Campbell onde é possível visualizar que para cada velocidade de rotação $\Omega$ o sistema apresenta duas frequências naturais para cada modo lateral de vibração. Além disso,  ainda é possível é perceber que este exemplo apresenta o modo de vibrar torcional, ao qual não tem sua frequência natural alterada com a velocidade de rotação. A linha pontilhada faz a associação entre os valores de velocidade de rotação e frequência natural do rotor, conhecida como Linha de 1X e é essencial para a identificação das velocidades críticas, ou seja, indica qual velocidade coincide com uma frequência de vibração.
+\begin{figure}[H]
+	\centering
+	\caption{Diagrama de Campbell}
+	\label{fig:campbell}
+	
+	\begin{minipage}{0.7\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/campbell.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Adaptado de \citeonline{Friswell2010}}
+	\end{minipage}
+\end{figure}
 
-O primeiro passo é definir a formulação da energia cinética e potencial para os elementos de eixo, discos, engrenagens, mancais e selos para posteriormente aplicar a metodologia de Lagrange e, enfim, obter as equações do movimentos. A Equação \ref{eq:lagrange_rot} apresenta o formalismo da equação de Lagrange para um vetor $q$ com $N$ graus de liberdade (\ref{Eq:dof}). 
+Dessa maneira, a correta modelagem matemática é essencial para o desenvolver análises e resultados robustos, coerentes e confiáveis. Assim, um modelo de elementos finitos para rotores foi desenvolvido por \citeonline{cavalini2013} com base na modelagem apresentada por \citeonline{Lalanne1998} servindo como referência para diversos trabalhos. Tal modelo contempla quatro graus de liberdade por nó, a expansão para seis \textit{gdl} pro nó foi apresentada por \citeonline{sicchieri2024}, assim como mostrado na Equação \ref{Eq:dof}.
+
+O primeiro passo para a modelagem é definir a formulação da energia cinética e potencial para os elementos de eixo, discos, engrenagens, mancais e selos para posteriormente aplicar a metodologia de Lagrange e, enfim, obter as equações do movimentos. A Equação \ref{eq:lagrange_rot} apresenta o formalismo da equação de Lagrange para um vetor $q$ com $N$ graus de liberdade (Equação \ref{Eq:dof}). 
 \begin{equation}
 	\frac{\mathrm{d} }{\mathrm{d} t}\left ( \frac{\partial T}{\partial \dot{q_i}} \right )-\frac{\partial T}{\partial q_i} + \frac{\partial U}{\partial q_i}=F_{qi}
 	\label{eq:lagrange_rot}
@@ -45,7 +45,7 @@ O primeiro passo é definir a formulação da energia cinética e potencial para
 
 Para este modelo, algumas considerações feitas são:
 \begin{itemize}
-	\item O eixo é representado como um elemento de viga com seção circular constante e é caracterizado por energia cinética e potencial, onde cada elemento possui dois nós e seis graus de liberdade por nó;
+	\item O eixo é representado como um elemento de viga com seção circular constante, de acordo com a Teoria de Timoshenko (\cite{timoshenko1922}). É caracterizado por energia cinética e potencial, onde cada elemento possui dois nós e seis graus de liberdade por nó;
 	\item O disco é um elemento rígido, logo possui apenas energia cinética;
 	\item Engrenagens podem ser representadas como elementos de disco e estes são adicionados em nós;
 	\item Os mancais e selos podem ser representados por um conjunto de molas e amortecedores lineares.
@@ -56,14 +56,19 @@ Assim, realizando o procedimento matemático necessário, obtêm-se a equação 
 	[M]\{\ddot{q}(t)\}+([C]+\Omega [G])\{\dot{q}(t)\}+[K]\{q(t)\}=\{F(t)\}
 	\label{Eq:movement}
 \end{equation}
-
-Onde $[M]$, $[C]$, $[G]$ e $[K]$ são as matrizes de massa, amortecimento, efeito giroscópico e rigidez, respectivamente, e $\{\ddot{q}(t)\}$, $\{\dot{q}(t)\}$, $\{q(t)\}$, e $\{F(t)\}$ são os vetores de aceleração, velocidade, deslocamento e força de entrada, respectivamente, de acordo com os \textit{gdl} dados pela Equação \ref{Eq:dof}.
 \begin{equation}
-	\{q(t)\} = \{x,y,z, \theta_x, \theta_y, \theta_z\}^{T}
+	\{q\} = \{q_0, q_1, q_2, ..., q_N\}^{T}
+	\quad (i = 1, 2, ... N)
 	\label{Eq:dof}
 \end{equation}
 
-Onde $x$, $y$ e $z$ correspondem às translações horizontal, vertical e axial, respectivamente. As variáveis $\theta_x$, $\theta_y$ e $\theta_z$ representam a flexão no plano $yz$, a flexão no plano $xz$ e a torção, respectivamente.
+Onde $[M]$, $[C]$, $[G]$ e $[K]$ são as matrizes de massa, amortecimento, efeito giroscópico e rigidez, respectivamente, e $\{\ddot{q}(t)\}$, $\{\dot{q}(t)\}$, $\{q(t)\}$, e $\{F(t)\}$ são os vetores de aceleração, velocidade, deslocamento e força de entrada de todo o sistema, respectivamente, de acordo com os \textit{gdl} por nó dados pela Equação \ref{Eq:dof}.
+\begin{equation}
+	\{q_i\} = \{x_i,y_i,z_i, {\theta_x}_i, {\theta_y}_i, {\theta_z}_i\}^{T}
+	\label{Eq:dof}
+\end{equation}
+
+Onde $x_i$, $y_i$ e $z_i$ correspondem às translações horizontal, vertical e axial, respectivamente. As variáveis ${\theta_x}_i$, ${\theta_y}_i$ e ${\theta_z}_i$ representam a flexão no plano $yz$, a flexão no plano $xz$ e a torção, respectivamente.
 
 A \ref{subfigure:modelo} apresenta uma representação de um rotor real e sua modelagem matemática.
 
@@ -95,7 +100,7 @@ A \ref{subfigure:modelo} apresenta uma representação de um rotor real e sua mo
 	\end{minipage}
 \end{figure}
 
-{\color{red}Falar de MEF}
+
 
 ------------------------------------------------------------
 
