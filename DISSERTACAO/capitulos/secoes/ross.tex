@@ -1,12 +1,49 @@
 \subsection{\textit{Rotordynamic Open-Source Software} - ROSS}
 \label{sec:ross}
 
-O \textit{Rotordynamic Open-Source Software}\footnote{\href{ross.readthedocs.io}{Link de acesso: ross.readthedocs.io}} (ROSS) é uma biblioteca, feita em \textit{Python}, para análises e cálculos na área de dinâmica de rotação de código aberto específico, proposto por \citeonline{timbo2020} em parceria da Petrobras, UFRJ e UFU. Com este \textit{software} é possível fazer a modelagem de sistemas rotativos e análises correspondentes. 
+O \textit{Rotordynamic Open-Source Software}\footnote{\href{ross.readthedocs.io}{Link de acesso: ross.readthedocs.io}} (\textit{ROSS}) é uma biblioteca, feita em \textit{Python}, para modelagem e análises de dinâmica de rotação. Este é um código aberto específico, proposto por \citeonline{timbo2020} em parceria da Petrobras, UFRJ e UFU. A modelagem feita no \textit{ROSS} é baseada no que é apresentado por \citeonline{timbo2018} e utiliza como referência \citeonline{Friswell2010}. 
 
-\citeonline{jessica2025} mostra que a modelagem de um sistema rotativo dividida entre os modelos de eixos, mancais e selos, discos e engrenagens e elementos de acoplamento. Para eixos e discos são necessários parâmetros de material e geométricos, como diâmetro interno, externo e comprimento. Dessa forma é calculada de forma automática os valores de massa, inércia e rigidez utilizado nas matrizes para os cálculos do sistema. Engrenagens são elementos semelhantes à discos, embora, necessitam de variáveis exclusivas como número de dentes, ângulo de pressão, ângulo de hélice, diâmetro primitivo entre outras. Mancais e selos são determinados pelos coeficientes de rigidez e amortecimento diretos e cruzados destes componentes. No caso de mancais é possível modelá-los como mancais de rolamento, hidrodinâmicos ou magnéticos. A Figura \ref{fig: ross ex} apresenta um exemplo de modelagem de um conjunto de rotores no ROSS.
-Dessa forma, com os modelos de cada componente é possível juntá-los e fazer a modelo do sistema rotativo completo. No caso de sistemas engrenados são necessários dois ou mais rotores com engrenagens e então deve-se juntá-los com a função do \textit{MultiRotor} \cite{jessica2025}.
+A diferença entre a modelagem proposta por \citeonline{Friswell2010} e \citeonline{Lalanne1998} está na orientação e posicionamento do eixos cartesianos. A Figura \ref{subfigure:coord} apresenta a diferença de eixos coordenados entre esses dois autores. 
+\begin{figure}[H]
+	\centering
+	\caption{Subfiguras}
+	\label{subfigure:coord}
+	
+	\begin{minipage}{0.9\textwidth}
+		\centering
+		
+		\begin{subfigure}{0.4\textwidth}
+			\centering
+			\caption{Eixos Coordenados de \citeonline{Lalanne1998}}
+			\label{fig:rot_lalanne}
+			\includegraphics[width=\linewidth]{figuras/rot_lalanne.png}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}{0.4\textwidth}
+			\centering
+			\caption{Eixos Coordenados de \citeonline{Friswell2010}}
+			\label{fig:rot_fris}
+			\includegraphics[width=\linewidth]{figuras/rot_fris.png}
+		\end{subfigure}
+		
+		\par\vspace{0.5em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
+
+\citeonline{jessica2025} mostra que a modelagem de um sistema rotativo dividida entre os modelos de eixos, mancais e selos, discos e engrenagens e elementos de acoplamento. A seguir é apresentado sobre a modelagem de cada m desses elementos.
+\begin{itemize}
+	\item \texttt{ShaftElement}: Responsável pelo cálculo das matrizes de rigidez $[K]$, massa $[M]$ e efeito giroscópico $[G]$ distribuídas do eixo. O pacote utiliza a Teoria de Vigas de \citeonline{timoshenko1922}, o que considera não apenas a flexão pura (como na teoria de Euler-Bernoulli), mas também as deformações por cisalhamento e a inércia rotacional de seções transversais curtas.
+	\item \texttt{BearingElement}: Implementa o suporte dos mancais nos nós pertinentes. Esta classe permite associar coeficientes de rigidez ($k_{xx}, k_{yy}$) e amortecimento ($c_{xx}, c_{yy}$) estáticos ou variantes com a velocidade de rotação $\Omega$. Além disso, podem ser considerado os coeficientes cruzados, que relacionam as direções $xy$, $xz$ e $yz$.
+	\item \texttt{DiskElement}: Modela elementos concentrados em nós específicos, adicionando propriedades de massa ($m$), momento de inércia polar ($I_p$) e momento de inércia diametral ($I_d$). Além disso, a classe \texttt{GearElement} e \texttt{GearElementTVMS} são classes filhas da \texttt{DiskElement} e são importantes para o engrenamento de dois modelos de rotores.
+\end{itemize}
 
 
+
+
+Para eixos e discos são necessários parâmetros de material e geométricos, como diâmetro interno, externo e comprimento. Dessa forma é calculada de forma automática os valores de massa, inércia e rigidez utilizado nas matrizes para os cálculos do sistema. Engrenagens são elementos semelhantes à discos, embora, necessitam de variáveis exclusivas como número de dentes, ângulo de pressão, ângulo de hélice, diâmetro primitivo entre outras. Mancais e selos são determinados pelos coeficientes de rigidez e amortecimento diretos e cruzados destes componentes. No caso de mancais é possível modelá-los como mancais de rolamento, hidrodinâmicos ou magnéticos. A Figura \ref{fig: ross ex} apresenta um exemplo de modelagem de um conjunto de rotores no ROSS.
+Dessa forma, com os modelos de cada componente é possível juntá-los e fazer a modelo do sistema rotativo completo. No caso de sistemas engrenados são necessários dois ou mais rotores com engrenagens e então deve-se juntá-los com a função do \texttt{MultiRotor} \cite{jessica2025}.
 \begin{figure}[H]
 	\centering
 	\caption{Exemplo de rotores engrenados no \textit{ROSS}}
@@ -34,3 +71,22 @@ O modelo ROSS, proposto por \citeonline{timbo2020}, utiliza a formulação de se
 
 
 \citeonline{jessica2025} Apresenta dados sobre a utilização mundial do pacote ROSS, juntamente com exemplos de utilização e resultados comparativos.
+
+
+\subsection{Implementação e Correlação com o ROSS (\textit{Rotordynamics Open Source Software})}
+
+A resolução numérica da dinâmica estrutural de eixos rotativos requer ferramentas computacionais robustas de elementos finitos. O \textit{ROSS} (\textit{Rotordynamics Open Source Software}) é uma biblioteca em linguagem Python projetada especificamente para modelagem, simulação e análise de sistemas de rotores, fornecendo uma estrutura orientada a objetos orientada à resolução da Eq.~\ref{eq:mov_rotores}.
+
+A correlação entre as matrizes analíticas deduzidas e a arquitetura do código no \textit{ROSS} ocorre por meio de classes parametrizadas fundamentais:
+
+\begin{itemize}
+	\item \textbf{\texttt{ShaftElement}:} Responsável pelo cálculo das matrizes de rigidez $[K]$, massa $[M]$ e efeito giroscópico $[G]$ distribuídas do eixo. O pacote utiliza a teoria de vigas de Timoshenko, o que confere precisão teórica ao considerar não apenas a flexão pura (como na teoria de Euler-Bernoulli), mas também as deformações por cisalhamento e a inércia rotacional de seções transversais curtas, características marcantes de eixos de transmissão de potência industriais.
+	\item \textbf{\texttt{DiskElement}:} Modela elementos rígidos acoplados concentrados em nós específicos, adicionando propriedades de massa ($m$), momento de inércia polar ($J_p$) e momento de inércia transversal ($J_t$). Na modelagem sob análise, as engrenagens motriz e movida são inicialmente representadas como elementos de disco, cujos momentos polares de inércia $J_1$ e $J_2$ alimentam diretamente os cálculos de amortecimento de malha $c_m$ (Eq.~\ref{eq:cm}) e energia cinética (Eq.~\ref{eq:energia_centrifuga}).
+	\item \textbf{\texttt{BearingElement}:} Implementa as forças de suporte inseridas pelos mancais. Esta classe permite associar coeficientes de rigidez ($k_{xx}, k_{yy}$) e amortecimento ($c_{xx}, c_{yy}$) estáticos ou variantes com a velocidade de rotação $\Omega$, representados na formulação de energia potencial (Eq.~\ref{eq:energia_potencial}) e função de dissipação (Eq.~\ref{eq:dissipacao}).
+\end{itemize}
+
+Uma vez instanciados esses componentes, a classe unificadora \texttt{Rotor} processa a montagem das matrizes globais estruturadas na Eq.~\ref{eq:mov_rotores}. As rotinas internas do \textit{ROSS}, tais como os métodos \texttt{.campbell()}, \texttt{.unbalance\_response()} e \texttt{.run\_stability()}, resolvem nativamente os algoritmos de autovalores complexos e respostas em frequência.
+
+A flexibilidade de código aberto do \textit{ROSS} viabiliza a introdução de rotinas customizadas para acoplamentos de engrenagens complexos. Como a biblioteca nativa concentra-se primariamente em matrizes lineares, a implementação da folga dinâmica de \textit{backlash} requer o desenvolvimento de um algoritmo externo de integração temporal (utilizando resolvedores como os disponíveis no pacote \texttt{scipy.integrate}). 
+
+Nesse contexto, os estados posicionais instantâneos de deslocamento ($x_i, y_i$) calculados a cada passo de tempo pelo resolvedor do \textit{ROSS} são capturados e utilizados para atualizar iterativamente a distância entre centros $d$ (Eq.~\ref{eq:distancia_centro}) e o ângulo de pressão dinâmico $\alpha$ (Eq.~\ref{eq:alpha}). Essa rotina recalcula a força de engrenamento instantânea $F_m$ (Eq.~\ref{eq:Fm}) ponderada pela função não-linear de folga $f(\delta, b_t)$, que é então reintroduzida no vetor de forças generalizadas \texttt{Q} (Eq.~\ref{eq:vetor_forcas}) do software. Dessa forma, a infraestrutura computacional do \textit{ROSS} opera em perfeita sinergia com as formulações analíticas e os perfis dinâmicos de rigidez propostos, permitindo prever de maneira integrada o comportamento dinâmico global de sistemas de rotação engrenados.
