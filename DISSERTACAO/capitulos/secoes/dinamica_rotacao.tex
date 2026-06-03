@@ -105,22 +105,61 @@ Com a Equação do Movimento (Equação \ref{Eq:movement}) do sistema é possív
 
 \subsection{Desbalanceamento de Rotores}
 
-O desbalanceamento de rotores é uma condição na qual uma concentração de massa, deslocada  do centro do eixo de rotação, provoca uma força capaz que aumentar a amplitude de vibração e as órbitas de um rotor \cite{leocabral2023,daniel2024,stanley2025,raimundo2025}. A Figura \ref{fig:desbalanceamento} apresenta um esquemático do posicionamento da massa excêntrica posicionada em um disco solidário ao eixo.
+O desbalanceamento de rotores é uma condição na qual uma concentração de massa $m_u$, deslocada $e$ do centro do eixo de rotação, provoca uma força capaz que aumentar a amplitude de vibração e as órbitas de um rotor \cite{leocabral2023,daniel2024,stanley2025,raimundo2025}. A Figura \ref{fig:desbalanceamento} apresenta um esquemático do posicionamento da massa excêntrica posicionada em um disco solidário ao eixo.
 \begin{figure}[H]
 	\centering
 	\caption{Representação esquemática do desbalanceamento.}
 	\label{fig:desbalanceamento}
 	
-	\begin{minipage}{0.5\textwidth}
+	\begin{minipage}{0.4\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/desbalanceamento.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo Autor}
+	\end{minipage}
+\end{figure}
+
+O efeito do desbalanceamento pode ser  expresso  por uma amplitude $e m_u$ e fase $\varphi_u$, que juntas, geram a força de desbalanceamento, proporcional ao quadrado da velocidade de rotação $\Omega$ , assim como mostrado pela Equação \ref{eq:desb}. 
+\begin{equation}
+	F_u = m_u e \Omega^2
+	\label{eq:desb}
+\end{equation}
+
+Como essa força rotaciona junto ao eixo, ela induz forças dinâmicas senoidais nas direções ortogonais $X$ e $Y$, descritas respectivamente por:
+\begin{equation}
+	F_x(t) = m_u e \Omega^2 \cos(\Omega t + \varphi_u)
+	\label{eq:desbx}
+\end{equation}
+\begin{equation}
+	F_y(t) = m_u e \Omega^2 \sin(\Omega t + \varphi_u)
+	\label{eq:desby}
+\end{equation}
+
+Dessa forma, a aplicação da força do desbalanceamento é feita de maneira nodal nos graus de liberdade referentes \cite{stanley2025}. A influência do desbalanceamento é observável na frequência de $1X$ da velocidade de rotação $\Omega$ \cite{raimundo2025}. A Figura \ref{fig:sensor_desb} apresenta um exemplo do posicionamento de sensores utilizados na Tese de \citeonline{stanley2025} e obtenção das respostas temporais. Com as duas respostas temporais é possível determinar a órbita referente a cada nó, assim como apresentado na Figura \ref{fig:3dorbit} \cite{stanley2025}. 
+\begin{figure}[H]
+	\centering
+	\caption{Posicionamento de sensores e determinação da resposta temporal}
+	\label{fig:sensor_desb}
+	
+	\begin{minipage}{0.4\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/sensor_desbalanc.png}
 		\par\vspace{0.3em}
 		\raggedright
 		{\small Fonte: \citeonline{stanley2025}}
 	\end{minipage}
 \end{figure}
-
-O efeito do desbalanceamento pode ser  expresso  por uma amplitude e fase, que juntas, geram a força de desbalanceamento. 
-
-
-{\color{red} DESENVOLVER SOBRE DESBALANCEAMENTO, EUQAÇÕES RESPOSTA TEMPORAL E ORBITAS}
+\begin{figure}[H]
+	\centering
+	\caption{Representação esquemática do desbalanceamento.}
+	\label{fig:3dorbit}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/3dorbit.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: \citeonline{stanley2025}}
+	\end{minipage}
+\end{figure}
