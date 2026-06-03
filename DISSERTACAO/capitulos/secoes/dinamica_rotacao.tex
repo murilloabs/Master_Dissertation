@@ -2,7 +2,7 @@
 
 Classifica-se como rotor um equipamento mecânico que está sujeito à rotação, como eixos de motores, compressores, turbomáquinas, entre as mais diversas aplicações. Dessa forma, rotores são, geralmente, compostos por eixos, discos, engrenagens, mancais e selos \cite{Friswell2010}. Nesse sentido, como tais componentes são amplamente utilizados, o estudo destas máquinas torna-se de grande relevância para garantir a confiabilidade. 
 
-A análise estática de rotores tem sua base nas teoria s já fundamentadas da análise estrutural \cite{martha2010} e resistência dos materiais \cite{hibbeler2010}. Entretanto, quando se trata de análise dinâmica há diversas diferenças, isso pois ao se adicionar a velocidade de rotação $\Omega$ ao sistema diferentes fenômenos são observados. Entre eles, o principal é o Efeito Giroscópico, que representa o acoplamento de direções laterais devido à conservação do Momento Angular do sistema \cite{Lalanne1998}. Este é o mesmo efeito que promove, por exemplo, estabilidade para motocicletas e bicicletas ao se deslocarem em duas rodas.
+A análise estática de rotores tem sua base nas teorias já fundamentadas da análise estrutural \cite{martha2010} e resistência dos materiais \cite{hibbeler2010}. Entretanto, quando se trata de análise dinâmica há diversas diferenças, isso pois ao se adicionar a velocidade de rotação $\Omega$ ao sistema diferentes fenômenos são observados. Entre eles, o principal é o Efeito Giroscópico, que representa o acoplamento de direções laterais devido à conservação do Momento Angular do sistema \cite{Lalanne1998}. Este é o mesmo efeito que promove, por exemplo, estabilidade para motocicletas e bicicletas ao se deslocarem em duas rodas.
 
 Além disso, ao girar em velocidade de rotação constante o sistema dinâmico e considerando o efeito giroscópico, agora, apresenta duas frequências naturais para cada modo de vibrar lateral. Com isso, surge o efeito da Precessão Direta, do inglês \textit{Forward} (\textit{FW}) ou Precessão Inversa do inglês \textit{Backward} (\textit{BW}). A precessão do tipo \textit{Forward} o ocorre quando a órbita desenhada pelo movimento do cento do eixo está no mesmo sentido de rotação do próprio eixo. Enquanto a precessão do tipo \textit{Backward} ocorre quando a órbita gira no sentido oposto à rotação do eixo. Assim como apresentado pela Figura \ref{fig:precessao}.
 \begin{figure}[H]
@@ -33,6 +33,8 @@ A Figura \ref{fig:campbell} apresenta o Diagrama de Campbell onde é possível v
 		{\small Fonte: Adaptado de \citeonline{Friswell2010}}
 	\end{minipage}
 \end{figure}
+
+\subsection{Modelagem de Rotores}
 
 Dessa maneira, a correta modelagem matemática é essencial para o desenvolver análises e resultados robustos, coerentes e confiáveis. Assim, um modelo de elementos finitos para rotores foi desenvolvido por \citeonline{cavalini2013} com base na modelagem apresentada por \citeonline{Lalanne1998} servindo como referência para diversos trabalhos. Tal modelo contempla quatro graus de liberdade por nó, a expansão para seis \textit{gdl} pro nó foi apresentada por \citeonline{sicchieri2024}, assim como mostrado na Equação \ref{Eq:dof}.
 
@@ -101,4 +103,24 @@ A \ref{subfigure:modelo} apresenta uma representação de um rotor real com manc
 
 Com a Equação do Movimento (Equação \ref{Eq:movement}) do sistema é possível determinar a resposta deste à forças aplicadas no vetor ${F(t)}$, determinar as frequências naturais, funções de resposta em frequência, resposta de desbalanceamento e diversas outras análises de dinâmica de rotação. 
 
+\subsection{Desbalanceamento de Rotores}
 
+O desbalanceamento de rotores é uma condição na qual uma concentração de massa, deslocada  do centro do eixo de rotação, provoca uma força capaz que aumentar a amplitude de vibração e as órbitas de um rotor \cite{leocabral2023,daniel2024,stanley2025,raimundo2025}. A Figura \ref{fig:desbalanceamento} apresenta um esquemático do posicionamento da massa excêntrica posicionada em um disco solidário ao eixo.
+\begin{figure}[H]
+	\centering
+	\caption{Representação esquemática do desbalanceamento.}
+	\label{fig:desbalanceamento}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/desbalanceamento.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: \citeonline{stanley2025}}
+	\end{minipage}
+\end{figure}
+
+O efeito do desbalanceamento pode ser  expresso  por uma amplitude e fase, que juntas, geram a força de desbalanceamento. 
+
+
+{\color{red} DESENVOLVER SOBRE DESBALANCEAMENTO, EUQAÇÕES RESPOSTA TEMPORAL E ORBITAS}
