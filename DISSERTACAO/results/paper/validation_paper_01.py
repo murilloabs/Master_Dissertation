@@ -274,7 +274,14 @@ def run_simulation_at_speed(speed_rpm, sim_time_seconds, integrador="internal_ne
     
     # Executa a geração de Dashboards e CSVs da própria classe Backlash
     caminho_dash = os.path.join(pasta_saida, "painel_grafico.html")
-    backlash.plot_dashboard(freq_unit="rpm", decimation=5, save_path=caminho_dash)
+    backlash.plot_dashboard(
+    freq_unit="rpm", 
+    decimation=5, 
+    save_path=caminho_dash, 
+    dft_y_scale="linear", 
+    time_range=(2.0, 2.12),
+    freq_range=(0, 500000)
+)
 
     wm = speed_rad_s * z1
     # Período exato de 1 ciclo de engrenamento (segundos)
