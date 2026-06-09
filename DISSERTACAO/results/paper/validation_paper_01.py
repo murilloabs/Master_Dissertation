@@ -9,6 +9,8 @@ sys.path.append(r'D:\MESTRADO\Backlash_Devlopment-main\Backlash_Devlopment-main\
 # sys.path.append(r'C:\Users\M\Documents\Mestrado\ENGRENAMENTO\ross')
 # sys.path.append(r'C:\Users\M\Documents\Mestrado\ENGRENAMENTO\teste\teste-gemini')
 
+
+import pickle
 import os
 import copy
 import numpy as np
@@ -279,9 +281,9 @@ def run_simulation_at_speed(speed_rpm, sim_time_seconds, integrador="internal_ne
     decimation=5, 
     save_path=caminho_dash, 
     dft_y_scale="linear", 
-    time_range=(2.0, 2.12),
-    freq_range=(0, 500000)
-)
+    time_range=(2.0, 2.125),
+    freq_range=(0, 400000)
+    )
 
     wm = speed_rad_s * z1
     # Período exato de 1 ciclo de engrenamento (segundos)
@@ -306,6 +308,7 @@ def run_simulation_at_speed(speed_rpm, sim_time_seconds, integrador="internal_ne
 # ==============================================================================
 # VALIDAÇÃO FIGURAS 7 e 9: ROTAÇÃO BAIXA (1000 RPM)
 # ==============================================================================
+
 bk_1000, idx_x1_1000, pd_gear, b0, alfa0_rad, cr0, pasta_saida_1000 = run_simulation_at_speed(speed_rpm=1000, sim_time_seconds=2.65)
 
 t_1000 = bk_1000.time
@@ -343,7 +346,7 @@ plot_poincare_validation(pasta_saida_1000, "9e.csv", "Fig 9(e) - Mapa de Poincar
 # ==============================================================================
 # VALIDAÇÃO FIGURA 10: ROTAÇÃO MÉDIA (3000 RPM)
 # ==============================================================================
-bk_3000, idx_x1_3000, pd_gear, b0, alfa0_rad, cr0, pasta_saida_3000 = run_simulation_at_speed(speed_rpm=3000, sim_time_seconds=0.95)
+bk_3000, idx_x1_3000, pd_gear, b0, alfa0_rad, cr0, pasta_saida_3000 = run_simulation_at_speed(speed_rpm=3000, sim_time_seconds=2.65)
 
 t_3000 = bk_3000.time
 x1_3000 = bk_3000.time_response.yout[:, idx_x1_3000]
@@ -366,7 +369,7 @@ plot_poincare_validation(pasta_saida_3000, "10e.csv", "Fig 10(e) - Mapa de Poinc
 # ==============================================================================
 # VALIDAÇÃO FIGURA 11: ROTAÇÃO ALTA (4500 RPM)
 # ==============================================================================
-bk_4500, idx_x1_4500, pd_gear, b0, alfa0_rad, cr0, pasta_saida_4500 = run_simulation_at_speed(speed_rpm=4500, sim_time_seconds=0.65)
+bk_4500, idx_x1_4500, pd_gear, b0, alfa0_rad, cr0, pasta_saida_4500 = run_simulation_at_speed(speed_rpm=4500, sim_time_seconds=2.65)
 
 t_4500 = bk_4500.time
 x1_4500 = bk_4500.time_response.yout[:, idx_x1_4500]
@@ -388,7 +391,7 @@ plot_poincare_validation(pasta_saida_4500, "11e.csv", "Fig 11(e) - Mapa de Poinc
 # ==============================================================================
 # VALIDAÇÃO FIGURA 12: ROTAÇÃO MUITO ALTA (6000 RPM)
 # ==============================================================================
-bk_6000, idx_x1_6000, pd_gear_6000, b0_6000, alfa0_rad_6000, cr0_6000, pasta_saida_6000 = run_simulation_at_speed(speed_rpm=6000, sim_time_seconds=0.5)
+bk_6000, idx_x1_6000, pd_gear_6000, b0_6000, alfa0_rad_6000, cr0_6000, pasta_saida_6000 = run_simulation_at_speed(speed_rpm=6000, sim_time_seconds=2.65)
 
 t_6000 = bk_6000.time
 delta_6000 = bk_6000.backlash_results['delta']

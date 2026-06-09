@@ -2060,16 +2060,11 @@ class Backlash:
             
         print("Modelo carregado com sucesso!")
         return loaded_model
-    
-
-# Nota: Certifique-se de que a função compute_dfft está importada ou definida no seu arquivo.
 
     def plot_dashboard(self, freq_unit="Hz", decimation=1, save_path=None, is_linear=False, dft_y_scale="log", time_range=None, freq_range=None):
         """
-        Gera um painel interativo consolidado com disposição tempo/frequência.
+        Gera um painel interativo consolidado com disposição tempo/frequência para as variáveis.
         O HTML será salvo na mesma pasta do script se um caminho absoluto não for fornecido.
-        O parâmetro time_range afeta apenas os gráficos no domínio do tempo.
-        O parâmetro freq_range afeta apenas os gráficos de DFT.
         """
         # Garante que salva na mesma pasta do script que CHAMOU a execução
         if save_path:
@@ -2095,7 +2090,9 @@ class Backlash:
             tempo = self.time
             titulo_base = "Resultados"
 
-        titulo = f"Dashboard de {titulo_base} - Dinâmica de Engrenamento"
+        # Converte a velocidade de rad/s para RPM para exibir no título
+        rpm_vel = self.speed_driving_gear * (30 / np.pi)
+        titulo = f"Dashboard de {titulo_base} - Dinâmica de Engrenamento ({rpm_vel:.0f} RPM)"
 
         # =====================================================================
         # PASSO 1: CALCULAR AS DFTs COM O SINAL COMPLETO (Alta resolução)
@@ -2104,6 +2101,11 @@ class Backlash:
         freq_bt, amp_bt       = compute_dfft(dados["bt"], tempo, freq_unit=freq_unit)
         freq_fm, amp_fm       = compute_dfft(dados["Fm"], tempo, freq_unit=freq_unit)
         freq_km, amp_km       = compute_dfft(dados["K_time"], tempo, freq_unit=freq_unit)
+        
+        freq_d, amp_d         = compute_dfft(dados["d"], tempo, freq_unit=freq_unit)
+        freq_alfa, amp_alfa   = compute_dfft(np.degrees(dados["alfa"]), tempo, freq_unit=freq_unit)
+        freq_beta, amp_beta   = compute_dfft(np.degrees(dados["beta"]), tempo, freq_unit=freq_unit)
+        freq_cr, amp_cr       = compute_dfft(dados["contact_ratio"], tempo, freq_unit=freq_unit)
 
         # =====================================================================
         # PASSO 2: APLICAR FILTRO DE TEMPO E DECIMAÇÃO PARA OS GRÁFICOS (Tempo)
@@ -2124,10 +2126,6 @@ class Backlash:
 
         # Extração das grandezas nominais e geométricas
         d0 = (self.gears[0].pitch_diameter + self.gears[1].pitch_diameter) / 2
-        Ra1, Ra2 = self.gears[0].radii_dict["addendum"], self.gears[1].radii_dict["addendum"]
-        Rb1, Rb2 = self.gears[0].base_radius, self.gears[1].base_radius
-        Rf1, Rf2 = self.gears[0].radii_dict["root"], self.gears[1].radii_dict["root"]
-        
         alfa0_deg = np.degrees(self.gears[0].pr_angle)
         beta0_deg = np.degrees(self.multirotor.orientation_angle)
         nominal_cr = self.multirotor.mesh.contact_ratio
@@ -2136,256 +2134,124 @@ class Backlash:
         t_plot = tempo_cortado[::decimation]
         res = {k: v[::decimation] for k, v in dados_cortados.items()}
         
-        # Criação dos vetores constantes para plotagem temporal
         d0_vec = np.full_like(t_plot, d0)
-        Ra_vec = np.full_like(t_plot, Ra1 + Ra2)
-        Rb_vec = np.full_like(t_plot, Rb1 + Rb2)
-        Rf_vec = np.full_like(t_plot, Rf1 + Ra2)
         alfa0_vec = np.full_like(t_plot, alfa0_deg)
         beta0_vec = np.full_like(t_plot, beta0_deg)
         cr0_vec = np.full_like(t_plot, nominal_cr)
 
         # =====================================================================
-        # PASSO 3: NOVA GRELHA DE PLOTAGEM (6 Linhas x 2 Colunas)
+        # PASSO 3: GRELHA DE PLOTAGEM (7 Linhas x 2 Colunas)
         # =====================================================================
         fig = make_subplots(
-            rows=6, cols=2,
+            rows=7, cols=2,
             subplot_titles=(
-                "Erro de Transmissão (δ) e Backlash (+bt)", f"Espectro DFT (δ e +bt) [{freq_unit}]",
-                "Força Dinâmica (Fm)", f"Espectro DFT (Fm) [{freq_unit}]",
-                "Rigidez de Engrenamento (K_m)", f"Espectro DFT (K_m) [{freq_unit}]",
-                "Distância entre Centros (d)", "Ângulo de Pressão Dinâmico (α)",
-                "Ângulo de Posição (β)", "Razão de Contato (CR)",
-                "Órbita Pinhão (Engrenagem 1)", "Órbita Coroa (Engrenagem 2)"
+                "Erro de Transmissão (δ) e Backlash (+bt)", "Espectro DFT (δ e +bt)",
+                "Força Dinâmica (Fm)", "Espectro DFT (Fm)",
+                "Rigidez de Engrenamento (K_m)", "Espectro DFT (K_m)",
+                "Distância entre Centros (d)", "Espectro DFT (d)",
+                "Ângulo de Pressão Dinâmico (α)", "Espectro DFT (α)",
+                "Ângulo de Posição (β)", "Espectro DFT (β)",
+                "Razão de Contato (CR)", "Espectro DFT (CR)"
             ),
-            vertical_spacing=0.06, horizontal_spacing=0.08
+            vertical_spacing=0.04, horizontal_spacing=0.08
         )
 
-        # --- Linha 1: DTE vs Backlash (Tempo e Frequência) ---
-        # Cores mantidas consistentes entre os dois domínios
+        # --- Gráficos no Domínio do Tempo (Coluna 1) ---
         fig.add_trace(go.Scattergl(x=t_plot, y=res["delta"], name="δ(t)", line=dict(color='blue')), row=1, col=1)
         fig.add_trace(go.Scattergl(x=t_plot, y=res["bt"], name="+bt", line=dict(color='red', dash='dash')), row=1, col=1)
         
-        # --- Linha 2: Força Dinâmica (Tempo e Frequência) ---
         fig.add_trace(go.Scattergl(x=t_plot, y=res["Fm"], name="Fm(t)", line=dict(color='purple')), row=2, col=1)
-
-        # --- Linha 3: Rigidez de Engrenamento (Tempo e Frequência) ---
         fig.add_trace(go.Scattergl(x=t_plot, y=res["K_time"], name="K_m(t)", line=dict(color='teal')), row=3, col=1)
-
-        # --- Linha 4: Respostas temporais de distância e ângulo de pressão ---
+        
         fig.add_trace(go.Scattergl(x=t_plot, y=res["d"], name="d(t)", line=dict(color='green')), row=4, col=1)
         fig.add_trace(go.Scattergl(x=t_plot, y=d0_vec, name="d0 (Nominal)", line=dict(color='black', dash='dot')), row=4, col=1)
-        # fig.add_trace(go.Scattergl(x=t_plot, y=Ra_vec, name="Ra1+Ra2", line=dict(color='orange', dash='dashdot')), row=4, col=1)
-        # fig.add_trace(go.Scattergl(x=t_plot, y=Rf_vec, name="Rf1+Ra2", line=dict(color='brown', dash='dashdot')), row=4, col=1)
-        # fig.add_trace(go.Scattergl(x=t_plot, y=Rb_vec, name="Rb1+Rb2", line=dict(color='magenta', dash='dashdot')), row=4, col=1)
         
-        fig.add_trace(go.Scattergl(x=t_plot, y=np.degrees(res["alfa"]), name="α(t) [deg]", line=dict(color='darkorange')), row=4, col=2)
-        fig.add_trace(go.Scattergl(x=t_plot, y=alfa0_vec, name="α0 (Nominal)", line=dict(color='black', dash='dot')), row=4, col=2)
+        fig.add_trace(go.Scattergl(x=t_plot, y=np.degrees(res["alfa"]), name="α(t)", line=dict(color='darkorange')), row=5, col=1)
+        fig.add_trace(go.Scattergl(x=t_plot, y=alfa0_vec, name="α0 (Nominal)", line=dict(color='black', dash='dot')), row=5, col=1)
 
-        # --- Linha 5: Respostas temporais de posição e razão de contato ---
-        fig.add_trace(go.Scattergl(x=t_plot, y=np.degrees(res["beta"]), name="β(t) [deg]", line=dict(color='darkcyan')), row=5, col=1)
-        fig.add_trace(go.Scattergl(x=t_plot, y=beta0_vec, name="β0 (Nominal)", line=dict(color='black', dash='dot')), row=5, col=1)
+        fig.add_trace(go.Scattergl(x=t_plot, y=np.degrees(res["beta"]), name="β(t)", line=dict(color='darkcyan')), row=6, col=1)
+        fig.add_trace(go.Scattergl(x=t_plot, y=beta0_vec, name="β0 (Nominal)", line=dict(color='black', dash='dot')), row=6, col=1)
 
-        fig.add_trace(go.Scattergl(x=t_plot, y=res["contact_ratio"], name="CR(t)", line=dict(color='olive')), row=5, col=2)
-        fig.add_trace(go.Scattergl(x=t_plot, y=cr0_vec, name="CR0 (Nominal)", line=dict(color='black', dash='dot')), row=5, col=2)
-
-        # --- Linha 6: Órbitas ---
-        fig.add_trace(go.Scattergl(x=res["x1"], y=res["y1"], name="Órbita 1", line=dict(color='blue')), row=6, col=1)
-        fig.add_trace(go.Scattergl(x=res["x2"], y=res["y2"], name="Órbita 2", line=dict(color='red')), row=6, col=2)
+        fig.add_trace(go.Scattergl(x=t_plot, y=res["contact_ratio"], name="CR(t)", line=dict(color='olive')), row=7, col=1)
+        fig.add_trace(go.Scattergl(x=t_plot, y=cr0_vec, name="CR0 (Nominal)", line=dict(color='black', dash='dot')), row=7, col=1)
 
         # =====================================================================
-        # PASSO 4: APLICAR FILTRO DE FREQUÊNCIA E PLOTAR AS DFTs (Colunas 2)
+        # PASSO 4: APLICAR FILTRO DE FREQUÊNCIA E PLOTAR AS DFTs (Coluna 2)
         # =====================================================================
         if freq_range is not None:
             f_min, f_max = freq_range
-            
-            # Máscara para cada DFT
-            m_delta = (freq_delta >= f_min) & (freq_delta <= f_max)
-            freq_delta, amp_delta = freq_delta[m_delta], amp_delta[m_delta]
-            
-            m_bt = (freq_bt >= f_min) & (freq_bt <= f_max)
-            freq_bt, amp_bt = freq_bt[m_bt], amp_bt[m_bt]
+            m_delta = (freq_delta >= f_min) & (freq_delta <= f_max); freq_delta, amp_delta = freq_delta[m_delta], amp_delta[m_delta]
+            m_bt = (freq_bt >= f_min) & (freq_bt <= f_max); freq_bt, amp_bt = freq_bt[m_bt], amp_bt[m_bt]
+            m_fm = (freq_fm >= f_min) & (freq_fm <= f_max); freq_fm, amp_fm = freq_fm[m_fm], amp_fm[m_fm]
+            m_km = (freq_km >= f_min) & (freq_km <= f_max); freq_km, amp_km = freq_km[m_km], amp_km[m_km]
+            m_d = (freq_d >= f_min) & (freq_d <= f_max); freq_d, amp_d = freq_d[m_d], amp_d[m_d]
+            m_alfa = (freq_alfa >= f_min) & (freq_alfa <= f_max); freq_alfa, amp_alfa = freq_alfa[m_alfa], amp_alfa[m_alfa]
+            m_beta = (freq_beta >= f_min) & (freq_beta <= f_max); freq_beta, amp_beta = freq_beta[m_beta], amp_beta[m_beta]
+            m_cr = (freq_cr >= f_min) & (freq_cr <= f_max); freq_cr, amp_cr = freq_cr[m_cr], amp_cr[m_cr]
 
-            m_fm = (freq_fm >= f_min) & (freq_fm <= f_max)
-            freq_fm, amp_fm = freq_fm[m_fm], amp_fm[m_fm]
-            
-            m_km = (freq_km >= f_min) & (freq_km <= f_max)
-            freq_km, amp_km = freq_km[m_km], amp_km[m_km]
-
-        # Inserindo os traços das DFTs (mantendo o esquema de cor)
         fig.add_trace(go.Scattergl(x=freq_delta, y=amp_delta, name="DFT(δ)", line=dict(color='blue')), row=1, col=2)
         fig.add_trace(go.Scattergl(x=freq_bt, y=amp_bt, name="DFT(+bt)", line=dict(color='red', dash='dash')), row=1, col=2)
-        
         fig.add_trace(go.Scattergl(x=freq_fm, y=amp_fm, name="DFT(Fm)", line=dict(color='purple')), row=2, col=2)
         fig.add_trace(go.Scattergl(x=freq_km, y=amp_km, name="DFT(K_m)", line=dict(color='teal')), row=3, col=2)
+        fig.add_trace(go.Scattergl(x=freq_d, y=amp_d, name="DFT(d)", line=dict(color='green')), row=4, col=2)
+        fig.add_trace(go.Scattergl(x=freq_alfa, y=amp_alfa, name="DFT(α)", line=dict(color='darkorange')), row=5, col=2)
+        fig.add_trace(go.Scattergl(x=freq_beta, y=amp_beta, name="DFT(β)", line=dict(color='darkcyan')), row=6, col=2)
+        fig.add_trace(go.Scattergl(x=freq_cr, y=amp_cr, name="DFT(CR)", line=dict(color='olive')), row=7, col=2)
 
         # =====================================================================
-        # PASSO 5: CONFIGURAÇÕES DE LAYOUT E EIXOS
+        # PASSO 5: CONFIGURAÇÕES DE LAYOUT, EIXOS E LEGENDAS INDIVIDUAIS
         # =====================================================================
-        fig.update_layout(title_text=titulo, height=1800, width=1400, template="plotly_white", hovermode="x unified")
+        fig.update_layout(title_text=titulo, height=2100, width=1400, template="plotly_white", hovermode="x unified", showlegend=False)
         
-        # Configuração Eixo X
-        for r in range(1, 6):
+        # Configuração de Eixos X
+        for r in range(1, 8):
             fig.update_xaxes(title_text="Tempo (s)", row=r, col=1)
+            fig.update_xaxes(title_text=f"Frequência ({freq_unit})", row=r, col=2)
         
-        fig.update_xaxes(title_text=f"Frequência ({freq_unit})", row=1, col=2)
-        fig.update_xaxes(title_text=f"Frequência ({freq_unit})", row=2, col=2)
-        fig.update_xaxes(title_text=f"Frequência ({freq_unit})", row=3, col=2)
-        fig.update_xaxes(title_text="Tempo (s)", row=4, col=2)
-        fig.update_xaxes(title_text="Tempo (s)", row=5, col=2)
-        
-        # Força proporção 1:1 nas órbitas e rotula Eixos X
-        fig.update_xaxes(title_text="x (m)", row=6, col=1)
-        fig.update_xaxes(title_text="x (m)", row=6, col=2)
-        fig.update_yaxes(scaleanchor="x", scaleratio=1, row=6, col=1)
-        fig.update_yaxes(scaleanchor="x", scaleratio=1, row=6, col=2)
-
-        # Configuração Eixo Y
-        fig.update_yaxes(title_text="Desloc. (m)", row=1, col=1); fig.update_yaxes(title_text="Amp. (m)", row=1, col=2)
-        fig.update_yaxes(title_text="Força (N)", row=2, col=1);   fig.update_yaxes(title_text="Amp. (N)", row=2, col=2)
+        # Configuração de Eixos Y
+        fig.update_yaxes(title_text="Desloc. (m)", row=1, col=1);   fig.update_yaxes(title_text="Amp. (m)", row=1, col=2)
+        fig.update_yaxes(title_text="Força (N)", row=2, col=1);     fig.update_yaxes(title_text="Amp. (N)", row=2, col=2)
         fig.update_yaxes(title_text="Rigidez (N/m)", row=3, col=1); fig.update_yaxes(title_text="Amp. (N/m)", row=3, col=2)
-        fig.update_yaxes(title_text="Distância (m)", row=4, col=1); fig.update_yaxes(title_text="Ângulo (deg)", row=4, col=2)
-        fig.update_yaxes(title_text="Ângulo (deg)", row=5, col=1); fig.update_yaxes(title_text="Razão", row=5, col=2)
-        fig.update_yaxes(title_text="y (m)", row=6, col=1); fig.update_yaxes(title_text="y (m)", row=6, col=2)
+        fig.update_yaxes(title_text="Distância (m)", row=4, col=1); fig.update_yaxes(title_text="Amp. (m)", row=4, col=2)
+        fig.update_yaxes(title_text="Ângulo (deg)", row=5, col=1);  fig.update_yaxes(title_text="Amp. (deg)", row=5, col=2)
+        fig.update_yaxes(title_text="Ângulo (deg)", row=6, col=1);  fig.update_yaxes(title_text="Amp. (deg)", row=6, col=2)
+        fig.update_yaxes(title_text="Razão", row=7, col=1);         fig.update_yaxes(title_text="Amp. (Razão)", row=7, col=2)
 
-        # Configuração da Escala Y para as DFTs (Linhas 1, 2 e 3 na Coluna 2)
+        # Configuração da Escala Y para todas as DFTs
         if dft_y_scale.lower() == "log":
-            fig.update_yaxes(type="log", row=1, col=2)
-            fig.update_yaxes(type="log", row=2, col=2)
-            fig.update_yaxes(type="log", row=3, col=2)
+            for r in range(1, 8):
+                fig.update_yaxes(type="log", row=r, col=2)
         elif dft_y_scale.lower() == "linear":
-            fig.update_yaxes(type="linear", row=1, col=2)
-            fig.update_yaxes(type="linear", row=2, col=2)
-            fig.update_yaxes(type="linear", row=3, col=2)
+            for r in range(1, 8):
+                fig.update_yaxes(type="linear", row=r, col=2)
+
+        # --- CAIXAS DE "MINI-LEGENDAS" DENTRO DE CADA GRÁFICO ---
+        leg_st = dict(xref="x domain", yref="y domain", x=0.98, y=0.98, xanchor="right", yanchor="top", 
+                      showarrow=False, align="left", bgcolor="rgba(255,255,255,0.8)", bordercolor="lightgray", borderwidth=1)
+        
+        # Coluna 1 (Gráficos Temporais)
+        fig.add_annotation(text="<span style='color:blue'>— δ(t)</span><br><span style='color:red'>-- +bt</span>", row=1, col=1, **leg_st)
+        fig.add_annotation(text="<span style='color:purple'>— Fm(t)</span>", row=2, col=1, **leg_st)
+        fig.add_annotation(text="<span style='color:teal'>— K_m(t)</span>", row=3, col=1, **leg_st)
+        fig.add_annotation(text="<span style='color:green'>— d(t)</span><br><span style='color:black'>-- d0 (Nominal)</span>", row=4, col=1, **leg_st)
+        fig.add_annotation(text="<span style='color:darkorange'>— α(t)</span><br><span style='color:black'>-- α0 (Nominal)</span>", row=5, col=1, **leg_st)
+        fig.add_annotation(text="<span style='color:darkcyan'>— β(t)</span><br><span style='color:black'>-- β0 (Nominal)</span>", row=6, col=1, **leg_st)
+        fig.add_annotation(text="<span style='color:olive'>— CR(t)</span><br><span style='color:black'>-- CR0 (Nominal)</span>", row=7, col=1, **leg_st)
+        
+        # Coluna 2 (DFTs)
+        fig.add_annotation(text="<span style='color:blue'>— DFT(δ)</span><br><span style='color:red'>-- DFT(+bt)</span>", row=1, col=2, **leg_st)
+        fig.add_annotation(text="<span style='color:purple'>— DFT(Fm)</span>", row=2, col=2, **leg_st)
+        fig.add_annotation(text="<span style='color:teal'>— DFT(K_m)</span>", row=3, col=2, **leg_st)
+        fig.add_annotation(text="<span style='color:green'>— DFT(d)</span>", row=4, col=2, **leg_st)
+        fig.add_annotation(text="<span style='color:darkorange'>— DFT(α)</span>", row=5, col=2, **leg_st)
+        fig.add_annotation(text="<span style='color:darkcyan'>— DFT(β)</span>", row=6, col=2, **leg_st)
+        fig.add_annotation(text="<span style='color:olive'>— DFT(CR)</span>", row=7, col=2, **leg_st)
 
         if save_path:
             fig.write_html(save_path, include_plotlyjs="cdn")
             print(f"Dashboard leve HTML salvo em: {save_path}")
         else:
             fig.show()
-
-    # def plot_dashboard(self, freq_unit="Hz", decimation=1, save_path=None, is_linear=False):
-    #     """
-    #     Gera um painel interativo consolidado.
-    #     Se is_linear=True, gera o gráfico para os dados do Baseline Linear.
-    #     O HTML será salvo na mesma pasta do backlash.py se um caminho absoluto não for fornecido.
-    #     """
-    #     # Garante que salva na mesma pasta do script que CHAMOU a execução (validation)
-    #     if save_path:
-    #         try:
-    #             main_file = sys.modules['__main__'].__file__
-    #             diretorio_execucao = os.path.dirname(os.path.abspath(main_file))
-    #         except AttributeError:
-    #             diretorio_execucao = os.getcwd()
-                
-    #         if not os.path.isabs(save_path):
-    #             save_path = os.path.join(diretorio_execucao, save_path)
-
-    #     # Seleciona qual dicionário de dados usar (Linear ou Não-Linear)
-    #     if is_linear:
-    #         if not hasattr(self, 'linear_backlash_results'):
-    #             print("ERRO: Resultados lineares não encontrados. Rode 'run_linear_baseline()' primeiro.")
-    #             return
-    #         dados = self.linear_backlash_results
-    #         tempo = self.linear_time_response.t
-    #         titulo = "Dashboard de Resultados LINEARES (Baseline) - Engrenamento"
-    #     else:
-    #         dados = self.backlash_results
-    #         tempo = self.time
-    #         titulo = "Dashboard de Resultados NÃO-LINEARES - Engrenamento"
-
-    #     # Extração das grandezas nominais e geométricas
-    #     d0 = (self.gears[0].pitch_diameter + self.gears[1].pitch_diameter) / 2
-    #     Ra1, Ra2 = self.gears[0].radii_dict["addendum"], self.gears[1].radii_dict["addendum"]
-    #     Rb1, Rb2 = self.gears[0].base_radius, self.gears[1].base_radius
-    #     Rf1, Rf2 = self.gears[0].radii_dict["root"], self.gears[1].radii_dict["root"]
-        
-    #     alfa0_deg = np.degrees(self.gears[0].pr_angle)
-    #     beta0_deg = np.degrees(self.multirotor.orientation_angle)
-    #     nominal_cr = self.multirotor.mesh.contact_ratio # <-- Extrai o CR Nominal
-
-    #     # Aplica a decimação para não travar o navegador
-    #     t_plot = tempo[::decimation]
-    #     res = {k: v[::decimation] for k, v in dados.items()}
-        
-    #     # Criação dos vetores constantes para plotagem
-    #     d0_vec = np.full_like(t_plot, d0)
-    #     Ra_vec = np.full_like(t_plot, Ra1 + Ra2)
-    #     Rb_vec = np.full_like(t_plot, Rb1 + Rb2)
-    #     Rf_vec = np.full_like(t_plot, Rf1 + Ra2)
-    #     alfa0_vec = np.full_like(t_plot, alfa0_deg)
-    #     beta0_vec = np.full_like(t_plot, beta0_deg)
-    #     cr0_vec = np.full_like(t_plot, nominal_cr) # <-- Cria o vetor constante do CR
-
-    #     # Nova grelha: 5 linhas x 2 colunas
-    #     fig = make_subplots(
-    #         rows=5, cols=2,
-    #         subplot_titles=(
-    #             "Erro Dinâmico de Transmissão (DTE) vs Backlash (+bt)", "Força Dinâmica de Engrenamento (DMF)",
-    #             "Distância entre Centros Instantânea", "Rigidez de Engrenamento (k_m)",
-    #             "Ângulo de Pressão Dinâmico (α)", "Ângulo de Posição (β)",
-    #             "Razão de Contato Instantânea", "Órbitas dos Rotores (R1 e R2)",
-    #             f"Espectro FFT (Fm) [{freq_unit}]", f"Espectro FFT (k_m) [{freq_unit}]"
-    #         ),
-    #         vertical_spacing=0.06, horizontal_spacing=0.08
-    #     )
-
-    #     # --- Linha 1 (DTE sem -bt) ---
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=res["delta"], name="δ(t)", line=dict(color='blue')), row=1, col=1)
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=res["bt"], name="+bt", line=dict(color='red', dash='dash')), row=1, col=1)
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=res["Fm"], name="Fm", line=dict(color='purple')), row=1, col=2)
-
-    #     # --- Linha 2 ---
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=res["d"], name="d(t)", line=dict(color='green')), row=2, col=1)
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=d0_vec, name="d0 (Nominal)", line=dict(color='black', dash='dot')), row=2, col=1)
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=Ra_vec, name="Ra1+Ra2", line=dict(color='orange', dash='dashdot')), row=2, col=1)
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=Rf_vec, name="Rf1+Ra2", line=dict(color='brown', dash='dashdot')), row=2, col=1)
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=Rb_vec, name="Rb1+Rb2", line=dict(color='magenta', dash='dashdot')), row=2, col=1)
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=res["K_time"], name="K_m(t)", line=dict(color='teal')), row=2, col=2)
-
-    #     # --- Linha 3 (Ângulos Dinâmicos vs Nominais) ---
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=np.degrees(res["alfa"]), name="α(t) [deg]", line=dict(color='darkorange')), row=3, col=1)
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=alfa0_vec, name="α0 (Nominal)", line=dict(color='black', dash='dot')), row=3, col=1)
-        
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=np.degrees(res["beta"]), name="β(t) [deg]", line=dict(color='darkcyan')), row=3, col=2)
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=beta0_vec, name="β0 (Nominal)", line=dict(color='black', dash='dot')), row=3, col=2)
-
-    #     # --- Linha 4 ---
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=res["contact_ratio"], name="CR(t)", line=dict(color='olive')), row=4, col=1)
-    #     fig.add_trace(go.Scattergl(x=t_plot, y=cr0_vec, name="CR0 (Nominal)", line=dict(color='black', dash='dot')), row=4, col=1) # <-- Novo traço do CR Nominal
-    #     fig.add_trace(go.Scattergl(x=res["x1"], y=res["y1"], name="Órbita Pinhão", line=dict(color='blue')), row=4, col=2)
-    #     fig.add_trace(go.Scattergl(x=res["x2"], y=res["y2"], name="Órbita Coroa", line=dict(color='red')), row=4, col=2)
-
-    #     # --- Linha 5 (Chamando a função externa compute_dfft que agora usa numpy puro) ---
-    #     freq_fm, amp_fm = compute_dfft(dados["Fm"], tempo, freq_unit=freq_unit)
-    #     freq_km, amp_km = compute_dfft(dados["K_time"], tempo, freq_unit=freq_unit)
-        
-    #     fig.add_trace(go.Scattergl(x=freq_fm, y=amp_fm, name="FFT(Fm)", line=dict(color='indigo')), row=5, col=1)
-    #     fig.add_trace(go.Scattergl(x=freq_km, y=amp_km, name="FFT(K_m)", line=dict(color='darkgreen')), row=5, col=2)
-
-    #     # --- Configurações de Layout ---
-    #     fig.update_layout(title_text=titulo, height=1400, width=1400, template="plotly_white", hovermode="x unified")
-        
-    #     for r in range(1, 6):
-    #         fig.update_xaxes(title_text="Tempo (s)", row=r, col=1)
-    #         if r != 4:
-    #             fig.update_xaxes(title_text="Tempo (s)", row=r, col=2)
-                
-    #     fig.update_xaxes(title_text="x (m)", scaleanchor="y8", scaleratio=1, row=4, col=2) 
-    #     fig.update_xaxes(title_text=f"Frequência ({freq_unit})", row=5, col=1)
-    #     fig.update_xaxes(title_text=f"Frequência ({freq_unit})", row=5, col=2)
-        
-    #     fig.update_yaxes(title_text="Deslocamento (m)", row=1, col=1); fig.update_yaxes(title_text="Força (N)", row=1, col=2)
-    #     fig.update_yaxes(title_text="Distância (m)", row=2, col=1);   fig.update_yaxes(title_text="Rigidez (N/m)", row=2, col=2)
-    #     fig.update_yaxes(title_text="Ângulo (graus)", row=3, col=1);  fig.update_yaxes(title_text="Ângulo (graus)", row=3, col=2)
-    #     fig.update_yaxes(title_text="Razão de Contato", row=4, col=1); fig.update_yaxes(title_text="y (m)", row=4, col=2)
-    #     fig.update_yaxes(title_text="Amplitude (N)", row=5, col=1);   fig.update_yaxes(title_text="Amplitude (N/m)", row=5, col=2)
-
-    #     if save_path:
-    #         fig.write_html(save_path, include_plotlyjs="cdn")
-    #         print(f"Dashboard leve HTML salvo em: {save_path}")
-    #     else:
-    #         fig.show()
 
     def save_and_plot_linear_baseline(self, csv_filename="baseline_linear_dados.csv", plot_filename="baseline_linear_plot.html"):
         """
