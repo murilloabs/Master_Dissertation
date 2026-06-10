@@ -8,3 +8,33 @@ Ao realizar essa substituição ainda é possível utilizar os recursos do \text
 
 Além disso, outro ponto de extrema relevância é a integração numérica utilizada. O Apêndice \ref{ap:newmark_nr} apresenta a metodologia utilizada para a integração com o Método de Newmark e convergência por Newton-Raphson \cite{newmark}. Em resumo, a metodologia consiste em calcular  os valores dos graus de liberdade para uma determinada aplicação de força naquela  instante de tempo. Então, um cálculo de resíduo é feito e para a convergência este valor deve ser minimizado para zero. Há a contabilização da variação da força conforme os valores dos \textit{gdl} vão se alterando no \textit{loop} de convergência. 
 
+As Figuras \ref{fig:flow1} e \ref{fig:flow2} apresentam os fluxograma de execução e funcionamento do código implementado de \textit{backlash} dinâmico 
+
+\begin{figure}[H]
+	\centering
+	\caption{Fluxograma de execução do código}
+	\label{fig:flow1}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/main_flow.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo Autor}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Fluxograma interno de execução do código}
+	\label{fig:flow2}
+	
+	\begin{minipage}{0.6\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/backlash_flow.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo Autor}
+	\end{minipage}
+\end{figure}
+
