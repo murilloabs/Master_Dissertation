@@ -1,1 +1,82 @@
 \section{Aplicação do Modelo de \textit{Backlash} em caso real}
+
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}
+		\caption{Parâmetros do modelo rotodinâmico e configurações da simulação}
+		\label{tab:parametros_simulacao}
+		
+		% Ajustes para caber na margem
+		\footnotesize % Reduz o tamanho da fonte da tabela
+		\setlength{\tabcolsep}{3pt} % Reduz o espaço em branco entre as colunas
+		
+		\begin{tabular}{llll}
+			\hline
+			Parâmetro/Configuração & Valor & Geometria e Física & Valor \\
+			\hline
+			Método de integração & INTERNAL\_NEWMARK & Dentes $Z_1/Z_2$ & 27 / 169 \\
+			Passo de tempo $dt$ (s) & 8.18e-07 & Módulo $m_n$ (mm) & 0.00467 \\
+			Frequência de amostragem (Hz) & 1222495.03 & Ângulo de pressão $\alpha_0$ ($^{\circ}$) & 20.00 \\
+			Ciclos simulados & 41 & Ângulo de hélice ($^{\circ}$) & 30.97 \\
+			Tempo de processamento (NL) & 00:28:33 & Velocidade do pinhão (rad/s) & 1280.20 \\
+			Smooth operator & Não & Frequência de malha (Hz) & 5501.25 \\
+			Sigma de suavização $\sigma$ & 100000.0 & Backlash inicial $b_0$ (m) & 2.0e-05 \\
+			Cálculo de CR dinâmico & Sim & Erro estático (m) & 0.0 \\
+			Usa rigidez do ROSS & Não & Razão de amortecimento $\xi$ & 0.07 \\
+			Possui baseline linear & Não & Massa equivalente $M$ (kg) & 3.1934 \\
+			Vetor Add Force Extra & Sim & Mag. desbal. (kg$\cdot$m) & [0.0063, 0.3154] \\
+			Nós excitados & [17, 44] & Fase desbal. (rad) & [0.0, 3.1416] \\
+			\hline
+		\end{tabular}
+		
+		\begin{tablenotes}[para, flushleft]
+			\scriptsize % Fonte das notas reduzida proporcionalmente
+			\item Nota: Tempo de processamento obtido pelo script \textit{REPLAN\_validation\_paper\_01.py}.
+			\item Fonte: Elaborado pelo autor.
+		\end{tablenotes}
+		
+	\end{threeparttable}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\caption{Dashboard}
+	\label{fig:Dashboard}
+	
+	\begin{minipage}{\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{results/replan_dashboard_12225.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\caption{Force}
+	\label{fig:Force}
+	
+	\begin{minipage}{0.7\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{results/replan_Fm_015_020.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Force}
+	\label{fig:Force}
+	
+	\begin{minipage}{0.7\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{results/replan_Fm_0198_020.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}

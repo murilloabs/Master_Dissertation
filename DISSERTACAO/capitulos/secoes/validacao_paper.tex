@@ -1,5 +1,52 @@
 \section{Validação do Modelo de Acordo com a Literatura}
 
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}
+		\caption{Main parameters of the spur gear system.}
+		\label{tab:spur_gear_parameters}
+		
+		% Ajustes para caber na margem sem usar o resizebox
+		\footnotesize % Reduz o tamanho da fonte da tabela
+		\setlength{\tabcolsep}{3pt} % Reduz o espaço em branco entre as colunas
+		
+		\begin{tabular}{llll}
+			\hline
+			Parameter/property & Value & Parameter/property & Value \\
+			\hline
+			Number of teeth $z_1/z_2$ & 20 & Bearing stiffness $k_{x1, y1}, k_{x2, y2}$ (N/m) & 1.0e8 \\
+			Module $m_n$ (mm) & 10 & Bearing damping $c_{x1, y1}, c_{x2, y2}$ (N$\cdot$s/m) & 512.64 \\
+			Tooth width $B$ (mm) & 30 & Error amplitude $e_a$ ($\mu$m) & 20 \\
+			Initial pressure angle $\alpha_0$ ($^{\circ}$) & 20 & Torque mean $T_{10}, T_{20}$ (N$\cdot$m) & 300 \\
+			Initial center distance $d_0$ (mm) & 200 & Torque fluctuation $T_{1a}, T_{2a}$ (N$\cdot$m) & 100 \\
+			Designed contact ratio $m_p$ & 1.5568 & Mesh damping ratio $\xi_m$ & 0.07 \\
+			Gear mass $m_1, m_2$ (kg) & 6.57 & Mesh stiffness in single tooth contact $k_s$ (N/m) & 3.6228e8 \\
+			Moment of inertia $J_1, J_2$ (kg$\cdot$m$^2$) & 0.0365 & Mesh stiffness in double teeth contact $k_d$ (N/m) & 6.5072e8 \\
+			\hline
+		\end{tabular}
+		
+		\begin{tablenotes}[para, flushleft]
+			\scriptsize % Reduzi a nota para acompanhar a proporção da tabela
+			\item Fonte: Elaborado pelo autor.
+		\end{tablenotes}
+		
+	\end{threeparttable}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\caption{Dashboard}
+	\label{fig:Dashboard}
+	
+	\begin{minipage}{\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{results/dashboard_paper_1000.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
+
 \begin{figure}[H]
 	\centering
 	\caption{Subfiguras}
@@ -129,6 +176,20 @@
 
 \begin{figure}[H]
 	\centering
+	\caption{Dashboard}
+	\label{fig:Dashboard}
+	
+	\begin{minipage}{\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{results/dashboard_paper_3000.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
 	\caption{10a}
 	\label{fig:precessao}
 	
@@ -206,6 +267,62 @@
 		\centering
 		\includegraphics[width=\linewidth]{validation_plots/Fig_10f_DMF.pdf}
 		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Dashboard}
+	\label{fig:Dashboard}
+	
+	\begin{minipage}{\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{results/dashboard_paper_4500.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Dashboard}
+	\label{fig:Dashboard}
+	
+	\begin{minipage}{\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{results/dashboard_paper_6000.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Bifurcation}
+	\label{subfigure}
+	
+	\begin{minipage}{\textwidth}
+		\centering
+		
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Bifurcation}
+			\label{subfig:Bifurcation}
+			\includegraphics[width=\linewidth]{results/bifurcation_code.png}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Bifurcation}
+			\label{subfig:Bifurcation}
+			\includegraphics[width=\linewidth]{results/bifurcation_paper.png}
+		\end{subfigure}
+		
+		\par\vspace{0.5em}
 		\raggedright
 		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
