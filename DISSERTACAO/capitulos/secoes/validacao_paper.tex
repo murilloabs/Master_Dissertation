@@ -1,42 +1,80 @@
 \section{Validação do Modelo de Acordo com a Literatura}
 
+Para atestar a coerência e assertividade do modelo implementado foi realizada uma validação de acordo com o artigo de \citeonline{yi2019}. Neste artigo é considerado somente o par engrenado como modelo dinâmico, contendo as rigidezes e amortecimento nas direções $x$ e $y$ nas duas engrenagens assim como na Linha de Ação. A Figura \ref{fig:yi_valid} apresenta um esquemático de tal modelo.
+\begin{figure}[H]
+	\centering
+	\caption{Modelo dinâmico de \citeonline{yi2019} Utilizado para a Validação}
+	\label{fig:yi_valid}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/modelo_yi_validacao.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: \citeonline{yi2019}}
+	\end{minipage}
+\end{figure} 
+
+Para tal modelo dinâmico \citeonline{yi2019} utiliza torque aplicados nas engrenagens, de acordo com a Equação \ref{eq:torques}, e desconsidera o efeito do desbalanceamento. Nesta análise em questão, \citeonline{yi2019} utiliza um perfil retangular para a rigidez do engrenamento, sendo o valor de contato simples (um par de dentes) denotado por $k_s$ e o de contato duplo (dois pares de dentes) denotado por $k_d$. Além disso, tal modelagem não contempla o Efeito Giroscópico atribuído às engrenagens.
+A Tabela \ref{tab:modelo_yi} apresenta os principais parâmetros utilizados no modelo.
+\begin{equation}
+	T_1 = T_{10} + T_{1a} \sin (\omega_1 t + \varphi_{10}), \quad T_2 = T_{20} + T_{2a} \sin(\omega_2 t + \varphi_{20})
+	\label{eq:torques}
+\end{equation}
 \begin{table}[H]
 	\centering
 	\begin{threeparttable}
-		\caption{Main parameters of the spur gear system.}
-		\label{tab:spur_gear_parameters}
+		\caption{Principais parâmetros utilizados no modelo.}
+		\label{tab:modelo_yi}
 		
 		% Ajustes para caber na margem sem usar o resizebox
 		\footnotesize % Reduz o tamanho da fonte da tabela
 		\setlength{\tabcolsep}{3pt} % Reduz o espaço em branco entre as colunas
 		
-		\begin{tabular}{llll}
+		\begin{tabular}{ll}
 			\hline
-			Parameter/property & Value & Parameter/property & Value \\
+			Parâmetro/propriedade & Valor \\
 			\hline
-			Number of teeth $z_1/z_2$ & 20 & Bearing stiffness $k_{x1, y1}, k_{x2, y2}$ (N/m) & 1.0e8 \\
-			Module $m_n$ (mm) & 10 & Bearing damping $c_{x1, y1}, c_{x2, y2}$ (N$\cdot$s/m) & 512.64 \\
-			Tooth width $B$ (mm) & 30 & Error amplitude $e_a$ ($\mu$m) & 20 \\
-			Initial pressure angle $\alpha_0$ ($^{\circ}$) & 20 & Torque mean $T_{10}, T_{20}$ (N$\cdot$m) & 300 \\
-			Initial center distance $d_0$ (mm) & 200 & Torque fluctuation $T_{1a}, T_{2a}$ (N$\cdot$m) & 100 \\
-			Designed contact ratio $m_p$ & 1.5568 & Mesh damping ratio $\xi_m$ & 0.07 \\
-			Gear mass $m_1, m_2$ (kg) & 6.57 & Mesh stiffness in single tooth contact $k_s$ (N/m) & 3.6228e8 \\
-			Moment of inertia $J_1, J_2$ (kg$\cdot$m$^2$) & 0.0365 & Mesh stiffness in double teeth contact $k_d$ (N/m) & 6.5072e8 \\
+			Número de dentes $Z_1/Z_2$ & $20$ \\
+			Módulo $m$ $[mm]$ & $10$ \\
+			Largura do dente $B$ $[mm]$ & $30$ \\
+			Ângulo de pressão inicial $\alpha_0$ $[^{\circ}]$ & $20$ \\
+			Distância entre centros inicial $d_0$ $[mm]$ & $200$ \\
+			Razão de contato de projeto $c_r$ & $1.5568$ \\
+			Massa da engrenagem $m_1, m_2$ $[kg]$ & $6.57$ \\
+			Momento de inércia $J_1, J_2$ $[kg \cdot m^2]$ & $0.0365$ \\
+			Rigidez do mancal $k_{x1, y1}, k_{x2, y2}$ $[N/m]$ & $1.0\cdot 10^8$ \\
+			Amortecimento do mancal $c_{x1, y1}, c_{x2, y2}$ $[N\cdot s/m]$ & $512.64$ \\
+			Amplitude de erro $e_a$ $[\mu m]$ & $20$ \\
+			Torque médio $T_{10}, T_{20}$ $[N\cdot m]$ & $300$ \\
+			Flutuação de torque $T_{1a}, T_{2a}$ $[N\cdot m]$ & $100$ \\
+			Razão de amortecimento de engrenamento $\xi_m$ & $0.07$ \\
+			Rigidez de engrenamento em contato simples $k_s$ $[N/m]$ & $3.6228 \cdot 10^8$ \\
+			Rigidez de engrenamento em contato duplo $k_d$ $[N/m]$ & $6.5072 \cdot 10^8$ \\
+			Ângulo de fase inicial $\varphi_{10}$ $[^\circ]$ & $0$ \\
+			Ângulo de fase inicial $\varphi_{20}$ $[^\circ]$ & $0$ \\
+			Magnitude do desbalanceamento em $1$ e $2$ $[kg \cdot m]$ & $0$ \\
+			Fase do desbalanceamento em $1$ e $2$ $[^\circ]$ & $0$ \\
 			\hline
 		\end{tabular}
 		
 		\begin{tablenotes}[para, flushleft]
 			\scriptsize % Reduzi a nota para acompanhar a proporção da tabela
-			\item Fonte: Elaborado pelo autor.
+			\item Fonte: Adaptado de \citeonline{yi2019}
 		\end{tablenotes}
 		
 	\end{threeparttable}
 \end{table}
 
+Este artigo realiza as análises para as seguintes velocidades de rotação $1000$ $rpm$, $3000$ $rpm$, $4500$ $rpm$ e $6000$ $rpm$. Obtêm-se as respostas de de vibração para a coordenada $x_1$ (deslocamento lateral da primeira engrenagem), vibração da deformação da Linha de Ação $\delta$ e a \textit{Dynamic Meshing Force} \textit{(DMF)} que representa a força dinâmica do engrenamento, denotado neste trabalho como $F_m$.
+
+\subsection{Apresentação Geral de Resultados}
+
+O modelo implementado, representada neste trabalho, apresenta para cada velocidade de rotação utilizada, um painel de resultados principais como a deformação da \textit{LOA} ($\delta$), folga dinâmica de \textit{backlash} ($b_t$), Força do Engrenamento ($F_m$), rigidez do engrenamento ($K_m$), distância entre centro ($d$), ângulo de pressão ($\alpha$) e razão de contato ($c_r$). O painel referente à velocidade de $1000 rpm$ é apresentada na Figura \ref{fig:dashboard_1000}.
 \begin{figure}[H]
 	\centering
-	\caption{Dashboard}
-	\label{fig:Dashboard}
+	\caption{Painel de resultados principais para $1000$ $rpm$}
+	\label{fig:dashboard_1000}
 	
 	\begin{minipage}{\textwidth}
 		\centering
@@ -46,40 +84,42 @@
 		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
+\newpage
 
+A primeira comparação entre os resultados presentes no artigo de \citeonline{yi2019} (pontos laranjas), o modelo implementado (linha contínua azul) e o valor de referência original estático determinado pelo projeto de tal conjunto de engrenagens (linha pontilhada preta) é feita na Figura \ref{subfigure:comp_1000}. Nesta, é apresenta as comparações para as variáveis de Distância entre Centros (Figura \ref{fig:paper_dist_cent_1000}), Ângulo de Pressão (Figura \ref{fig:paper_pr_ang_1000}), Folga de \textit{Backlash} (Figura \ref{fig:paper_backlash_1000}) e Razão de Contato (Figura \ref{fig:paper_cotc_ratio_1000} para a velocidade de $1000$ $rpm$. 
 \begin{figure}[H]
 	\centering
-	\caption{Subfiguras}
-	\label{subfigure:coord}
+	\caption{Comparação Inicial para $1000$ $rpm$}
+	\label{subfigure:comp_1000}
 	
 	\begin{minipage}{0.9\textwidth}
 		\centering
 		
 		\begin{subfigure}{0.45\textwidth}
 			\centering
-			\caption{Distância entre centros}
-			\label{fig:paper_dist_cent}
+			\caption{Distância entre Centros}
+			\label{fig:paper_dist_cent_1000}
 			\includegraphics[width=\linewidth]{validation_plots/Fig_7a_CenterDistance.pdf}
 		\end{subfigure}
 		\hspace{10pt}
 		\begin{subfigure}{0.45\textwidth}
 			\centering
-			\caption{Angulo de pressao}
-			\label{fig:paper_pr_ang}
+			\caption{Ângulo de Pressão}
+			\label{fig:paper_pr_ang_1000}
 			\includegraphics[width=\linewidth]{validation_plots/Fig_7b_PressureAngle.pdf}
 		\end{subfigure}
 		\\
 		\begin{subfigure}{0.45\textwidth}
 			\centering
-			\caption{Backlash}
-			\label{fig:paper_backlash}
+			\caption{Folga de \textit{Backlash}}
+			\label{fig:paper_backlash_1000}
 			\includegraphics[width=\linewidth]{validation_plots/Fig_7c_Backlash.pdf}
 		\end{subfigure}
 		\hspace{10pt}
 		\begin{subfigure}{0.45\textwidth}
 			\centering
-			\caption{Razao de Contato}
-			\label{fig:paper_cotc_ratio}
+			\caption{Razão de Contato}
+			\label{fig:paper_cotc_ratio_1000}
 			\includegraphics[width=\linewidth]{validation_plots/Fig_7d_ContactRatio.pdf}
 		\end{subfigure}
 		
@@ -89,81 +129,70 @@
 	\end{minipage}
 \end{figure}
 
-
+A Figura \ref{subfigure:x1_1000} apresenta a comparação da resposta de vibração da coordenada de deslocamento horizontal da primeira engrenagem, $x_1$ no domínio do tempo, Figura \ref{fig:x1_1000}, e no domínio da frequência, Figura \ref{fig:dft_x1_1000}.
 \begin{figure}[H]
 	\centering
-	\caption{9a}
-	\label{fig:precessao}
+	\caption{Comparação de $x_1$ para $1000$ $rpm$}
+	\label{subfigure:x1_1000}
 	
-	\begin{minipage}{0.7\textwidth}
+	\begin{minipage}{0.95\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{validation_plots/Fig_9a_Vibration_x1.pdf}
-		\par\vspace{0.3em}
+		
+		\begin{subfigure}{0.425\textwidth}
+			\centering
+			\caption{Domínio do Tempo}
+			\label{fig:x1_1000}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_9a_Vibration_x1.pdf}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}{0.425\textwidth}
+			\centering
+			\caption{Domínio da Frequência}
+			\label{fig:dft_x1_1000}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_9b_FFT_x1.pdf}
+		\end{subfigure}
+		
+		\par\vspace{0.5em}
 		\raggedright
 		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
 
+
+A deformação da \textit{LOA}, $\delta$, denominada no artigo como \textit{DTE} tem a sua comparação do sinal no domínio do tempo e da frequência apresentados nas Figuras \ref{fig:delta_1000} e \ref{fig:dft_delta_1000} respectivamente.
 \begin{figure}[H]
 	\centering
-	\caption{9b}
-	\label{fig:precessao}
+	\caption{Comparação de $\delta$ para $1000$ $rpm$}
+	\label{subfigure:delta_1000}
 	
-	\begin{minipage}{0.7\textwidth}
+	\begin{minipage}{0.95\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{validation_plots/Fig_9b_FFT_x1.pdf}
-		\par\vspace{0.3em}
+		
+		\begin{subfigure}{0.425\textwidth}
+			\centering
+			\caption{Domínio do Tempo}
+			\label{fig:delta_1000}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_9c_Vibration_DTE.pdf}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}{0.425\textwidth}
+			\centering
+			\caption{Domínio da Frequência}
+			\label{fig:dft_delta_1000}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_9d_FFT_DTE.pdf}
+		\end{subfigure}
+		
+		\par\vspace{0.5em}
 		\raggedright
 		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
 
+A seguir, na Figura \ref{fig:fm_1000} é apresentado a comparação da Força de Engrenamento, $F_m$, implementado com o que é apresentado no artigo de referência (\textit{DMF}).
 \begin{figure}[H]
 	\centering
-	\caption{9c}
-	\label{fig:precessao}
-	
-	\begin{minipage}{0.7\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{validation_plots/Fig_9c_Vibration_DTE.pdf}
-		\par\vspace{0.3em}
-		\raggedright
-		{\small Fonte: Elaborado pelo autor.}
-	\end{minipage}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\caption{9d}
-	\label{fig:precessao}
-	
-	\begin{minipage}{0.7\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{validation_plots/Fig_9d_FFT_DTE.pdf}
-		\par\vspace{0.3em}
-		\raggedright
-		{\small Fonte: Elaborado pelo autor.}
-	\end{minipage}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\caption{9e}
-	\label{fig:precessao}
-	
-	\begin{minipage}{0.7\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{validation_plots/Fig_9e_Poincare.pdf}
-		\par\vspace{0.3em}
-		\raggedright
-		{\small Fonte: Elaborado pelo autor.}
-	\end{minipage}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\caption{9f}
-	\label{fig:precessao}
+	\caption{Comparação de $F_m$ para $1000$ $rpm$}
+	\label{fig:fm_1000}
 	
 	\begin{minipage}{0.7\textwidth}
 		\centering
@@ -174,10 +203,13 @@
 	\end{minipage}
 \end{figure}
 
-\begin{figure}[H]
+O painel com os resultados principais para a velocidade de $3000$ $rpm$ é a apresentado na Figura \ref{fig:dashboard_3000}. A Figura \ref{subfigure:x1_3000} apresenta a comparação da resposta de vibração da coordenada de deslocamento horizontal da primeira engrenagem, $x_1$ no domínio do tempo, Figura \ref{fig:x1_3000}, e no domínio da frequência, Figura \ref{fig:dft_x1_3000}. 
+
+A deformação da \textit{LOA}, $\delta$, denominada no artigo como \textit{DTE} tem a sua comparação do sinal no domínio do tempo e da frequência apresentados nas Figuras \ref{fig:delta_3000} e \ref{fig:dft_delta_3000} respectivamente. A Figura \ref{fig:fm_3000} apresentada a comparação da Força de Engrenamento, $F_m$, implementado com o que é apresentado no artigo de referência (\textit{DMF}).
+\begin{figure}
 	\centering
-	\caption{Dashboard}
-	\label{fig:Dashboard}
+	\caption{Painel de resultados principais para $3000$ $rpm$}
+	\label{fig:dashboard_3000}
 	
 	\begin{minipage}{\textwidth}
 		\centering
@@ -187,81 +219,72 @@
 		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
+\newpage
 
+%A Figura \ref{subfigure:x1_3000} apresenta a comparação da resposta de vibração da coordenada de deslocamento horizontal da primeira engrenagem, $x_1$ no domínio do tempo, Figura \ref{fig:x1_3000}, e no domínio da frequência, Figura \ref{fig:dft_x1_3000}.
 \begin{figure}[H]
 	\centering
-	\caption{10a}
-	\label{fig:precessao}
+	\caption{Comparação de $x_1$ para $3000$ $rpm$}
+	\label{subfigure:x1_3000}
 	
-	\begin{minipage}{0.7\textwidth}
+	\begin{minipage}{0.95\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{validation_plots/Fig_10a_Vibration_x1.pdf}
-		\par\vspace{0.3em}
+		
+		\begin{subfigure}{0.425\textwidth}
+			\centering
+			\caption{Domínio do Tempo}
+			\label{fig:x1_3000}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_10a_Vibration_x1.pdf}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}{0.425\textwidth}
+			\centering
+			\caption{Domínio da Frequência}
+			\label{fig:dft_x1_3000}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_10b_FFT_x1.pdf}
+		\end{subfigure}
+		
+		\par\vspace{0.5em}
 		\raggedright
 		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
 
+
+%A deformação da \textit{LOA} $\delta$, denominada no artigo como \textit{DTE} tem a sua comparação do sinal no domínio do tempo e da frequência apresentados nas Figuras \ref{fig:delta_3000} e \ref{fig:dft_delta_3000} respectivamente.
 \begin{figure}[H]
 	\centering
-	\caption{10b}
-	\label{fig:precessao}
+	\caption{Comparação de $\delta$ para $3000$ $rpm$}
+	\label{subfigure:delta_3000}
 	
-	\begin{minipage}{0.7\textwidth}
+	\begin{minipage}{0.95\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{validation_plots/Fig_10b_FFT_x1.pdf}
-		\par\vspace{0.3em}
+		
+		\begin{subfigure}{0.425\textwidth}
+			\centering
+			\caption{Domínio do Tempo}
+			\label{fig:delta_3000}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_10c_Vibration_DTE.pdf}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}{0.425\textwidth}
+			\centering
+			\caption{Domínio da Frequência}
+			\label{fig:dft_delta_3000}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_10d_FFT_DTE.pdf}
+		\end{subfigure}
+		
+		\par\vspace{0.5em}
 		\raggedright
 		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
 
+%A Figura \ref{fig:fm_3000} apresentada a comparação da Força de Engrenamento, $F_m$, implementado com o que é apresentado no artigo de referência (\textit{DMF}).
 \begin{figure}[H]
 	\centering
-	\caption{10c}
-	\label{fig:precessao}
-	
-	\begin{minipage}{0.7\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{validation_plots/Fig_10c_Vibration_DTE.pdf}
-		\par\vspace{0.3em}
-		\raggedright
-		{\small Fonte: Elaborado pelo autor.}
-	\end{minipage}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\caption{10d}
-	\label{fig:precessao}
-	
-	\begin{minipage}{0.7\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{validation_plots/Fig_10d_FFT_DTE.pdf}
-		\par\vspace{0.3em}
-		\raggedright
-		{\small Fonte: Elaborado pelo autor.}
-	\end{minipage}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\caption{10e}
-	\label{fig:precessao}
-	
-	\begin{minipage}{0.7\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{validation_plots/Fig_10e_Poincare.pdf}
-		\par\vspace{0.3em}
-		\raggedright
-		{\small Fonte: Elaborado pelo autor.}
-	\end{minipage}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\caption{10f}
-	\label{fig:precessao}
+	\caption{Comparação de $F_m$ para $3000$ $rpm$}
+	\label{fig:fm_3000}
 	
 	\begin{minipage}{0.7\textwidth}
 		\centering
@@ -272,10 +295,30 @@
 	\end{minipage}
 \end{figure}
 
+Como é possível observar, o modelo implementado, proposto por esse trabalho, apresenta uma coerência significativa com os resultado apresentados por \citeonline{yi2019}. Há, de fato, uma variação no cálculo da Deformação da \textit{LOA}, $\delta$ e por consequência da Força do Engrenamento, $F_m$. Tal diferença deve-se ao fato de o modelo implementado considerar a expansão para 6 \textit{gdl}, assim, adicionando termos na formulação de $\delta$, assim como presente na Equação \ref{eq:delta_3d} presente na subseção \ref{subsec:6dof}. 
+
+Observa-se ainda, que mesmo com a variação no $\delta$ e em $F_m$ a característica dinâmica do sistema mantêm-se condizente ao apresentado por \citeonline{yi2019}, isso se reflete na Resposta de Vibração da coordenada $x_1$, para as duas velocidades. Isso é devido à grande importância das matrizes de massa, rigidez e amortecimento que caracterizam o sistema.
+
+\newpage
+
+Entretanto, para a velocidades de rotação $4500$ $rpm$ o modelo implementado já apresenta divergências significativas com a formulação e resultados do arti5go de referência. A Figura \ref{fig:yi_4500} apresenta os resultados obtidos por \citeonline{yi2019}, descritos como \textit{new model} em azul. Já a Figura \ref{fig:dashboard_4500} apresenta o painel de resultados principais do modelo implementado. Observa-se que, para esse valor de velocidade, o modelo de \citeonline{yi2019} apresenta uma resposta periódica, o que não foi observado no modelo implementado. 
 \begin{figure}[H]
 	\centering
-	\caption{Dashboard}
-	\label{fig:Dashboard}
+	\caption{Resultados de \citeonline{yi2019} para $4500$ $rpm$}
+	\label{fig:yi_4500}
+	
+	\begin{minipage}{0.7\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/yi_4500.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: \citeonline{yi2019}}
+	\end{minipage}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\caption{Painel de resultados principais para $4500$ $rpm$}
+	\label{fig:dashboard_4500}
 	
 	\begin{minipage}{\textwidth}
 		\centering
@@ -285,11 +328,14 @@
 		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
+\newpage
 
+
+Já apra a velocidade de $6000$ $rpm$ ambos os modelos apresentam respostas não periódicas.
 \begin{figure}[H]
 	\centering
-	\caption{Dashboard}
-	\label{fig:Dashboard}
+	\caption{Painel de resultados principais para $6000$ $rpm$}
+	\label{fig:dashboard_6000}
 	
 	\begin{minipage}{\textwidth}
 		\centering

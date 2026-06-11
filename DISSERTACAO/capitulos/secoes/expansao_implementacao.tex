@@ -2,6 +2,7 @@
 \label{sec:expansao}
 
 \subsection{Expansão para 6 Graus de Liberdade}
+\label{subsec:6dof}
 
 Para poder implementar o modelo da folga de \textit{backlash} dinâmico proposto por \citeonline{yi2019} e pode utilizá-lo com o \textit{ROSS} foi necessário a expansão do modelo de 3 \textit{gdl} por nó, como mostrado na Equação \ref{eq:vetor_q} para o sistema de 6 \textit{gld} por nó como apresentado na Equação \ref{Eq:dof}. Dessa maneira foi adicionado a translação axial $z_i$ e as rotações em torno dos eixos $X$ e $Y$, ${\theta_x}_i$ e ${\theta_y}_i$ respectivamente. Portanto, a formulação agora utiliza os graus de liberdade  por nó dispostos conforme a Equação \ref{eq:6dof}, sendo $i$ o nó em questão. Neste caso, $i=1$ representa a engrenagem pinhão e $i=2$ representa a  engrenagem coroa.
 \begin{equation}
@@ -80,9 +81,9 @@ Além disso, como foi feita a adição de \textit{gdl} e a inclusão do ângulo 
 	\label{eq:ddelta_thetaz}
 \end{equation}
 
-\subsection{Suavização de Descontinuidades}
+\subsection{Suavização da Função de \textit{Backlash}}
 
-Como a função da deformação efetiva na \textit{LOA} é dada por uma relação condicional, conforme apresentado na Equação \ref{eq:f_delta}, os integradores numéricos pode apresentar dificuldade de convergência devido às descontinuidades.  Com isso em mente, \citeonline{walha2006} apresenta uma metodologia que utiliza funções trigonométricas para suavizar a não linearidade da Equação \ref{eq:f_delta}. \citeonline{walha2006} utiliza funções de tangente hiperbólica em associação com a variável $\sigma$ que controla o quão suave será a e próxima à função original será a nova  função. A Figura \ref{fig:suavizacao} apresenta a suavização utilizada por \citeonline{walha2006} em seu estudo, onde ${\tilde{h}}_i$ representa $f$.
+Como a função da deformação efetiva na \textit{LOA} é dada por uma relação condicional, conforme apresentado na Equação \ref{eq:f_delta}, os integradores numéricos pode apresentar dificuldade de convergência devido a não ser uma função bem comportada, ou seja, apresenta mudanças abruptas que dificultam a derivação.  Com isso em mente, \citeonline{walha2006} apresenta uma metodologia que utiliza funções trigonométricas para suavizar a não linearidade da Equação \ref{eq:f_delta}. \citeonline{walha2006} utiliza funções de tangente hiperbólica em associação com a variável $\sigma$ que controla o quão suave será a e próxima à função original será a nova  função. A Figura \ref{fig:suavizacao} apresenta a suavização utilizada por \citeonline{walha2006} em seu estudo, onde ${\tilde{h}}_i$ representa $f$.
 
 No código implementado há a opção de selecionar se será utilizado ou não o método de suavização. Por padrão, ao se utilizar esta metodologia à variável $\sigma$ é atribuída o valor de $10^4$.
 \begin{figure}[H]
