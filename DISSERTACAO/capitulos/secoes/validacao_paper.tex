@@ -299,20 +299,77 @@ Como é possível observar, o modelo implementado, proposto por esse trabalho, a
 
 Observa-se ainda, que mesmo com a variação no $\delta$ e em $F_m$ a característica dinâmica do sistema mantêm-se condizente ao apresentado por \citeonline{yi2019}, isso se reflete na Resposta de Vibração da coordenada $x_1$, para as duas velocidades. Isso é devido à grande importância das matrizes de massa, rigidez e amortecimento que caracterizam o sistema.
 
-\newpage
+%\newpage
 
-Entretanto, para a velocidades de rotação $4500$ $rpm$ o modelo implementado já apresenta divergências significativas com a formulação e resultados do arti5go de referência. A Figura \ref{fig:yi_4500} apresenta os resultados obtidos por \citeonline{yi2019}, descritos como \textit{new model} em azul. Já a Figura \ref{fig:dashboard_4500} apresenta o painel de resultados principais do modelo implementado. Observa-se que, para esse valor de velocidade, o modelo de \citeonline{yi2019} apresenta uma resposta periódica, o que não foi observado no modelo implementado. 
+Entretanto, para a velocidades de rotação $4500$ $rpm$ o modelo implementado já apresenta divergências significativas com a formulação e resultados do artigo de referência. A Figura \ref{subfigure:comp_4500} apresenta a comparação com os resultados obtidos por \citeonline{yi2019}. Já a Figura \ref{fig:dashboard_4500} apresenta o painel de resultados principais do modelo implementado. Observa-se que, para esse valor de velocidade, o modelo de \citeonline{yi2019} apresenta uma resposta periódica, o que não foi observado no modelo implementado.
+
+Já para a velocidade de $6000$ $rpm$ ambos os modelos apresentam respostas não periódicas. A Figura \ref{subfigure:comp_6000} apresenta a comparação entre o modelo de \citeonline{yi2019} e o modelo implementado. Já a Figura \ref{fig:dashboard_6000} apresenta o painel de resultados principais para a simulação de $6000$ $rpm$.
 \begin{figure}[H]
 	\centering
-	\caption{Resultados de \citeonline{yi2019} para $4500$ $rpm$}
-	\label{fig:yi_4500}
+	\caption{Comparação para $4500$ $rpm$}
+	\label{subfigure:comp_4500}
 	
-	\begin{minipage}{0.7\textwidth}
+	\begin{minipage}{0.9\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{figuras/yi_4500.png}
-		\par\vspace{0.3em}
+		
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Distância entre Centros}
+			\label{fig:paper_dist_cent_4500}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_11a_Vibration_x1.pdf}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Ângulo de Pressão}
+			\label{fig:paper_pr_ang_4500}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_11b_FFT_x1.pdf}
+		\end{subfigure}
+		\\
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Folga de \textit{Backlash}}
+			\label{fig:paper_backlash_4500}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_11c_Vibration_DTE.pdf}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Razão de Contato}
+			\label{fig:paper_cotc_ratio_4500}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_11f_DMF.pdf}
+		\end{subfigure}
+		
+		\par\vspace{0.5em}
 		\raggedright
-		{\small Fonte: \citeonline{yi2019}}
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\caption{Comparação para $6000$ $rpm$}
+	\label{subfigure:comp_6000}
+	
+	\begin{minipage}{0.9\textwidth}
+		\centering
+		
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Distância entre Centros}
+			\label{fig:paper_dist_cent_6000}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_12a_Vibration_DTE.pdf}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Ângulo de Pressão}
+			\label{fig:paper_pr_ang_6000}
+			\includegraphics[width=\linewidth]{validation_plots/Fig_12d_DMF.pdf}
+		\end{subfigure}
+		
+		\par\vspace{0.5em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
 \begin{figure}[H]
@@ -330,8 +387,6 @@ Entretanto, para a velocidades de rotação $4500$ $rpm$ o modelo implementado j
 \end{figure}
 \newpage
 
-
-Já apra a velocidade de $6000$ $rpm$ ambos os modelos apresentam respostas não periódicas.
 \begin{figure}[H]
 	\centering
 	\caption{Painel de resultados principais para $6000$ $rpm$}
@@ -345,27 +400,29 @@ Já apra a velocidade de $6000$ $rpm$ ambos os modelos apresentam respostas não
 		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
+\newpage
 
+
+Além disso, o artigo de \citeonline{yi2019} apresenta o Diagrama de bifurcação desse sistema. Esse diagrama apresenta, para cada velocidade de rotação, a amplitude do movimento e a sua periodicidade. As linhas bem definidas indicam que o sistema apresenta oscilações de maneira periódica. Quando a velocidade passa de um certo limite o sistema entra no regime caótico aumentando bruscamente a amplitude de oscilação e perdendo a periodicidade. 
 \begin{figure}[H]
 	\centering
-	\caption{Bifurcation}
+	\caption{Comparação do Diagrama de Bifurcação}
 	\label{subfigure}
 	
-	\begin{minipage}{\textwidth}
+	\begin{minipage}{0.9\textwidth}
 		\centering
-		
-		\begin{subfigure}{0.45\textwidth}
+		\begin{subfigure}{0.6\textwidth}
 			\centering
-			\caption{Bifurcation}
-			\label{subfig:Bifurcation}
-			\includegraphics[width=\linewidth]{results/bifurcation_code.png}
-		\end{subfigure}
-		\hspace{10pt}
-		\begin{subfigure}{0.45\textwidth}
-			\centering
-			\caption{Bifurcation}
-			\label{subfig:Bifurcation}
+			\caption{Diagrama de Bifurcação de \citeonline{yi2019}}
+			\label{subfig:Bifurcation_yi}
 			\includegraphics[width=\linewidth]{results/bifurcation_paper.png}
+		\end{subfigure}		
+		\vspace{10pt}\\
+		\begin{subfigure}{0.7\textwidth}
+			\centering
+			\caption{Diagrama de Bifurcação do Modelo Implementado}
+			\label{subfig:Bifurcation_model}
+			\includegraphics[width=\linewidth]{results/bifurcation_code_data.png}
 		\end{subfigure}
 		
 		\par\vspace{0.5em}
@@ -373,3 +430,5 @@ Já apra a velocidade de $6000$ $rpm$ ambos os modelos apresentam respostas não
 		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
+
+Observa-se que no modelo de \citeonline{yi2019} apresenta um pico de amplitude na velocidade de $1.35 Krpm$ e a região caótica iniciando em $5.1 Krpm$. Já o modelo implementado apresenta o primeiro pico em $1.2 Krpm$, um segundo pico $1.8 Krpm$ e a região de caos a partir de $4.3 Krpm$. 
