@@ -1,47 +1,98 @@
-\section{Aplicação do Modelo de \textit{Backlash} em caso real}
+\section{Aplicação do Modelo de \textit{Backlash} em Caso Real}
 
+Nesta etapa o modelo implementado e proposto de \textit{backalash} foi aplicado em um caso real de uma caixa de engrenagens utilizada em uma planta industrial da Petrobras. Essas informações vieram por conta de um Projeto de Pesquisa e Termo de Cooperação entre Petrobras e o Laboratório de Mecânica de Estruturas (LMEst) da UFU. 
+
+A caixa de engrenagens simulada tem como rotação de entrada , vinda do motor, de $1953$ rpm e como saída no compressor de $12225$ rpm. A Figura \ref{fig:replan_fotos} apresenta fotos deste equipamento em campo, enquanto a  Figura \ref{fig:replan_gear_model} apresenta o modelo em MEF utilizado e a Tabela \ref{tab:replan_sim} apresenta os parâmetros de simulação utilizados.
+\begin{figure}[H]
+	\centering
+	\caption{Fotos da Caixa de Engrenagem}
+	\label{fig:replan_fotos}
+	
+	\begin{minipage}{0.8\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/replan_fotos.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Petrobas.}
+	\end{minipage}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\caption{Modelo Computacional da Caixa de Engrenagem}
+	\label{fig:replan_gear_model}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/replan_gear_model.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: Elaborado pelo autor.}
+	\end{minipage}
+\end{figure}
 \begin{table}[H]
 	\centering
 	\begin{threeparttable}
-		\caption{Parâmetros do modelo rotodinâmico e configurações da simulação}
-		\label{tab:parametros_simulacao}
+		\caption{Parâmetros do Modelo para  Simulação da Caixa de Engrenagem}
+		\label{tab:replan_sim}
 		
-		% Ajustes para caber na margem
 		\footnotesize % Reduz o tamanho da fonte da tabela
-		\setlength{\tabcolsep}{3pt} % Reduz o espaço em branco entre as colunas
+		\renewcommand{\arraystretch}{1.2} % Dá um respiro vertical entre as linhas
 		
-		\begin{tabular}{llll}
+		% O tabularx força a tabela a ter a largura exata do texto (\textwidth)
+		% A coluna 'X' se estica para preencher o espaço, a coluna 'l' se ajusta ao conteúdo
+		\begin{tabularx}{0.8\textwidth}{X r}
 			\hline
-			Parâmetro/Configuração & Valor & Geometria e Física & Valor \\
+			Parâmetro & Valor \\
 			\hline
-			Método de integração & INTERNAL\_NEWMARK & Dentes $Z_1/Z_2$ & 27 / 169 \\
-			Passo de tempo $dt$ (s) & 8.18e-07 & Módulo $m_n$ (mm) & 0.00467 \\
-			Frequência de amostragem (Hz) & 1222495.03 & Ângulo de pressão $\alpha_0$ ($^{\circ}$) & 20.00 \\
-			Ciclos simulados & 41 & Ângulo de hélice ($^{\circ}$) & 30.97 \\
-			Tempo de processamento (NL) & 00:28:33 & Velocidade do pinhão (rad/s) & 1280.20 \\
-			Smooth operator & Não & Frequência de malha (Hz) & 5501.25 \\
-			Sigma de suavização $\sigma$ & 100000.0 & Backlash inicial $b_0$ (m) & 2.0e-05 \\
-			Cálculo de CR dinâmico & Sim & Erro estático (m) & 0.0 \\
-			Usa rigidez do ROSS & Não & Razão de amortecimento $\xi$ & 0.07 \\
-			Possui baseline linear & Não & Massa equivalente $M$ (kg) & 3.1934 \\
-			Vetor Add Force Extra & Sim & Mag. desbal. (kg$\cdot$m) & [0.0063, 0.3154] \\
-			Nós excitados & [17, 44] & Fase desbal. (rad) & [0.0, 3.1416] \\
+			\multicolumn{2}{l}{\textbf{Geometria e Propriedades Físicas}} \\
 			\hline
-		\end{tabular}
+			Dentes $Z_1/Z_2$ & $27 / 169$ \\
+			Velocidades de Rotação (rpm) & $12225 / 1953$ \\
+			Módulo (mm) & $4.67$ \\
+			Ângulo de pressão $\alpha_0$ ($^\circ$) & $20.00$ \\
+			Ângulo de hélice ($^\circ$) & $30.97$ \\
+			Massa equivalente $M$ (kg) & $3.1934$ \\
+			\hline
+			\multicolumn{2}{l}{\textbf{Propriedades de Rigidez e Amortecimento}} \\
+			\hline
+			Rigidez do mancal ($\mathrm{N/m}$) & Informação Disponibilizada\\
+			Amortecimento do mancal ($\mathrm{N\cdot s/m}$) & Informação Disponibilizada\\
+			Razão de amortecimento de engrenamento $\xi_m$ & $0.07$ \\
+			Rigidez de engrenamento variável no tempo ($\mathrm{N/m}$) & Calculado pelo \textit{ROSS} \\
+			\hline
+			\multicolumn{2}{l}{\textbf{Condições de Operação e Excitação}} \\
+			\hline
+			Velocidade do pinhão (rpm) & $12225$ \\
+			Magnitude do desbalanceamento [Eng. 1, Eng. 2] ($\mathrm{kg\cdot m}$) & $[0.0063, 0.3154]$ \\
+			Fase do desbalanceamento [Eng. 1, Eng. 2]($^\circ$) & $[0.0, 180]$ \\
+			\hline
+			\multicolumn{2}{l}{\textbf{Configurações Numéricas e de Simulação}} \\
+			\hline
+			Backlash inicial $b_0$ ($\mu$m) & $20$ \\
+			Amplitude de erro $e_a$ ($\mu$m) & $0$ \\
+			Método de integração & Newmark \& Newton-Raphson \\
+			Passo de tempo $dt$ (s) & $8.18 \times 10^{-7}$ \\
+			\hline
+			\multicolumn{2}{l}{\textbf{Desempenho}} \\
+			\hline
+			Tempo de processamento (min:s) & 31:02 \\
+			\hline
+		\end{tabularx}
 		
-		\begin{tablenotes}[para, flushleft]
-			\scriptsize % Fonte das notas reduzida proporcionalmente
-			\item Nota: Tempo de processamento obtido pelo script \textit{REPLAN\_validation\_paper\_01.py}.
-			\item Fonte: Elaborado pelo autor.
+		\begin{tablenotes}[flushleft]
+			\scriptsize
+			\item \textbf{Fonte:} Elaborado pelo autor.
 		\end{tablenotes}
 		
 	\end{threeparttable}
 \end{table}
 
+
+A Figura \ref{fig:dashboard_replan} apresenta o painel com os resultados principais para a simulação em questão. A Figura \ref{subfigure:force_replan} apresenta o perfil da Força de Engrenamento obtida e a sua ampliação.
 \begin{figure}[H]
 	\centering
-	\caption{Dashboard}
-	\label{fig:Dashboard}
+	\caption{Painel de resultados principais para a caixa de engrenagem}
+	\label{fig:dashboard_replan}
 	
 	\begin{minipage}{\textwidth}
 		\centering
@@ -51,32 +102,31 @@
 		{\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
-
-
 \begin{figure}[H]
 	\centering
-	\caption{Force}
-	\label{fig:Force}
+	\caption{Força do Engrenamento na Caixa de Engrenagens}
+	\label{subfigure:force_replan}
 	
-	\begin{minipage}{0.7\textwidth}
+	\begin{minipage}{0.9\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{results/replan_Fm_015_020.png}
-		\par\vspace{0.3em}
+		\begin{subfigure}{0.8\textwidth}
+			\centering
+			\caption{Perfil de Força do Engrenamento na Caixa de Engrenagens}
+			\label{subfig:froca_replan_1}
+			\includegraphics[width=\linewidth]{results/replan_Fm_015_020.png}
+		\end{subfigure}		
+		\vspace{10pt}\\
+		\begin{subfigure}{0.8\textwidth}
+			\centering
+			\caption{Ampliação da Força de Engrenamento na Caixa de Engrenagem}
+			\label{subfig:forca_replan_2}
+			\includegraphics[width=\linewidth]{results/replan_Fm_0198_020.png}
+		\end{subfigure}
+		
+		\par\vspace{0.5em}
 		\raggedright
-		{\small Fonte: Elaborado pelo autor.}
+		\hspace{1.5cm} {\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\caption{Force}
-	\label{fig:Force}
-	
-	\begin{minipage}{0.7\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{results/replan_Fm_0198_020.png}
-		\par\vspace{0.3em}
-		\raggedright
-		{\small Fonte: Elaborado pelo autor.}
-	\end{minipage}
-\end{figure}
+

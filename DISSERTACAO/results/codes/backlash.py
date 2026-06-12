@@ -1947,7 +1947,7 @@ class Backlash:
             f.write(f"Velocidade (Pinhão)   : {self.speed_driving_gear:.2f} rad/s\n")
             f.write(f"Frequência de Malha   : {(self.speed_driving_gear * self.gears[0].n_teeth)/(2*np.pi):.2f} Hz\n")
             f.write(f"Dentes (Z1 / Z2)      : {self.gears[0].n_teeth} / {self.gears[1].n_teeth}\n")
-            f.write(f"Módulo                : {self.gears[0].module} mm\n")
+            f.write(f"Módulo                : {self.gears[0].module} m\n")
             f.write(f"Ângulo de Pressão (a0): {np.degrees(self.gears[0].pr_angle):.2f} °\n")
             f.write(f"Ângulo de Hélice      : {np.degrees(self.multirotor.mesh.helix_angle):.2f} °\n")
             f.write(f"Backlash Inicial (b0) : {self.b0:.4e} m\n")
