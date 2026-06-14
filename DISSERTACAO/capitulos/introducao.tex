@@ -4,14 +4,29 @@
 
 \thispagestyle{empty}
 
-Máquinas rotativas são amplamente utilizadas na indústria na forma de compressores, turbomáquinas, motores entre outros (REF LAB). Para que a energia mecânica de seja transferida de uma motor para um compressor, por exemplo, é necessário um equipamento capaz de fazer a transmissão. Nesse sentido, a caixa de engrenagens se torna um componente essencial, uma vez que acopla os eixos de entrada, comumente o motor, com o eixo de saída, como um compressor ou qualquer outra máquina. Além disso, com esse tipo de acoplamento é possível controlar a velocidade de rotação e o torque do eixo de saída, conforme a necessidade da aplicação. 
+Máquinas rotativas são amplamente utilizadas na indústria na forma de compressores, turbomáquinas, motores entre outros. Para que a energia mecânica de seja transferida de uma motor para um compressor, por exemplo, é necessário um equipamento capaz de fazer a transmissão. Nesse sentido, a caixa de engrenagens se torna um componente essencial, uma vez que acopla os eixos de entrada, comumente o motor, com o eixo de saída, como um compressor ou qualquer outra máquina. Além disso, com esse tipo de acoplamento é possível controlar a velocidade de rotação e o torque do eixo de saída, conforme a necessidade da aplicação. 
 
 As caixas de engrenagens são amplamente utilizadas estando localizadas, por exemplo, em transmissões automotivas, conjuntos de motores e turbomáquinas em diversas indústrias como de energia, petrolífera, entre outras. Esta é uma tecnologia utilizada desde os primórdios da Engenharia Mecânica e também considerado um dos símbolos desta profissão.
 
 Dentro deste componente, acoplamento entre os rotores é feito por meio de engrenagens. Estes são componentes mecânicos, semelhantes a discos, que se conectam por dentes e ranhuras. Por meio desta conexão a transmissão do movimento e da energia mecânica é feita. 
 
-Idealmente, no projeto de sistemas de transmissão é requerida uma folga entre os dentes de duas engrenagens conectadas. Essa, então é denominada de folga de \textit{backlash}. 
---------------------------------------------------------------
+Idealmente, no projeto de sistemas de transmissão prevê uma folga entre os dentes de duas engrenagens conectadas. Essa, então é denominada de folga de \textit{backlash}. 
+
+\begin{figure}[H]
+	\centering
+	\caption{Exemplo de caixa de  engrenagem}
+	\label{fig:gearbox}
+	
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figuras/gearbox_lim.png}
+		\par\vspace{0.3em}
+		\raggedright
+		{\small Fonte: \citeonline{lim1991}}
+	\end{minipage}
+\end{figure}
+
+------------------------------------------------------------
 
 A introdução tem como finalidade apresentar o contexto geral em que o trabalho
 se insere, bem como delimitar o tema de estudo, evidenciar sua relevância e
@@ -46,51 +61,45 @@ especialmente a NBR 14724. O uso do \LaTeX{} tem se destacado como uma solução
 robusta para a produção de dissertações e teses devido à sua alta qualidade
 tipográfica e capacidade de automatização.
 
-Segundo \citeonline{lamport1994latex}, o \LaTeX{} permite separar claramente o
-conteúdo da formatação. Além disso, conforme discutido por \cite{goossens1997latex},
-essa ferramenta facilita a inserção de equações, figuras e referências
-cruzadas.
+%Segundo \citeonline{lamport1994latex}, o \LaTeX{} permite separar claramente o
+%conteúdo da formatação. Além disso, conforme discutido por \cite{goossens1997latex},
+%essa ferramenta facilita a inserção de equações, figuras e referências
+%cruzadas.
 
 Termos em língua estrangeira, como \textit{benchmark}, \textit{framework} e
 \textit{feedback}, devem ser apresentados em itálico ao longo do texto.
 
+
+----------------------------------------------------
+
 \section{Objetivo geral do estudo}
 
-Explicação do objetivo geral do trabalho.
+Neste sentido, o objetivo geral deste trabalho é desenvolver uma modelagem para a folga de \textit{backlash} dinâmico, capaz de interpretar de maneira coerente tal efeito e associá-lo à dinâmica de máquinas rotativas. 
 
 \subsection{Objetivos específicos}
 
-Explicação dos objetivos específicos do trabalho. Pode ser usados itens.
-
+Para alcançar o objetivo geral são estipulados objetivos específicos expostos a seguir.
 \begin{itemize}
-	\item Item 1;
-	\item Item 2;
+	\item Compreender a revisão bibliográfica do modelo de \textit{backlash} dinâmico;
+	\item Expandir a modelagem base para contemplar engrenagens de dentes helicoidais;
+	\item Implementação da ferramenta de suavização da função de \textit{backlash};
+	\item Adequação da modelagem proposta com \textit{Rotordynamic Open Source Software (ROSS)};
+	\item Validação e comparação de resultados com a literatura;
+	\item Aplicação do modelo implementado em casos práticos reais de caixa de engrenagens industriais.
 \end{itemize} 
-
-\section{Contribuições prévias no ambito institucional}
-
-Nesta secção você pode adicionar as pesquisas do seu laboratório que contribuiram para o trabalho.
 
 \section{Organização do Trabalho}
 
-Aqui você pode explicar o que será abordado em cada capítulo.
+Este trabalho é dividido em 5 capítulos, os quais serão brevemente apresentados a segui.
 
+O Capítulo~\ref{cap:introdução} faz uma introdução da problemática do trabalho, introduzindo os conceitos principais, objetivos gerais e específicos.
 
-O capítulo \ref{cap:introdução} expõe a problemática do trabalho, introduzindo os conceitos.
+O Capítulo~\ref{cap:fundamentação_teorica} apresenta a formulação teórica utilizado neste trabalho. Nesse sentido, é feita uma breve exposição sobre a modelagem e desbalanceamento de rotores, explorando também  o \textit{Rotordynamic Open Source Software (ROSS)}. Além disso, conceitos gerais sobre projetos e geometria de engrenagens foram abordados para fundamentar a modelagem de engrenagem utilizada neste trabalho. Em tem-se a apresentação da modelagem dinâmica e acoplamento de rotores engrenados. Por fim, há a exposição do modelo de folga de \textit{backlash} dinâmico utilizado como base para este trabalho.
 
-O Capítulo \ref{cap:fundamentação_teorica} apresenta a formulação teórica.
+No Capítulo~\ref{cap:metodologia} é exposta a metodologia de implementação e execução do código desenvolvido neste trabalho. Com isso, é apresentado uma maneira de expandir o modelo base para a aplicação em engrenagens helicoidais e um método de suavização para a função do \textit{backlash} dinâmico. Além disso, um modelo analítico simplificado é apresentado com o intuito de compreender melhor o comportamento do modelo implementado.
 
+O Capítulo~\ref{cap:resultados e discussao} apresenta os resultados obtidos com o modelo de fogla de \textit{baklash} dinâmico implementado. Primeiramente, são mostrados os resultados de validação deste código em comparação com a literatura base utilizada. O modelo analítico proposto é utilizado para discutir o comportamento encontrado da implementação. O comportamento dinâmico do sistema considerando o modelo de expansão e de suavização, expostos anteriormente, também é apresentado neste capítulo. Além disso, tal metodologia desenvolvida neste trabalho é utilizada em um caso de aplicação real de um caixa de engrenagens utilizada industrialmente com o intuito de observar como se comporta o modelo implementado diante de uma situação prática.
 
-\begin{figure}[H]
-	\centering
-	\caption{Exemplo de caixa de  engrenagem}
-	\label{fig:gearbox}
-	
-	\begin{minipage}{0.5\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figuras/gearbox_lim.png}
-		\par\vspace{0.3em}
-		\raggedright
-		{\small Fonte: \citeonline{lim1991}}
-	\end{minipage}
-\end{figure}
+No Capítulo\ref{cap:conclusao} é exposto as considerações finais concluindo o presente trabalho. Além disso, são expostas, também, sugestões de trabalhos futuros para dar segmento a pesquisa realizada.
+
+São apresentadas também as referências bibliográficas utilizadas e, além disso, no Apêndice~\ref{ap:newmark_nr} é exposto a formulação do integrador numérico utilizado(Newmark com Newton-Raphson).

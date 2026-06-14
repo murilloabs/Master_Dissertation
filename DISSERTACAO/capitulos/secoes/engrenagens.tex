@@ -63,7 +63,7 @@ No projeto de engrenagens é recomentada que o valor de $c_r$ varie entre $1$ e 
 
  Sob o ponto de vista da dinâmica estrutural do sistema, o fato de $c_r$ não assumir um valor inteiro implica que o sistema alterna ciclicamente entre períodos de contato simples (um par de dentes) e contato duplo (dois pares de dentes). Essa alternância geométrica induz uma variação periódica na rigidez global do engrenamento. Portanto, desta forma, a rigidez associada ao engrenamento pode ser classificada como variante no tempo \textit{TVMS}, como será retratado em breve.
  
-\section{Modelagem Dinâmica e Acoplamento de Rotores}
+\section{Modelagem Dinâmica e Acoplamento de Rotores Engrenados}
 A incorporação da dinâmica de engrenamentos na análise de rotores exige que os subsistemas individuais sejam acoplados nas matrizes globais (massa, amortecimento, rigidez e giroscópica). \citeonline{ozguven1988} faz uma revisão dos primeiros modelos propostos para a modelagem dinâmica de sistema engrenados. Nesta seção será apresentado o modelo proposto por \citeonline{kaplan2015}
 
 Em sistemas tridimensionais, onde cada nó da malha possui seis graus de liberdade (translações $x, y, z$ e rotações $\theta_x, \theta_y, \theta_z$), a formulação das matrizes de acoplamento deve decompor a força de contato normal na linha de ação considerando a cinemática 3D \cite{stringer2008}. Isso forma submatrizes interconectadas ($K_{ii}, K_{jj}, K_{ji}, K_{ij}$) que relacionam vibrações laterais e torcionais através da projeção vetorial governada pelo ângulo de pressão, o ângulo de hélice, e o ângulo de orientação espacial do acoplamento.
