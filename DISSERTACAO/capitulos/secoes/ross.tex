@@ -3,9 +3,9 @@
 
 O \textit{Rotordynamic Open-Source Software}\footnote{\href{ross.readthedocs.io}{Link de acesso: ross.readthedocs.io}} (\textit{ROSS}) é uma biblioteca, feita em \textit{Python}, para modelagem e análises de dinâmica de rotação. Este é um código aberto específico, proposto por \citeonline{timbo2020} em parceria da Petrobras, UFRJ e UFU. A modelagem feita no \textit{ROSS} é baseada no que é apresentado por \citeonline{timbo2018} e utiliza como referência \citeonline{Friswell2010}. 
 
-A modelagem e as análises são realizadas utilizando o Método dos Elementos Finitos (MEF). No caso, o \textit{ROSS} utiliza 6 graus de liberdade (\textit{gdl}) por nó, sendo 3 translações e 3 rotações, de acordo com a Equação \ref{Eq:dof}. A resolução das equações de movimento pode ser feita a partir do Método de \citeonline{newmark} ou pela metodologia de solução linear (\textit{LSIM}) do módulo \textit{Scipy} do \textit{Python}.
+A modelagem e as análises são realizadas utilizando o Método dos Elementos Finitos (MEF). No caso, o \textit{ROSS} utiliza 6 graus de liberdade (\textit{gdl}) por nó, sendo 3 translações e 3 rotações, de acordo com a Equação~\ref{Eq:dof}. A resolução das equações de movimento pode ser feita a partir do Método de \citeonline{newmark} ou pela metodologia de solução linear (\textit{LSIM}) do módulo \textit{Scipy} do \textit{Python}.
 
-A diferença entre a modelagem proposta por \citeonline{Friswell2010} e \citeonline{Lalanne1998} está na orientação e posicionamento do eixos cartesianos. A Figura \ref{subfigure:coord} apresenta a diferença de eixos coordenados entre esses dois autores. 
+A diferença entre a modelagem proposta por \citeonline{Friswell2010} e \citeonline{Lalanne1998} está na orientação e posicionamento do eixos cartesianos. A Figura~\ref{subfigure:coord} apresenta a diferença de eixos coordenados entre esses dois autores. 
 \begin{figure}[H]
 	\centering
 	\caption{Subfiguras}
@@ -43,7 +43,7 @@ A diferença entre a modelagem proposta por \citeonline{Friswell2010} e \citeonl
 \end{itemize}
 
 Dessa forma, com os modelos de cada componente é possível juntá-los e fazer a modelo do sistema rotativo completo. No caso de sistemas engrenados são necessários dois ou mais rotores com engrenagens e então deve-se juntá-los com a função do \texttt{MultiRotor} \cite{jessica2025}.
-A Figura \ref{fig:multirotor_ex} apresenta um exemplo de modelagem de um conjunto de rotores no \textit{ROSS}.
+A Figura~\ref{fig:multirotor_ex} apresenta um exemplo de modelagem de um conjunto de rotores no \textit{ROSS}.
 \begin{figure}[H]
 	\centering
 	\caption{Exemplo de rotores engrenados no \textit{ROSS}}
@@ -58,10 +58,10 @@ A Figura \ref{fig:multirotor_ex} apresenta um exemplo de modelagem de um conjunt
 	\end{minipage}
 \end{figure}
 
-Na Figura \ref{fig:multirotor_ex} observa-se diferentes elementos de eixo na cor cinza, ainda com variação do material representado pela cor ciano. Nota-se ainda os elementos de mancais e selos com a simbologia de rigidez e amortecimento e além disso, os discos em vermelho e engrenagem em amarelo. 
+Na Figura~\ref{fig:multirotor_ex} observa-se diferentes elementos de eixo na cor cinza, ainda com variação do material representado pela cor ciano. Nota-se ainda os elementos de mancais e selos com a simbologia de rigidez e amortecimento e além disso, os discos em vermelho e engrenagem em amarelo. 
 
 Com a modelagem feita, é possível realizar diversas análises do sistema rotativo simples ou com multi rotores, entre elas a obtenção de resposta de vibração no tempo, órbitas, desbalanceamento, função de reposta em frequência (FRF), mapa de velocidade crítica sem amortecimento (UCS), Diagrama de Campbell, análise estática, análise modal, entre outras. Além disso, é possível executar casos de falhas como desalinhamento, trinca e roçamento.
-A Figura \ref{fig:ross_analises} apresenta exemplo de de análises que podem ser feitas no \textit{ROSS}, como o UCS, análise de desbalanceamento e modos de vibrar.
+A Figura~\ref{fig:ross_analises} apresenta exemplo de de análises que podem ser feitas no \textit{ROSS}, como o UCS, análise de desbalanceamento e modos de vibrar.
 \begin{figure}[H]
 	\centering
 	\caption{Exemplo de Análises no \textit{ROSS}}
