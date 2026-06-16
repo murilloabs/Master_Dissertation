@@ -48,23 +48,20 @@ Primeiramente, a modelagem do engrenamento de \citeonline{yi2019} considera 3 gr
 	\label{eq:vetor_q}
 \end{equation}
 
-Por ser uma formulação dinâmica do engrenamento as variáveis são dependentes do tempo e variam a cada instante por dependerem diretamente e indiretamente das posições instantâneas e cada engrenagem. $x_i, y_i (i=1,2)$ Dessa forma, é possível definir a distância entre centros $d$ entre as engrenagens conforme a Equação~\ref{eq:distancia_centro}. Com essa definição obtém-se a formulação do ângulo de posição $\beta$ (Equação~\ref{eq:angulo_posicao}), ângulo de pressão $\alpha$ (Equação~\ref{eq:alpha}) e razão de contato $c_r$ (Equação~\ref{eq:cr}. Onde $R_i$ é raios de base, ${R_a}_i$ é o raio de adendo de cada engrenagem $i=1,2$ e $p_b$ é o passo base do dente. 
-\begin{equation}
+Por ser uma formulação dinâmica do engrenamento as variáveis são dependentes do tempo e variam a cada instante por dependerem diretamente e indiretamente das posições instantâneas e cada engrenagem $x_i, y_i (i=1,2)$. Dessa forma, é possível definir a distância entre centros $d$ entre as engrenagens conforme a Equação~\ref{eq:distancia_centro}. Com essa definição obtém-se a formulação do ângulo de posição $\beta$ (Equação~\ref{eq:angulo_posicao}), ângulo de pressão $\alpha$ (Equação~\ref{eq:alpha}) e razão de contato $c_r$ (Equação~\ref{eq:cr}). Onde $R_i$ é raios de base, ${R_a}_i$ é o raio de adendo de cada engrenagem $i=1,2$ e $p_b$ é o passo base do dente. 
+\begin{gather}
 	d = \sqrt{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2}
 	\label{eq:distancia_centro}
-\end{equation}
-\begin{equation}
+\\
 	\beta = \tan^{-1} \frac{y_2 - y_1}{x_2 - x_1 + d_0}
 	\label{eq:angulo_posicao}
-\end{equation}
-\begin{equation}
+\\
 	\alpha = \cos^{-1} \frac{R_1 + R_2}{d} = \cos^{-1} \frac{R_1 + R_2}{\sqrt{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2}}
 	\label{eq:alpha}
-\end{equation}
-\begin{equation}
+\\
 	c_r = \frac{[\sqrt{R_{a1}^2 - R_1^2} + \sqrt{R_{a2}^2 - R_2^2} - d \sin \alpha]}{p_b}
 	\label{eq:cr}
-\end{equation}
+\end{gather}
 
 Para contabilizar o efeito do engrenamento e o acoplamento  entres os rotores e as engrenagens é necessário definir a deformação relacionada à Linha de Ação \textit{LOA}. Tal deformação é expressa pal variável $\delta$ e é dependente da posição de cada engrenagem  $x_i, y_i$, ângulo de pressão $\alpha$, raio da base $R_i$ e o deslocamento angular $\theta_i$ de cada engrenagem. Nesta definição também é incluído o valor do erro estático de deformação, um valor que não está associado à dinâmica do sistema e pode vim de fatores externos como a montagem do conjunto engrenado. A Equação~\ref{eq:delta} expressa a formulação de $\delta$.
 \begin{equation}
@@ -72,87 +69,77 @@ Para contabilizar o efeito do engrenamento e o acoplamento  entres os rotores e 
 	\label{eq:delta}
 \end{equation}
 
-A próxima etapa é a definição da força do engrenamento , para isso, é necessário definir a deformação efetiva da \textit{LOA} $f$ considerando o \textit{backlash} $b_t$ e sua velocidade associada $f_1$. A força do engrenamento  $F_m$ é, portanto, definida como o produto entre a rigidez do engrenamento $K_m$ pela deformação efetiva $f$ acrecida do valor de amortecimento, representado pelo produto do coeficiente de amortecimento $c_m$ pela velocidade associada à deformação efetiva $f_1$. Tais relações são apresentadas nas Equações~\ref{eq:Fm}, \ref{eq:cm}, \ref{eq:f_delta} e \ref{eq:f1_delta}.
+A próxima etapa é a definição da força do engrenamento, para isso, é necessário definir a deformação efetiva da \textit{LOA} $f$ considerando o \textit{backlash} $b_t$ e sua velocidade associada $f_1$. A força do engrenamento  $F_m$ é, portanto, definida como o produto entre a rigidez do engrenamento $K_m$ pela deformação efetiva $f$ acrecida do valor de amortecimento, representado pelo produto do coeficiente de amortecimento $c_m$ pela velocidade associada à deformação efetiva $f_1$. Tais relações são apresentadas nas Equações~\ref{eq:Fm}, \ref{eq:cm}, \ref{eq:f_delta} e \ref{eq:f1_delta}.
 Para o cálculo do $c_m$ é considerado o momento polar e de inércia $J_i$ e o raio de base $R_i$ de cada engrenagem assim como o valor do coeficiente de amortecimento  $\xi_m$, que de acordo com \citeonline{yi2019} varia entre 0.03 e 0.17.
-\begin{equation}
+\begin{gather}
 	F_m = K_m f(\delta, b_t) + c_m f_1(\delta, b_t)
 	\label{eq:Fm}
-\end{equation}
-\begin{equation}
+\\
 	c_m = 2\xi_m \sqrt{K_m J_1 J_2 / (J_2 R_1^2 + J_1 R_2^2)}
 	\label{eq:cm}
-\end{equation}
-\begin{equation}
+\\
 	f(\delta, b_t) = \begin{cases} 
 		\delta - b_t & (\delta > +b_t) \\
 		0 & (|\delta| \le b_t) \\
 		\delta + b_t & (\delta < -b_t)
 	\end{cases}
 	\label{eq:f_delta}
-\end{equation}
-\begin{equation}
+\\
 	f_1(\delta, b_t) = \begin{cases} 
 		\dot{\delta} - \dot{b}_t & (\delta > +b_t) \\
 		0 & (|\delta| \le b_t) \\
 		\dot{\delta} + \dot{b}_t & (\delta < -b_t)
 	\end{cases}
 	\label{eq:f1_delta}
-\end{equation}
+\end{gather}
 
 A folga de \textit{backlash} total é definida como a somatória entre a parcela inicial $b_0$ definida por projeto e a parcela dinâmica $\Delta b$ associada À dinâmica do sistema. A definição do \textit{backlash} é dada pelas Equações~\ref{eq:bt} e \ref{eq:delta_b}, onde $inv$ representa a função involuta do  ângulo de pressão instantâneo $\alpha$ e do inicial $\alpha_0$.
-\begin{equation}
+\begin{gather}
 	2b_t = 2b_0 + \Delta b % \cos \beta_h
 	\label{eq:bt}
-\end{equation}
-\begin{equation}
+\\
 	\Delta b = 2(R_1 + R_2)(\mathrm{inv}(\alpha) - \mathrm{inv}(\alpha_0))
 	\label{eq:delta_b}
-\end{equation}
+\end{gather}
 
-Para desenvolver as equações do movimento e solucionar a dinâmica do sistema, \citeonline{yi2019} formulou a energia cinética $T$ (Equação~\ref{eq:energia_cinetica}) e a energia potencial $U$ (Equação~\ref{eq:energia_potencial}) desse sistema em que $\boldsymbol{r}_i$ (Equação~\ref{eq:vetores_r1_r2}) é o vetor posição e $\omega_i$ é a velocidade angular de cada engrenagem.  Além disso é definida a função de dissipação $R$ (Equação~\ref{eq:dissipacao}). Vale ressaltar que as engrenagens estão associada à mancais com  coeficiente de rigidez $k_xi, k_yi$ e coeficientes de amortecimento $c_xi e c_yi$.
-\begin{equation}
+Para desenvolver as equações do movimento e solucionar a dinâmica do sistema, \citeonline{yi2019} formulou a energia cinética $T$ (Equação~\ref{eq:energia_cinetica}) e a energia potencial $U$ (Equação~\ref{eq:energia_potencial}) desse sistema em que $\boldsymbol{r}_i$ (Equação~\ref{eq:vetores_r1_r2}) é o vetor posição e $\omega_i$ é a velocidade angular de cada engrenagem.  Além disso é definida a função de dissipação $R$ (Equação~\ref{eq:dissipacao}). Vale ressaltar que as engrenagens estão associada à mancais com  coeficiente de rigidez $k_xi, k_yi$ e coeficientes de amortecimento ${c_x}_i$ e ${c_y}_i$.
+\begin{gather}
 	\boldsymbol{r}_1 = x_1\boldsymbol{i} + y_1\boldsymbol{j}, \quad \boldsymbol{r}_2 = x_2\boldsymbol{i} + y_2\boldsymbol{j}
 	\label{eq:vetores_r1_r2}
-\end{equation}
-\begin{equation}
+\\
 	T = (m_1(\|\dot{\boldsymbol{r}}_1\|)^2 + J_1(\omega_1 + \dot{\theta}_1)^2 + m_2(\|\dot{\boldsymbol{r}}_2\|)^2 + J_2(\omega_2 + \dot{\theta}_2)^2) / 2
 	\label{eq:energia_cinetica}
-\end{equation}
-\begin{equation}
+\\
 	U = \frac{[ (k_{x1}x_1^2 + k_{y1}y_1^2 + k_{x2}x_2^2 + k_{y2}y_2^2) + k_m f^2(\delta, b_t) ]}{2}
 	\label{eq:energia_potencial}
-\end{equation}
-\begin{equation}
+\\
 	R = [ (c_{x1}\dot{x}_1^2 + c_{y1}\dot{y}_1^2 + c_{x2}\dot{x}_2^2 + c_{y2}\dot{y}_2^2) + c_m f_1^2(\delta, b_t) ] / 2
 	\label{eq:dissipacao}
-\end{equation}
+\end{gather}
 
 O vetor $Q$ (Equação~\ref{eq:vetor_forcas}) representa o vetor de forças generalizadas para esse sistema. Neste caso, como adaptação do modelo de \citeonline{yi2019}, são consideradas as forças de desbalanceamento (Equações~\ref{eq:desbal_eng1} e \ref{eq:desbal_eng2}) para cada engrenagem em vez da  excentricidade definida originalmente no modelo, uma vez que a representação física e matemática é a mesma. Além disso, é considerado o torque $T_i$ aplicado a cada engrenagem.
-\begin{equation}
+\begin{gather}
 	\boldsymbol{Q} = [F_{u1x} \ F_{u1y} \ T_1 \ F_{u2x} \ F_{u2y} \ -T_2]^{\mathrm{T}}
 	\label{eq:vetor_forcas}
-\end{equation}
-\begin{equation}
+\\
 	\begin{cases} 
 		F_{u1x} = m_1 e_1 \omega_1^2 \cos(\omega_1 t) \\
 		F_{u1y} = m_1 e_1 \omega_1^2 \sin(\omega_1 t)
 	\end{cases}
 	\label{eq:desbal_eng1}
-\end{equation}
-\begin{equation}
+\\
 	\begin{cases} 
 		F_{u2x} = m_2 e_2 \omega_2^2 \cos(\omega_2 t) \\
 		F_{u2y} = m_2 e_2 \omega_2^2 \sin(\omega_2 t)
 	\end{cases}
 	\label{eq:desbal_eng2}
-\end{equation}
+\end{gather}
 
 Aplicando-se a formulação de Lagrange, Equação~\ref{eq:lagrange} obtém-se as equações do movimento completas do sistema apresentado na Equação~\ref{eq:sistema_movimento_expandido}, onde $\partial_{q_i}$ representa a derivada parcial  da função em relação à coordenada generalizada $q_i$ assim como apresentado na Equação~\ref{eq:derivadas_genericas}.
-\begin{equation}
+\begin{gather}
 	\frac{\mathrm{d}}{\mathrm{d}t} \left( \frac{\partial T}{\partial \dot{q}_j} \right) - \frac{\partial T}{\partial q_j} + \frac{\partial U}{\partial q_j} + \frac{\partial R}{\partial \dot{q}_j} = Q_j
 	\label{eq:lagrange}
-\end{equation}
-\begin{equation}
+\\
 	\left\{
 	\begin{aligned}
 		& m_1\ddot{x}_1 + c_{x1}\dot{x}_1 + k_{x1}x_1 + c_m f_1(\delta, b_t) \cdot \partial_{\dot{x}_1}f_1 + k_m f(\delta, b_t) \cdot \partial_{x_1}f = F_{u1x} \\
@@ -164,58 +151,48 @@ Aplicando-se a formulação de Lagrange, Equação~\ref{eq:lagrange} obtém-se a
 	\end{aligned}
 	\right.
 	\label{eq:sistema_movimento_expandido}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{q_i}\delta = \frac{\partial \delta}{\partial q_i}, \quad \partial_{q_i}f = \frac{\partial f(\delta, b_t)}{\partial q_i}, \quad \partial_{\dot{q}_i}f_1 = \frac{\partial f_1(\delta, b_t)}{\partial \dot{q}_i}
 	\label{eq:derivadas_genericas}
-\end{equation}
+\end{gather}
 
 As equações a seguir apresentam a formulação das derivadas parciais utilizadas nas equações do movimento, onde $(\hspace{2px} \dot{} \hspace{2px})$ representa a derivada em relação ao tempo.
-\begin{equation}
+\begin{gather}
 	\dot{\delta}(t) = \dot{x}_1 \cdot \partial_{x_1}\delta + \dot{y}_1 \cdot \partial_{y_1}\delta + \dot{\theta}_1 \cdot \partial_{\theta_1}\delta + \dot{x}_2 \cdot \partial_{x_2}\delta + \dot{y}_2 \cdot \partial_{y_2}\delta + \dot{\theta}_2 \cdot \partial_{\theta_2}\delta - \dot{e}(t)
 	\label{eq:dot_delta}
-\end{equation}
-\begin{equation}
+\\
 	\dot{b}_t = (R_1 + R_2) \tan^2 \alpha \cdot (\dot{x}_1 \cdot \partial_{x_1}\alpha + \dot{y}_1 \cdot \partial_{y_1}\alpha + \dot{x}_2 \cdot \partial_{x_2}\alpha + \dot{y}_2 \cdot \partial_{y_2}\alpha)
 	\label{eq:dot_bt}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{x_1}\delta = \sin(\alpha - \beta) + [(x_1 - x_2) \cos(\alpha - \beta) - (y_1 - y_2) \sin(\alpha - \beta)](\partial_{x_1}\alpha - \partial_{x_1}\beta)
 	\label{eq:delta_x1}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{y_1}\delta = \cos(\alpha - \beta) + [(x_1 - x_2) \cos(\alpha - \beta) - (y_1 - y_2) \sin(\alpha - \beta)](\partial_{y_1}\alpha - \partial_{y_1}\beta)
 	\label{eq:delta_y1}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{x_2}\delta = -\sin(\alpha - \beta) + [(x_1 - x_2) \cos(\alpha - \beta) - (y_1 - y_2) \sin(\alpha - \beta)](\partial_{x_2}\alpha - \partial_{x_2}\beta)
 	\label{eq:delta_x2}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{y_2}\delta = -\cos(\alpha - \beta) + [(x_1 - x_2) \cos(\alpha - \beta) - (y_1 - y_2) \sin(\alpha - \beta)](\partial_{y_2}\alpha - \partial_{y_2}\beta)
 	\label{eq:delta_y2}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{\theta_1}\delta = R_1, \quad \partial_{\theta_2}\delta = R_2
 	\label{eq:delta_theta}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{x_i}f = \begin{cases} 
 		\partial_{x_i}\delta - \partial_{x_i}b_t & (\delta > +b_t) \\
 		0 & (|\delta| \le b_t) \\
 		\partial_{x_i}\delta + \partial_{x_i}b_t & (\delta < -b_t)
 	\end{cases} ; \quad \partial_{x_i}b_t = (R_1 + R_2) \tan^2 \alpha \cdot \partial_{x_i}\alpha \quad (i = 1, 2)
 	\label{eq:f_xi}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{y_i}f = \begin{cases} 
 		\partial_{y_i}\delta - \partial_{y_i}b_t & (\delta > +b_t) \\
 		0 & (|\delta| \le b_t) \\
 		\partial_{y_i}\delta + \partial_{y_i}b_t & (\delta < -b_t)
 	\end{cases} ; \quad \partial_{y_i}b_t = (R_1 + R_2) \tan^2 \alpha \cdot \partial_{y_i}\alpha \quad (i = 1, 2)
 	\label{eq:f_yi}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{\theta_1}f = \begin{cases} 
 		R_1 - \partial_{\theta_1}b_t & (\delta > +b_t) \\
 		0 & (|\delta| \le b_t) \\
@@ -227,20 +204,16 @@ As equações a seguir apresentam a formulação das derivadas parciais utilizad
 		R_2 + \partial_{\theta_2}b_t & (\delta < -b_t)
 	\end{cases} , \; \partial_{\theta_2}b_t = 0
 	\label{eq:f_theta}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{\dot{x}_i}f_1 = \partial_{x_i}f; \quad \partial_{\dot{y}_i}f_1 = \partial_{y_i}f; \quad \partial_{\dot{\theta}_i}f_1 = \partial_{\theta_i}f; \quad (i = 1, 2)
 	\label{eq:f1_derivadas}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{x_1}\alpha = -\partial_{x_2}\alpha = -\frac{(R_1 + R_2)(x_2 - x_1 + d_0)}{\left[ (x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2 \right] \sqrt{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2 - (R_1 + R_2)^2}}
 	\label{eq:alpha_x}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{y_1}\alpha = -\partial_{y_2}\alpha = -\frac{(R_1 + R_2)(y_2 - y_1)}{\left[ (x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2 \right] \sqrt{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2 - (R_1 + R_2)^2}}
 	\label{eq:alpha_y}
-\end{equation}
-\begin{equation}
+\\
 	\partial_{x_1}\beta = -\partial_{x_2}\beta = \frac{y_2 - y_1}{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2}, \quad \partial_{y_1}\beta = -\partial_{y_2}\beta = -\frac{x_2 - x_1 + d_0}{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2}
 	\label{eq:beta_xy}
-\end{equation}
+\end{gather}

@@ -7,7 +7,7 @@ Como o modelo implementado foi expandido pensando em 6 graus de liberdade por n�
 
 Para verificar a expansão em 6 \textit{gdl}, realizada com o intuito de contemplar engrenagens helicoidais, foi verificado o deslocamento na direção axial. Este grau de liberdade foi utilizado como exemplo pois, engrenagens helicoidais produzem forças na direção axial do eixo, exigindo assim mancais que suportam essa carga.
 
-A Figura \ref{fig:replan_axial} mostra a resposta axial do sistema dinâmico da caixa de engrenagens da Petrobras. Na resposta temporal é possível observar que o sistema responde de maneira oscilatória e periódica. A análise no domínio da frequência mostra valores de frequência distintos dos encontrados anteriormente. Entretanto a relação de múltiplo do número de dentes ainda é válida. Neste caso, a frequência de $5500$ rpm surge por ser $27$ vezes a frequência de $203$ rpm, que também aparece na análise.
+A Figura \ref{fig:replan_axial} mostra a resposta axial do sistema dinâmico da caixa de engrenagens da Petrobras. Na resposta temporal é possível observar que o sistema responde de maneira oscilatória e periódica. A análise no domínio da frequência mostra valores de frequência distintos dos encontrados anteriormente. Entretanto, a relação de múltiplo do número de dentes ainda é válida. Neste caso, a frequência de $5500$ rpm surge por ser $27$ vezes a frequência de $203$ rpm, que também aparece na análise.
 \begin{figure}[H]
 	\centering
 	\caption{Resposta Axial da Engrenagem 1}
@@ -25,9 +25,9 @@ A Figura \ref{fig:replan_axial} mostra a resposta axial do sistema dinâmico da 
 \newpage
 \subsection{Suavização da Função de \textit{Backlash}}
 
-Para verificar a suavização da função de cálculo do \textit{backlash} dinâmico, a simulação da caixa de engrenagens da Petrobras foi executada de 4 maneiras. A simulação controle foi feita sem a suavização, já as outras 3 simulações foram realizadas considerando diferentes valores de $\sigma$. Além disso, utilizaram o mesmo modelo matemático da caixa de engrenagem discretizado em MEF, discretização temporal, e aplicação de forças e torques assim como apresentado na Seção~\ref{sec:replan}.
+Para verificar a suavização da função de cálculo do \textit{backlash} dinâmico, a simulação da caixa de engrenagens da Petrobras foi executada de 4 maneiras. A simulação controle foi feita sem a suavização, já as outras 3 simulações foram realizadas considerando diferentes valores de $\sigma$. Além disso, foi utilizado o mesmo modelo matemático da caixa de engrenagem discretizado em MEF, discretização temporal, e aplicação de forças e torques assim como apresentado na Seção~\ref{sec:replan}.
 
-A Tabela~\ref{tab:smooth_replan} apresenta um panorama adas 4 simulações, valor de $\sigma$ e tempo de execução. Enquanto a Figura~\ref{subfigure:smooth_replan} apresenta as respostas deformação da \textit{LOA} $\delta$, folga de \textit{backlash} dinâmico, $b_t$ e Força do Engrenamento $F_m$ de todas as simulações.
+A Tabela~\ref{tab:smooth_replan} apresenta um panorama das 4 simulações, valor de $\sigma$ e tempo de execução. Enquanto a Figura~\ref{subfigure:smooth_replan} apresenta as respostas deformação da \textit{LOA} $\delta$, folga de \textit{backlash} dinâmico, $b_t$ e Força do Engrenamento $F_m$ de todas as simulações.
 \begin{table}[H]
 	\centering
 	\begin{threeparttable}
@@ -57,7 +57,7 @@ Analisando as 4 simulações percebe-se que, de fato, aumentar o valor de $\sigm
 
 Além disso, ao utilizar $\sigma=1\times10^5$ houve uma redução do tempo de simulação, em relação ao controle, de aproximadamente $7.3\%$. Vale lembrar que este ainda é um sistema mais simples uma vez que não considera a dinâmica completa de todo o trem de máquinas (motor - caixa de engrenagem - compressor/turbomáquina), apenas a dinâmica da caixa de engrenagem.
 
-Para sistemas mais complexos, a suavização torna-se uma ferramenta interessante com o objetivo facilitar a integração numérica e obter respostas dinâmicas mais rápidas sem perder representatividade da simulação
+Para sistemas mais complexos, a suavização torna-se uma ferramenta interessante com o objetivo de facilitar a integração numérica e obter respostas dinâmicas mais rápidas sem perder representatividade da simulação.
 \begin{figure}[H]
 	\centering
 	\caption{Respostas das 4 simulações}

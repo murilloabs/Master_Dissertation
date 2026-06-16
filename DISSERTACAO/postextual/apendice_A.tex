@@ -22,7 +22,7 @@ Adotando a regra do ponto médio ($\beta = 1/4$ e $\gamma = 1/2$), garante-se um
 
 \section{Formulação de Convergência e Newton-Raphson}
 
-Devido às não linearidades a solução implícita direta não é possível, adotando-se uma abordagem preditor-corretor com Newton-Raphson. Na etapa de \textbf{previsão}, as estimativas para o próximo passo assumem um incremento nulo de aceleração:
+Devido às não linearidades a solução implícita direta não é possível, adotando-se uma abordagem preditor-corretor com Newton-Raphson. Na etapa de previsão, as estimativas para o próximo passo assumem um incremento nulo de aceleração:
 
 \begin{equation}
 	\{q\}^*_{t_2} = \{q\}_{t_1} + \{\dot{q}\}_{t_1}\Delta t + \left( \frac{1}{2} - \beta \right) \Delta t^2 \{\ddot{q}\}_{t_1}
