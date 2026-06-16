@@ -10,7 +10,7 @@ Máquinas rotativas são amplamente utilizadas na indústria na forma de compres
 	\caption{Exemplo de caixa de engrenagem}
 	\label{fig:gearbox}
 	
-	\begin{minipage}{0.4\textwidth}
+	\begin{minipage}{0.5\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/gearbox_lim.png}
 		\par\vspace{0.3em}
@@ -28,7 +28,7 @@ Nesse sentido, a compreensão destes efeitos e fenômenos exigem formulações e
 
 A proposição de modelos matemáticos voltados à análise de transmissões por engrenagens iniciou-se na década de 1950~\cite{ozguven1988} e tem-se apresentado um aumento contínuo de complexidade ao longo dos anos. As abordagens contemporâneas variam desde formulações simplificadas com um único grau de liberdade até representações numéricas robustas e complexas via Método dos Elementos Finitos (MEF) contendo seis graus de liberdade por nó. A escolha metodológica é feita pelos objetivos específicos da análise dinâmica e execução da mesma. A representação matemática do acoplamento também exibe diferentes níveis de complexidade: em casos mais simples, é adotado uma rigidez de engrenamento constante ou descrita por funções periódicas (quadradas ou senoidais). Entretanto, análises avançadas utilizam coeficientes de rigidez variante no tempo calculados de forma instantânea, permitindo a incorporação de não linearidades como a folga dinâmica entre dentes \textit{backlash} e desvios na distância entre centros decorrentes da flexibilidade estrutural dos mancais de suporte~\cite{yi2019}.
 
-Idealmente, no projeto de sistemas de transmissão prevê uma folga entre os dentes de duas engrenagens conectadas, denominada de folga de \textit{backlash}. Esta tem o papel essencial para o pleno funcionamento do sistema engrenado contemplando dilatações térmicas. lubrificação e montagem. Entretanto, com o movimento vibratório natural do eixo essa folga adquiri uma característica variável no tempo que influencia diretamente no comportamento dinâmico do sistema rotativo.
+Idealmente, no projeto de sistemas de transmissão prevê uma folga entre os dentes de duas engrenagens conectadas, denominada de folga de \textit{backlash}. Esta tem o papel essencial para o pleno funcionamento do sistema engrenado contemplando dilatações térmicas, lubrificação e montagem. Entretanto, com o movimento vibratório natural do eixo essa folga adquiri uma característica variável no tempo que influencia diretamente no comportamento dinâmico do sistema rotativo.
 
 \section{Objetivo geral do estudo}
 
@@ -46,6 +46,8 @@ Para alcançar o objetivo geral são estipulados objetivos específicos expostos
 	\item Aplicação do modelo implementado em casos práticos reais de caixa de engrenagens industriais.
 \end{itemize} 
 
+\newpage
+
 \section{Organização do Trabalho}
 
 Este trabalho é dividido em 5 capítulos, os quais serão brevemente apresentados a segui.
@@ -60,4 +62,4 @@ O Capítulo~\ref{cap:resultados e discussao} apresenta os resultados obtidos com
 
 No Capítulo\ref{cap:conclusao} é exposto as considerações finais concluindo o presente trabalho. Além disso, são expostas, também, sugestões de trabalhos futuros para dar segmento a pesquisa realizada.
 
-São apresentadas também as referências bibliográficas utilizadas e, além disso, no Apêndice~\ref{ap:newmark_nr} é exposto a formulação do integrador numérico utilizado(Newmark com Newton-Raphson).
+São apresentadas também as referências bibliográficas utilizadas e, além disso, no Apêndice~\ref{ap:newmark_nr} é exposto a formulação do integrador numérico utilizado (Newmark com Newton-Raphson).

@@ -8,7 +8,7 @@ A modelagem e as análises são realizadas utilizando o Método dos Elementos Fi
 A diferença entre a modelagem proposta por \citeonline{Friswell2010} e \citeonline{Lalanne1998} está na orientação e posicionamento do eixos cartesianos. A Figura~\ref{subfigure:coord} apresenta a diferença de eixos coordenados entre esses dois autores. 
 \begin{figure}[H]
 	\centering
-	\caption{Subfiguras}
+	\caption{Eixos coordenados presentes na literatura}
 	\label{subfigure:coord}
 	
 	\begin{minipage}{0.8\textwidth}
@@ -36,7 +36,7 @@ A diferença entre a modelagem proposta por \citeonline{Friswell2010} e \citeonl
 
 \citeonline{jessica2025} mostra que a modelagem de um sistema rotativo dividida entre os modelos de eixos, mancais e selos, discos e engrenagens e elementos de acoplamento. A seguir é apresentado sobre cada um desses elementos e sua modelagem.
 \begin{itemize}
-	\item \texttt{ShaftElement}: Responsável pelo cálculo das matrizes de rigidez $[K]$, massa $[M]$ e efeito giroscópico $[G]$ distribuídas do eixo considerando o material e os diâmetros internos e externos dos lados esquerdos e direitos do elemento de eixo.. O pacote utiliza a Teoria de Vigas de \citeonline{timoshenko1922}, o que considera não apenas a flexão pura (como na teoria de Euler-Bernoulli), mas também as deformações por cisalhamento e a inércia rotacional de seções transversais curtas. 
+	\item \texttt{ShaftElement}: Responsável pelo cálculo das matrizes de rigidez $[K]$, massa $[M]$ e efeito giroscópico $[G]$ distribuídas do eixo considerando o material e os diâmetros internos e externos dos lados esquerdos e direitos do elemento de eixo. O pacote utiliza a Teoria de Vigas de \citeonline{timoshenko1922}, o que considera não apenas a flexão pura (como na teoria de Euler-Bernoulli), mas também as deformações por cisalhamento e a inércia rotacional de seções transversais curtas. 
 	\item \texttt{BearingElement} e \texttt{SealElement}: Implementa o suporte dos mancais e os selos nos nós pertinentes. Esta classe permite associar coeficientes de rigidez ($k_{xx}, k_{yy}$) e amortecimento ($c_{xx}, c_{yy}$) estáticos ou variantes com a velocidade de rotação $\Omega$. Além disso, podem ser considerado os coeficientes cruzados, que relacionam as direções $xy$, $xz$ e $yz$. Portanto, este elemento contribui somente com as matrizes de rigidez $[K]$ e amortecimento $[C]$.
 	\item \texttt{DiskElement}: Modela elementos concentrados em nós específicos, adicionando propriedades de massa ($m$), momento de inércia polar ($I_p$) e momento de inércia diametral ($I_d$) influenciando nas matrizes de massa $[M]$ e efeito giroscópico $[G]$. 
 	\item \texttt{GearElement} e \texttt{GearElementTVMS}: São classes filhas da \texttt{DiskElement} e, portanto, contribuem para o sistema da mesma maneira. Entretanto, para a sua definição são exigidos parâmetros geométricos e de engrenamento específicos para engrenagens. Entre essas variáveis, coloca-se, módulo, ângulo de pressão, ângulo de hélice, número de dentes, diâmetro primitivo entre outras. 
@@ -49,7 +49,7 @@ A Figura~\ref{fig:multirotor_ex} apresenta um exemplo de modelagem de um conjunt
 	\caption{Exemplo de rotores engrenados no \textit{ROSS}}
 	\label{fig:multirotor_ex}
 	
-	\begin{minipage}{0.8\textwidth}
+	\begin{minipage}{0.8725\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/multirrotor_completo.png}
 		\par\vspace{0.3em}
@@ -60,14 +60,14 @@ A Figura~\ref{fig:multirotor_ex} apresenta um exemplo de modelagem de um conjunt
 
 Na Figura~\ref{fig:multirotor_ex} observa-se diferentes elementos de eixo na cor cinza, ainda com variação do material representado pela cor ciano. Nota-se ainda os elementos de mancais e selos com a simbologia de rigidez e amortecimento e além disso, os discos em vermelho e engrenagem em amarelo. 
 
-Com a modelagem feita, é possível realizar diversas análises do sistema rotativo simples ou com multi rotores, entre elas a obtenção de resposta de vibração no tempo, órbitas, desbalanceamento, função de reposta em frequência (FRF), mapa de velocidade crítica sem amortecimento (UCS), Diagrama de Campbell, análise estática, análise modal, entre outras. Além disso, é possível executar casos de falhas como desalinhamento, trinca e roçamento.
+Com a modelagem feita, é possível realizar diversas análises do sistema rotativo simples ou com multi rotores, entre elas a obtenção de resposta de vibração no tempo, órbitas, desbalanceamento, função de reposta em frequência (FRF), mapa de velocidade crítica sem amortecimento (UCS), diagrama de campbell, análise estática, análise modal, entre outras. Além disso, é possível executar casos de falhas como desalinhamento, trinca e roçamento.
 A Figura~\ref{fig:ross_analises} apresenta exemplo de de análises que podem ser feitas no \textit{ROSS}, como o UCS, análise de desbalanceamento e modos de vibrar.
 \begin{figure}[H]
 	\centering
 	\caption{Exemplo de Análises no \textit{ROSS}}
 	\label{fig:ross_analises}
 	
-	\begin{minipage}{0.8\textwidth}
+	\begin{minipage}{0.95\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/ross_analise.png}
 		\par\vspace{0.3em}

@@ -17,7 +17,7 @@ Um par engrenado apresenta  relações comuns às duas engrenagens como ângulo 
 A Figura~\ref{fig:gear_esquema} apresenta um esquemático de uma engrenagem de dentes helicoidais, orientando também sobre o ângulo de pressão.
 \begin{figure}[H]
 	\centering
-	\caption{Representação esquemática de uma engrenagem.}
+	\caption{Representação esquemática de uma engrenagem}
 	\label{fig:gear_esquema}
 	
 	\begin{minipage}{0.7\textwidth}
@@ -29,7 +29,7 @@ A Figura~\ref{fig:gear_esquema} apresenta um esquemático de uma engrenagem de d
 	\end{minipage}
 \end{figure}
 
-Cada engrenagem, independente do seu tipo, apresenta quarto diâmetros principais que são de raiz, de base, de adendo e o primitivo. O diâmetro de raiz $2R_r$ é onde se inicia o dente. O raio de adendo ($R_a$) é o diâmetro máximo da engrenagem, ou seja, na extremidade do dente. Além disso, é necessário para o cálculo da razão de contato $c_r$ (Equação~\ref{eq:razao_contato}). Adotando-se o perfil padrão de dente inteiro sem modificação geométrica, recomendado por \citeonline{dudley2021} e normalizado pela AGMA \cite{agma2004}, o adendo é tomado como igual ao módulo normal $m$, conforme apresentado por \citeonline{shigley2020}, resultando na Equação~\ref{eq:raios_adendo}.
+Cada engrenagem, independente do seu tipo, apresenta quarto diâmetros principais que são de raiz, de base, de adendo e o primitivo. O diâmetro de raiz $2R_r$ é onde se inicia o dente. O raio de adendo ($R_a$) é o diâmetro máximo da engrenagem, ou seja, na extremidade do dente. Além disso, é necessário para o cálculo da razão de contato $c_r$ (Equação~\ref{eq:razao_contato}). Adotando-se o perfil padrão de dente inteiro sem modificação geométrica, recomendado por \citeonline{dudley2021} e normalizado pela \citeonline{agma2004} (AGMA), o adendo é tomado como igual ao módulo normal $m$, conforme apresentado por \citeonline{shigley2020}, resultando na Equação~\ref{eq:raios_adendo}.
 \begin{equation}
 	R_{a1} = R_{p1} + m, \quad R_{a2} = R_{p2} + m
 	\label{eq:raios_adendo}
@@ -179,13 +179,12 @@ As variáveis $q$ indicam as coordenadas generalizadas, os índices $i$ e $j$ re
 	\end{minipage}
 \end{figure}
 
-O parâmetro $K_m$ representa a rigidez do par engrenado ao longo da linha de ação. \citeonline{kaplan_paper_2013} apresenta uma metodologia de cálculo com base em parâmetros geométricos e do material das engrenagens, apresentada na Eq.~\ref{Eq:Kg}. Neste caso, é assumida a hipótese de que a rigidez dos dentes é mais significativa do que a rigidez do corpo da engrenagem.
+O parâmetro $K_m$ representa a rigidez do par engrenado ao longo da linha de ação. \citeonline{kaplan_paper_2013} apresenta uma metodologia de cálculo com base em parâmetros geométricos e do material das engrenagens, apresentada na Equação.~\ref{Eq:Kg}. Neste caso, é assumida a hipótese de que a rigidez dos dentes é mais significativa do que a rigidez do corpo da engrenagem.
 \begin{equation}
 	K_m = \frac{c_r w E_1 E_2}{9(E_1+E_2)}
 	\label{Eq:Kg}
 \end{equation}
-
-Onde $c_r$ representa a razão de contato do par engrenado, $w$ descreve a largura dos dentes das engrenagens, $E_1$ e $E_2$ são os módulos de elasticidade das engrenagens motriz e movida, respectivamente. Dessa forma, a rigidez do engrenamento é considerada como constante ao longo do tempo.
+onde $c_r$ representa a razão de contato do par engrenado, $w$ descreve a largura dos dentes das engrenagens, $E_1$ e $E_2$ são os módulos de elasticidade das engrenagens motriz e movida, respectivamente. Dessa forma, a rigidez do engrenamento é considerada como constante ao longo do tempo.
 
 Entretanto, devido à dinâmica do contato entre  os dentes, a rigidez associada ao engrenamento, na realidade, é uma grandeza variável no tempo e dependente da  razão de contato entre as engrenagens. A seguir será apresentado a primeira metodologia encontrada na literatura (Perfil Retangular) e o Perfil Completo atualmente utilizado.
 
@@ -194,12 +193,13 @@ Entretanto, devido à dinâmica do contato entre  os dentes, a rigidez associada
 Para se considerara a variação da rigidez do engrenamento ao longo do tempo, uma das primeiras considerações foi  utilização de um modelo de perfil retangular, assim como apresentado por \citeonline{lin2002}. Tal modelagem simplifica a dinâmica de contato entre os dentes de um par engrenado,  mas ainda mantém sua característica principal, a variação da amplitude de rigidez e a periodicidade no tempo.
 
 \citeonline{kaplan2015} apresenta tal perfil retangular, de acordo com a modelagem de \citeonline{lin2002}. A Equação~\ref{eq:stiffness_Kv} apresenta tal formulação, que pode ser descrita como a soma de uma parcela constante  $K_m$ e uma parcela variável $K_v$ (Equação~\ref{eq:stiffness_K}) que oscila por uma Série de Fourier com uma amplitude $K_a$ proporcional à $K_m$.
-\begin{equation} \label{eq:stiffness_K}
+\begin{gather} 
+	\label{eq:stiffness_K}
 	K = K_m + K_v(\Omega, t)
-\end{equation}
-\begin{equation} \label{eq:stiffness_Kv}
+\\
+	\label{eq:stiffness_Kv}
 	K_v(t) = 2K_a \sum_{s=1}^{\infty} \left( a^{(s)} \sin(sZ_1\Omega_i t) + b^{(s)} \cos(sZ_1\Omega t) \right)
-\end{equation}
+\end{gather}
 \begin{align} \label{eq:coeficientes_ab}
 	a^{(s)} &= -\frac{2}{s\pi} \sin[s\pi(c_r - 2\beta)] \sin(s\pi c_r) \nonumber \\
 	b^{(s)} &= -\frac{2}{s\pi} \cos[s\pi(c_r - 2\beta)] \sin(s\pi c_r)
