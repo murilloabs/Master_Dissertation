@@ -91,37 +91,49 @@ O modelo implementado apresenta para cada velocidade de rotação utilizada, um 
 \end{figure}
 \newpage
 
-A primeira comparação entre os resultados presentes no artigo de \citeonline{yi2019} (pontos laranjas), o modelo implementado (linha contínua azul) e o valor de referência original estático determinado pelo projeto de tal conjunto de engrenagens (linha pontilhada preta) é feita na Figura~\ref{subfigure:comp_1000}. Nesta, é apresenta as comparações para as variáveis de Distância entre Centros (Figura~\ref{fig:paper_dist_cent_1000}), Ângulo de Pressão (Figura~\ref{fig:paper_pr_ang_1000}), Folga de \textit{Backlash} (Figura~\ref{fig:paper_backlash_1000}) e Razão de Contato (Figura~\ref{fig:paper_cotc_ratio_1000}) para a velocidade de $1000\,\mathrm{rpm}$. 
+A primeira comparação entre os resultados presentes no artigo de \citeonline{yi2019} (pontos laranjas), o modelo implementado (linha contínua azul) e o valor de referência original estático determinado pelo projeto de tal conjunto de engrenagens (linha pontilhada preta) é feita na Figura~\ref{subfigure:comp_1000} e \ref{subfigure:comp_1000_2}. Nesta, é apresenta as comparações para as variáveis de Distância entre Centros (Figura~\ref{fig:paper_dist_cent_1000}), Ângulo de Pressão (Figura~\ref{fig:paper_pr_ang_1000}), Folga de \textit{Backlash} (Figura~\ref{fig:paper_backlash_1000}) e Razão de Contato (Figura~\ref{fig:paper_cotc_ratio_1000}) para a velocidade de $1000\,\mathrm{rpm}$. 
 \begin{figure}[H]
 	\centering
-	\caption{Comparação Inicial para $1000\,\mathrm{rpm}$}
+	\caption{Comparação Inicial para $1000\,\mathrm{rpm}$ - Parte 1}
 	\label{subfigure:comp_1000}
 	
-	\begin{minipage}{0.9\textwidth}
+	\begin{minipage}{\textwidth}
 		\centering
 		
-		\begin{subfigure}{0.45\textwidth}
+		\begin{subfigure}{0.6\textwidth}
 			\centering
 			\caption{Distância entre Centros}
 			\label{fig:paper_dist_cent_1000}
 			\includegraphics[width=\linewidth]{validation_plots/Fig_7a_CenterDistance.pdf}
 		\end{subfigure}
-		\hspace{10pt}
-		\begin{subfigure}{0.45\textwidth}
+		\\ %\hspace{10pt}
+		\begin{subfigure}{0.6\textwidth}
 			\centering
 			\caption{Ângulo de Pressão}
 			\label{fig:paper_pr_ang_1000}
 			\includegraphics[width=\linewidth]{validation_plots/Fig_7b_PressureAngle.pdf}
 		\end{subfigure}
-		\\
-		\begin{subfigure}{0.45\textwidth}
+		\par\vspace{0.5em}
+\raggedright
+\hspace{0.5cm} {\small Fonte: Elaborado pelo autor.}
+\end{minipage}
+\end{figure}
+\newpage
+\begin{figure}[H]
+	\centering
+	\caption{Comparação Inicial para $1000\,\mathrm{rpm}$ - Parte 2}
+	\label{subfigure:comp_1000_2}
+	
+	\begin{minipage}{\textwidth}
+		\centering
+		\begin{subfigure}{0.6\textwidth}
 			\centering
 			\caption{Folga de \textit{Backlash}}
 			\label{fig:paper_backlash_1000}
 			\includegraphics[width=\linewidth]{validation_plots/Fig_7c_Backlash.pdf}
 		\end{subfigure}
 		\hspace{10pt}
-		\begin{subfigure}{0.45\textwidth}
+		\begin{subfigure}{0.6\textwidth}
 			\centering
 			\caption{Razão de Contato}
 			\label{fig:paper_cotc_ratio_1000}
@@ -133,6 +145,7 @@ A primeira comparação entre os resultados presentes no artigo de \citeonline{y
 		\hspace{0.5cm} {\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
+\newpage
 
 A Figura~\ref{subfigure:x1_1000} apresenta a comparação da resposta de vibração da coordenada de deslocamento horizontal da primeira engrenagem, $x_1$ no domínio do tempo, Figura~\ref{fig:x1_1000}, e no domínio da frequência, Figura~\ref{fig:dft_x1_1000}.
 \begin{figure}[H]
@@ -140,17 +153,17 @@ A Figura~\ref{subfigure:x1_1000} apresenta a comparação da resposta de vibraç
 	\caption{Comparação de $x_1$ para $1000\,\mathrm{rpm}$}
 	\label{subfigure:x1_1000}
 	
-	\begin{minipage}{0.95\textwidth}
+	\begin{minipage}{\textwidth}
 		\centering
 		
-		\begin{subfigure}{0.475\textwidth}
+		\begin{subfigure}{0.7\textwidth}
 			\centering
 			\caption{Domínio do Tempo}
 			\label{fig:x1_1000}
 			\includegraphics[width=\linewidth]{validation_plots/Fig_9a_Vibration_x1.pdf}
 		\end{subfigure}
-		\hspace{10pt}
-		\begin{subfigure}{0.475\textwidth}
+		\\ %\hspace{10pt}
+		\begin{subfigure}{0.7\textwidth}
 			\centering
 			\caption{Domínio da Frequência}
 			\label{fig:dft_x1_1000}
@@ -162,7 +175,7 @@ A Figura~\ref{subfigure:x1_1000} apresenta a comparação da resposta de vibraç
 		\hspace{0.5cm} {\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
-
+\newpage
 
 A deformação da \textit{LOA}, $\delta$, denominada no artigo como \textit{DTE} tem a sua comparação do sinal no domínio do tempo e da frequência apresentados nas Figuras~\ref{fig:delta_1000} e \ref{fig:dft_delta_1000} respectivamente.
 \begin{figure}[H]
@@ -170,17 +183,17 @@ A deformação da \textit{LOA}, $\delta$, denominada no artigo como \textit{DTE}
 	\caption{Comparação de $\delta$ para $1000\,\mathrm{rpm}$}
 	\label{subfigure:delta_1000}
 	
-	\begin{minipage}{0.95\textwidth}
+	\begin{minipage}{\textwidth}
 		\centering
 		
-		\begin{subfigure}{0.475\textwidth}
+		\begin{subfigure}{0.7\textwidth}
 			\centering
 			\caption{Domínio do Tempo}
 			\label{fig:delta_1000}
 			\includegraphics[width=\linewidth]{validation_plots/Fig_9c_Vibration_DTE.pdf}
 		\end{subfigure}
 		\hspace{10pt}
-		\begin{subfigure}{0.475\textwidth}
+		\begin{subfigure}{0.7\textwidth}
 			\centering
 			\caption{Domínio da Frequência}
 			\label{fig:dft_delta_1000}
@@ -192,6 +205,7 @@ A deformação da \textit{LOA}, $\delta$, denominada no artigo como \textit{DTE}
 		\hspace{0.5cm} {\small Fonte: Elaborado pelo autor.}
 	\end{minipage}
 \end{figure}
+\newpage
 
 A seguir, na Figura~\ref{fig:fm_1000} é apresentado a comparação da Força de Engrenamento, $F_m$, implementado com o que é apresentado no artigo de referência (\textit{DMF}).
 \begin{figure}[H]
@@ -232,17 +246,17 @@ A deformação da \textit{LOA}, $\delta$, denominada no artigo como \textit{DTE}
 	\caption{Comparação de $x_1$ para $3000\,\mathrm{rpm}$}
 	\label{subfigure:x1_3000}
 	
-	\begin{minipage}{0.95\textwidth}
+	\begin{minipage}{\textwidth}
 		\centering
 		
-		\begin{subfigure}{0.475\textwidth}
+		\begin{subfigure}{0.7\textwidth}
 			\centering
 			\caption{Domínio do Tempo}
 			\label{fig:x1_3000}
 			\includegraphics[width=\linewidth]{validation_plots/Fig_10a_Vibration_x1.pdf}
 		\end{subfigure}
 		\hspace{10pt}
-		\begin{subfigure}{0.475\textwidth}
+		\begin{subfigure}{0.7\textwidth}
 			\centering
 			\caption{Domínio da Frequência}
 			\label{fig:dft_x1_3000}
@@ -262,17 +276,17 @@ A deformação da \textit{LOA}, $\delta$, denominada no artigo como \textit{DTE}
 	\caption{Comparação de $\delta$ para $3000\,\mathrm{rpm}$}
 	\label{subfigure:delta_3000}
 	
-	\begin{minipage}{0.95\textwidth}
+	\begin{minipage}{\textwidth}
 		\centering
 		
-		\begin{subfigure}{0.475\textwidth}
+		\begin{subfigure}{0.7\textwidth}
 			\centering
 			\caption{Domínio do Tempo}
 			\label{fig:delta_3000}
 			\includegraphics[width=\linewidth]{validation_plots/Fig_10c_Vibration_DTE.pdf}
 		\end{subfigure}
 		\hspace{10pt}
-		\begin{subfigure}{0.475\textwidth}
+		\begin{subfigure}{0.7\textwidth}
 			\centering
 			\caption{Domínio da Frequência}
 			\label{fig:dft_delta_3000}

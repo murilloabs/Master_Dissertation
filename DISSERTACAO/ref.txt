@@ -1,0 +1,843 @@
+
+@book{lamport1994latex,
+	author    = {Lamport, Leslie},
+	title     = {LaTeX: A Document Preparation System},
+	year      = {1994},
+	publisher = {Addison-Wesley}
+}
+
+@book{goossens1997latex,
+	author    = {Goossens, Michel and Mittelbach, Frank and Samarin, Alexander},
+	title     = {The LaTeX Companion},
+	year      = {1997},
+	publisher = {Addison-Wesley}
+}
+
+@book{piotrowski2006,
+	title={Shaft Alignment Handbook},
+	author={Piotrowski, J.},
+	isbn={9781420017878},
+	lccn={2006013239},
+	series={Mechanical Engineering},
+	url={https://books.google.com.br/books?id=qhbNBQAAQBAJ},
+	year={2006},
+	publisher={CRC Press}
+}
+
+%@book{friswell, 
+%	place={Cambridge}, 
+%	series={Cambridge Aerospace Series}, 
+%	title={Dynamics of Rotating Machines}, 
+%	publisher={Cambridge University Press}, 
+%	author={Friswell, Michael I. and Penny, John E. T. and Garvey, Seamus D. and Lees, Arthur W.}, 
+%	year={2010}, 
+%	collection={Cambridge Aerospace Series}}
+
+@article{lee1999,
+	title = {Modelling and Vibration Analysis of Misaligned Rotor-Ball Bearing Systems},
+	journal = {Journal of Sound and Vibration},
+	volume = {224},
+	number = {1},
+	pages = {17-32},
+	year = {1999},
+	issn = {0022-460X},
+	doi = {https://doi.org/10.1006/jsvi.1997.1301},
+	url = {https://www.sciencedirect.com/science/article/pii/S0022460X97913018},
+	author = {Y.-S. Lee and C.-W. Lee},
+	abstract = {A dynamic model is derived for misaligned rotor-ball bearing systems driven through a flexible coupling by treating the reaction loads and deformations at the bearing and coupling elements as the misalignment effect. In order to verify the validity of the misaligned rotor system model, experiments are extensively carried out with a laboratory test rig. Both the experimental and simulation results agree well in that, as the angular misalignment increases, the whirling orbits tend to collapse toward a straight line and the natural frequency of the misaligned rotor system associated with the misalignment direction increases largely. It is found that the increase in natural frequency is mostly due to the increase in effective bearing moment stiffness associated with the misalignment direction.}
+}
+
+@article{prabhakar2001,
+	author = {Prabhakar, Sathujoda and Sekhar, A and Mohanty, A.R.},
+	year = {2001},
+	month = {12},
+	pages = {1417-1428},
+	title = {Vibration analysis of a misaligned rotor—coupling—bearing system passing through the critical speed},
+	volume = {215},
+	journal = {Proceedings of The Institution of Mechanical Engineers Part C-journal of Mechanical Engineering Science - PROC INST MECH ENG C-J MECH E},
+	doi = {10.1243/0954406011524784}
+}
+
+@article{xia2019,
+	title = {Study on vibration response and orbits of misaligned rigid rotors connected by hexangular flexible coupling},
+	journal = {Applied Acoustics},
+	volume = {155},
+	pages = {286-296},
+	year = {2019},
+	issn = {0003-682X},
+	doi = {https://doi.org/10.1016/j.apacoust.2019.05.022},
+	url = {https://www.sciencedirect.com/science/article/pii/S0003682X19300374},
+	author = {Yuanfeng Xia and Jian Pang and Liang Yang and Qin Zhao and Xianwu Yang},
+	keywords = {Hexangular flexible coupling, Parallel misalignment, Angular misalignment, Rotor orbits},
+	abstract = {This paper analyzes the deformation of a hexangular flexible coupling connecting two rigid rotors which have angular and parallel misalignment and calculates the dynamic reaction force varying with rotational angle. A 6 degree-of-freedom (DOF) dynamic model including the two rigid rotors connected by the hexangular flexible coupling is established by using Lagrange method. The high order Runge-Kutta algorithm is applied to solve the differential equations and to calculate vibration response of the coupled rotors with parallel or angular misalignment or combined misalignment. The rotor vibration amplitude and frequency information are acquired by Fast Fourier Transform (FFT) analysis. The relationship between vibration responses of first, second and third order components and moving orbits of the coupled rotors with or without misalignment at different rotational speed are numerically simulated. The results provide a theoretical support for fault diagnosis and detection of rotating machinery connected by hexangular flexible coupling.}
+}
+
+@article{desouki2020,
+	author = {Desouki, Mohamed and Sassi, Sadok and Renno, Jamil and Gowid, Samer},
+	year = {2020},
+	month = {10},
+	pages = {1-26},
+	title = {Dynamic Response of a Rotating Assembly under the Coupled Effects of Misalignment and Imbalance},
+	volume = {2020},
+	journal = {Shock and Vibration},
+	doi = {10.1155/2020/8819676}
+}
+
+@article{xu1994,
+	title = {Vibration Analysis Of A Motor-Flexible Coupling-Rotor System Subject To Misalignment And Unbalance, Part I: Theoretical Model And Analysis},
+	journal = {Journal of Sound and Vibration},
+	volume = {176},
+	number = {5},
+	pages = {663-679},
+	year = {1994},
+	issn = {0022-460X},
+	doi = {https://doi.org/10.1006/jsvi.1994.1405},
+	url = {https://www.sciencedirect.com/science/article/pii/S0022460X84714052},
+	author = {M. Xu and R.D. Marangoni},
+	abstract = {Shaft misalignment and rotor unbalance are major concerns in rotating machinery. In order to understand the dynamic characteristics of these machinery faults, a theoretical model of a complete motor-flexible coupling-rotor system capable of describing the mechanical vibration resulting from misalignment and unbalance was developed. The universal joint effect was included in the model to take the misalignment effect into account. Generalized system equations of motion for a system under misalignment and unbalance conditions were derived using the component mode synthesis technique. The derived equations indicate that the forcing frequencies due to shaft misalignment are even multiple frequencies of the motor rotational speed. The system response depends heavily on the relation between the system natural frequencies and the motor rotational speed. If any of the even multiples of the motor rotational speed is at or close to one of the system natural frequencies, a resonance condition occurs. As a result of this, the vibrations induced by misalignment are amplified into major vibration sources.}
+}
+
+@article{newmark,
+	author = {Nathan M. Newmark },
+	title = {A Method of Computation for Structural Dynamics},
+	journal = {Journal of the Engineering Mechanics Division},
+	volume = {85},
+	number = {3},
+	pages = {67-94},
+	year = {1959},
+	doi = {10.1061/JMCEA3.0000098},
+	
+	URL = {https://ascelibrary.org/doi/abs/10.1061/JMCEA3.0000098},
+	eprint = {https://ascelibrary.org/doi/pdf/10.1061/JMCEA3.0000098}
+	,
+	abstract = { Method is capable of application to structures of any degree of complication, with any relationship between force and displacement, from linear elastic behavior through various degrees of inelastic behavior or plastic response, up to failure; any type of dynamic loading, due to shock or impact, vibration, earthquake, or nuclear blast can be considered; use of high-speed digital computers. }
+}
+
+
+@article{LIU201833,
+	title = {Artificial intelligence for fault diagnosis of rotating machinery: A review},
+	journal = {Mechanical Systems and Signal Processing},
+	volume = {108},
+	pages = {33-47},
+	year = {2018},
+	issn = {0888-3270},
+	url = {https://doi.org/10.1016/j.ymssp.2018.02.016},
+	author = {Ruonan Liu and Boyuan Yang and Enrico Zio and Xuefeng Chen},
+	keywords = {Artificial intelligence, Fault diagnosis, -Nearest neighbour, Naive Bayes, Support vector machine, Artificial neural network, Deep learning, Rotating machinery},
+}
+
+@incollection{Hailu20,
+	author = {Getu Hailu},
+	title = {Introductory Chapter: Rotating Machinery},
+	booktitle = {Rotating Machinery},
+	publisher = {IntechOpen},
+	address = {Rijeka},
+	year = {2020},
+	editor = {Getu Hailu},
+	chapter = {1},
+	doi = {10.5772/intechopen.89276},
+	url = {https://doi.org/10.5772/intechopen.77579}
+}
+
+
+
+@book{Friswell2010,
+	address = {New York},
+	author = {Friswell, Michael I. and Penny, John E.T. and Garvey, Seamus D. and Lees, Arthur W.},
+	booktitle = {Dynamics of Rotating Machines},
+	url = {https://doi.org/10.1017/CBO9780511780509},
+	isbn = {9780511780509},
+	pages = {1--526},
+	publisher = {Cambridge University Press},
+	title = {{Dynamics of rotating machines}},
+	year = {2010}
+}
+
+
+@book{Schach2006,
+	address = {Berlin},
+	author = {Schach, R. and Jehle, P. and Naumann, R.},
+	publisher = {Springer Verlag},
+	title = {{Transrapid und Rad-Schiene-Hochgeschwindigkeitsbahn: Ein gesamtheitlicher Systemvergleich.}},
+	year = {2006},
+	url = {https://doi.org/10.1007/3-540-28335-8}
+}
+
+@BOOK{Lalanne1998,
+	author = {Michel Lalanne and Guy Ferraris},
+	pages = {272},
+	publisher = {Wiley},
+	title = {Rotordynamics Prediction in Engineering.pdf},
+	year = {1998},
+}
+
+@phdthesis{lais2022,
+	author       = {Visnadi, Laís Bittencourt},
+	title        = {Efeito de trinca em engrenagens de dente reto na resposta dinâmica do rotor},
+	school       = {Universidade Estadual de Campinas},
+	year         = {2022},
+	type         = {Tese de Doutorado},
+	address      = {Campinas, SP},
+	note         = {Orientador: Hélio Fiori de Castro},
+	institution  = { Faculdade de Engenharia Mecânica}
+}
+
+@phdthesis{stringer2008,
+	author      = {Stringer, David Blake},
+	title       = {Geared Rotor Dynamic Methodologies for Advancing Prognostic Modeling Capabilities in Rotary-Wing Transmission Systems},
+	school      = {University of Virginia},
+	year        = {2008},
+	type        = {Dissertation},
+	address     = {Charlottesville, VA}
+}
+
+@mastersthesis{kaplan2012,
+	author      = {Kaplan, Jason Andrew},
+	title       = {Gearbox Dynamics in the Modeling of Rotating Machinery},
+	school      = {University of Virginia},
+	year        = {2012},
+	type        = {Master of Science Thesis},
+	address     = {Charlottesville, VA}
+}
+
+@article{ozguven1988,
+	author  = {{\"O}zg{\"u}ven, H. Nevzat and Houser, D. R.},
+	title   = {Mathematical models used in gear dynamics--a review},
+	journal = {Journal of Sound and Vibration},
+	volume  = {121},
+	number  = {3},
+	pages   = {383--411},
+	year    = {1988}
+}
+
+@article{timbo2020,
+	author = {Timb{\'o}, Raphael and Martins, Rodrigo and Bachmann, Gabriel and Rangel, Flavio and Mota, J{\'u}lia and Val{\'e}rio, Juliana and Ritto, Thiago G.},
+	title = {{ROSS} - {R}otordynamic {O}pen {S}ource {S}oftware},
+	journal = {Journal of Open Source Software},
+	year = {2020},
+	volume = {5},
+	number = {48},
+	pages = {2120},
+	doi = {10.21105/joss.02120}
+}
+
+@article{lim1991,
+	title = {Vibration transmission through rolling element bearings. Part III: Geared rotor system studies},
+	journal = {Journal of Sound and Vibration},
+	volume = {151},
+	number = {1},
+	pages = {31-54},
+	year = {1991},
+	issn = {0022-460X},
+	doi = {https://doi.org/10.1016/0022-460X(91)90650-9},
+	url = {https://www.sciencedirect.com/science/article/pii/0022460X91906509},
+	author = {T.C. Lim and R. Singh},
+}
+
+@inproceedings{kaplan_paper_2013,
+	author = {Kaplan, Jason and Dousti, sa and Allaire, Paul and Nichols, Bradley and Dimond, Timothy and Untaroiu, Alexandrina},
+	year = {2013},
+	month = {06},
+	pages = {},
+	title = {Rotor Dynamic Modeling of Gears and Geared Systems},
+	volume = {7},
+	journal = {Proceedings of the ASME Turbo Expo},
+	doi = {10.1115/GT2013-94654}
+}
+
+@inproceedings{chico2025,
+	author    = {Apolinário e Souza, Francisco Alberto de Araújo and Santos, Jéssica Guarato de Freitas and Timbó, Raphael and Cavalini Junior, Aldemir Ap and Steffen Jr, Valder},
+	title     = {Implementation of a spur gear time-varying mesh stiffness on coupled rotors},
+	booktitle = {Proceedings of the 28th International Congress of Mechanical Engineering - COBEM 2025},
+	year      = {2025}
+}
+
+@inproceedings{jessica2025,
+	author    = {Santos, Jessica Guarato de Freitas and da Costa, Vinicius Teixeira and Junior, Aldemir Aparecido Cavallini and Silva, Raphael Timbó and Ritto, Thiago Gamboa},
+	title     = {An open-source software for rotordynamics},
+	booktitle = {Proceedings of the XX International Symposium on Dynamic Problems of Mechanics - DINAME 2025},
+	year      = {2025}
+}
+
+@article{yi2019,
+	title={Nonlinear dynamic modelling and analysis for a spur gear system with time-varying pressure angle and gear backlash},
+	author={Yi, Yong and Huang, Kang and Xiong, Yangshou and Sang, Meng},
+	journal={Mechanical Systems and Signal Processing},
+	volume={132},
+	pages={18--34},
+	year={2019},
+	publisher={Elsevier}
+}
+
+@inproceedings{kaplan2015,
+	title={Non-Linear Time-Transient Rotor Dynamic Analyses of Geared Systems},
+	author={Kaplan, Jason A. and Fittro, Roger L. and Untaroiu, Alexandrina and Wood, Houston G.},
+	booktitle={Proceedings of ASME Turbo Expo 2015: Turbine Technical Conference and Exposition (GT2015)},
+	year={2015},
+	address={Montr{\'e}al, Canada},
+	month={June},
+	note={Paper No: GT2015-43481}
+}
+
+@article{walha2006,
+	title={Backlash Effect on Dynamic Analysis of a Two-Stage Spur Gear System},
+	author={Walha, L. and Fakhfakh, T. and Haddar, M.},
+	journal={Journal of Failure Analysis and Prevention},
+	volume={6},
+	pages={60--68},
+	year={2006},
+	publisher={ASM International},
+	doi={10.1361/154770206X107325}
+}
+
+@article{kim2010,
+	title={Dynamic analysis for a pair of spur gears with translational motion due to bearing deformation},
+	author={Kim, Woohyung and Yoo, Hong Hee and Chung, Jintai},
+	journal={Journal of Sound and Vibration},
+	volume={329},
+	pages={4409--4421},
+	year={2010},
+	publisher={Elsevier}
+}
+
+@article{mo2025,
+	title={Improved Nonlinear Dynamic Model of Helical Gears Considering Frictional Excitation and Fractal Effects in Backlash},
+	author={Mo, Guoyin and Liu, Chengyu and Liu, Guimian and Liu, Fuhao},
+	journal={Machines},
+	volume={13},
+	number={4},
+	pages={262},
+	year={2025},
+	publisher={MDPI},
+	doi={10.3390/machines13040262}
+}
+
+@article{che2023,
+	title={Nonlinear dynamic analysis of helical gear-rotor-bearing coupled system based on bearing load calculation with TRB clearance},
+	author={Che, Xiaoyu and Zhu, Rupeng},
+	journal={Nonlinear Dynamics},
+	volume={111},
+	pages={17787--17807},
+	year={2023},
+	publisher={Springer},
+	doi={10.1007/s11071-023-08826-8}
+}
+
+@article{zhu2025,
+	title={Nonlinear dynamics modeling and analysis of spur gear pair with uncertain fractal backlash and assembly error based on interval theory},
+	author={Zhu, Guodong and Huang, Kang and Xiong, Yangshou and Ding, Wenhao and Peng, Jiyou and Li, Anqi},
+	journal={Nonlinear Dynamics},
+	volume={113},
+	pages={32059--32090},
+	year={2025},
+	publisher={Springer},
+	doi={10.1007/s11071-025-11779-9}
+}
+
+@article{liu2023,
+	title={Nonlinear Dynamic Modeling and Analysis for a Spur Gear System with Dynamic Meshing Parameters and Sliding Friction},
+	author={Liu, Hao and Zhang, Dayi and Liu, Kaicheng and Wang, Jianjun and Liu, Yu and Long, Yifu},
+	journal={Symmetry},
+	volume={15},
+	number={8},
+	pages={1530},
+	year={2023},
+	publisher={MDPI},
+	doi={10.3390/sym15081530}
+}
+
+@article{kubur2004,
+	title={Dynamic Analysis of a Multi-Shaft Helical Gear Transmission by Finite Elements: Model and Experiment},
+	author={Kubur, M. and Kahraman, A. and Zini, D. M. and Kienzle, K.},
+	journal={Journal of Vibration and Acoustics},
+	volume={126},
+	number={3},
+	pages={398--406},
+	year={2004},
+	publisher={American Society of Mechanical Engineers},
+	doi={10.1115/1.1760561}
+}
+
+@article{chen2011,
+	title={Nonlinear dynamic characteristics of geared rotor bearing systems with dynamic backlash and friction},
+	author={Chen, Siyu and Tang, Jinyuan and Luo, Caiwang and Wang, Qibo},
+	journal={Mechanism and Machine Theory},
+	volume={46},
+	number={4},
+	pages={466--478},
+	year={2011},
+	publisher={Elsevier}
+}
+
+@article{duan2024,
+	title={Analytical method for time-varying meshing stiffness and dynamic responses of modified spur gears considering pitch deviation and geometric eccentricity},
+	author={Duan, Lintao and Wang, Liming and Du, Weitao and Shao, Yimin and Chen, Zaigang},
+	journal={Mechanical Systems and Signal Processing},
+	volume={218},
+	pages={111590},
+	year={2024},
+	publisher={Elsevier},
+	doi={10.1016/j.ymssp.2024.111590}
+}
+
+@article{ma2014,
+	title={Time-varying mesh stiffness calculation of cracked spur gears},
+	author={Ma, Hui and Song, Rongze and Pang, Xu and Wen, Bangchun},
+	journal={Engineering Failure Analysis},
+	volume={44},
+	pages={179--194},
+	year={2014},
+	publisher={Elsevier}
+}
+
+@article{zhang2022,
+	title={A new effective mesh stiffness calculation method with accurate contact deformation model for spur and helical gear pairs},
+	author={Zhang, Chu and Dong, Huimin and Wang, Delun and Dong, Bo},
+	journal={Mechanism and Machine Theory},
+	volume={171},
+	pages={104762},
+	year={2022},
+	publisher={Elsevier},
+	doi={10.1016/j.mechmt.2021.104762}
+}
+
+@article{tang2018,
+	title={Novel mathematical modelling methods of comprehensive mesh stiffness for spur and helical gears},
+	author={Tang, Xiaolin and Zou, Liang and Yang, Wei and Huang, Yanjun and Wang, Hong},
+	journal={Applied Mathematical Modelling},
+	volume={64},
+	pages={524--540},
+	year={2018},
+	publisher={Elsevier}
+}
+
+@phdthesis{lais2022,
+	title={Efeito de trinca em engrenagens de dente reto na resposta din{\^a}mica do rotor},
+	author={Visnadi, La{\'i}s Bittencourt},
+	school={Universidade Estadual de Campinas},
+	year={2022},
+	address={Campinas},
+	type={Tese de Doutorado}
+}
+
+@inproceedings{lais2023,
+	title={Dynamical Analysis of a Helical Gear Pair with Backlash Under Variable Load Torque Conditions},
+	author={Visnadi, La{\'i}s Bitencourt and de Paula, Aline Souza},
+	booktitle={Proceedings of the 27th International Congress of Mechanical Engineering (COBEM 2023)},
+	year={2023},
+	address={Florian{\'o}polis, Brazil},
+	month={December},
+	note={Paper ID: COB-2023-2429}
+}
+
+@inproceedings{lais2025,
+	title={Dynamical Analysis of a Helical Gear Pair},
+	author={Visnadi, La{\'i}s Bittencourt and de Paula, Aline Souza},
+	booktitle={Proceedings of the XX International Symposium on Dynamic Problems of Mechanics (DINAME 2025)},
+	year={2025},
+	address={{\a'A}guas de Lind{\'o}ia, Brazil},
+	month={March},
+	note={Paper ID: DIN-2025-0131}
+}
+
+@article{yang2016,
+	title={A general method to predict unbalance responses of geared rotor systems},
+	author={Yang, Yi and Wang, Jiaying and Wang, Xurong and Dai, Yiping},
+	journal={Journal of Sound and Vibration},
+	volume={381},
+	pages={246--263},
+	year={2016},
+	publisher={Elsevier}
+}
+
+@article{rao1998,
+	title={Theoretical analysis of lateral response due to torsional excitation of geared rotors},
+	author={Rao, J. S. and Shiau, T. N. and Chang, J. R.},
+	journal={Mechanism and Machine Theory},
+	volume={33},
+	number={6},
+	pages={761--783},
+	year={1998},
+	publisher={Elsevier},
+	doi={10.1016/S0094-114X(97)00056-6}
+}
+
+@article{lin2002,
+	title={Mesh Stiffness Variation Instabilities in Two-Stage Gear Systems},
+	author={Lin, Jian and Parker, Robert G},
+	journal={Journal of Vibration and Acoustics},
+	volume={124},
+	number={1},
+	pages={68--76},
+	year={2002},
+	publisher={American Society of Mechanical Engineers},
+	doi={10.1115/1.1424889}
+}
+
+@book{shigley2011,
+	title={Shigley's Mechanical Engineering Design},
+	author={Budynas, Richard G. and Nisbett, J. Keith},
+	edition={9th},
+	year={2011},
+	publisher={McGraw-Hill}
+}
+
+@book{norton2013,
+	title={Machine Design: An Integrated Approach},
+	author={Norton, Robert L.},
+	edition={5th},
+	year={2013},
+	publisher={Prentice Hall}
+}
+
+@article{sainsot2004,
+	title={Contribution of gear body to tooth deflections -- A new bidimensional analytical formula},
+	author={Sainsot, Philippe and Velex, Philippe and Duverger, O.},
+	journal={Journal of Mechanical Design},
+	volume={126},
+	number={4},
+	pages={748--752},
+	year={2004},
+	publisher={American Society of Mechanical Engineers}
+}
+
+% === LIVROS CLÁSSICOS ===
+
+@book{dudley2021,
+	title={Dudley's Handbook of Practical Gear Design and Manufacture},
+	author={Radzevich, Stephen P. and Dudley, Darle W.},
+	edition={4th},
+	year={2021},
+	publisher={CRC Press},
+	address={Boca Raton},
+	isbn={9780367649029}
+}
+
+@book{shigley2020,
+	title={Elementos de M{\'a}quinas de Shigley},
+	author={Budynas, Richard G. and Nisbett, J. Keith},
+	edition={11. ed.},
+	year={2020},
+	publisher={AMGH Editora},
+	address={Porto Alegre}
+}
+
+@book{norton2020,
+	title={Projeto de M{\'a}quinas: Uma Abordagem Integrada},
+	author={Norton, Robert L.},
+	edition={6. ed.},
+	year={2020},
+	publisher={Bookman Editora},
+	address={Porto Alegre}
+}
+
+@book{mott2018,
+	title={Elementos de M{\'a}quinas em Projetos Mec{\^a}nicos},
+	author={Mott, Robert L. and Vavrek, Edward M. and Wang, Jyhwen},
+	edition={6. ed.},
+	year={2018},
+	publisher={LTC},
+	address={Rio de Janeiro}
+}
+
+% === NORMAS TÉCNICAS ===
+
+@techreport{agma2004,
+	author={{American Gear Manufacturers Association}},
+	title={Fundamental Rating Factors and Calculation Methods for Involute Spur and Helical Gear Teeth},
+	institution={American National Standards Institute},
+	number={ANSI/AGMA 2001-D04},
+	year={2004},
+	address={Alexandria, VA}
+}
+
+@techreport{iso2019,
+	author={{International Organization for Standardization}},
+	title={Calculation of load capacity of spur and helical gears -- Part 1: Basic principles, introduction and general influence factors},
+	institution={ISO},
+	number={ISO 6336-1:2019},
+	year={2019},
+	address={Geneva, Switzerland}
+}
+
+@techreport{din1987,
+	author={{Deutsches Institut f{\"u}r Normung}},
+	title={Calculation of load capacity of cylindrical gears},
+	institution={DIN},
+	number={DIN 3990},
+	year={1987},
+	address={Berlin, Germany}
+}
+
+@book{hibbeler2010,
+	title={Resist{\^e}ncia dos Materiais},
+	author={Hibbeler, Russell Charles},
+	edition={7. ed.},
+	year={2010},
+	publisher={Pearson Prentice Hall},
+	address={S{\~a}o Paulo}
+}
+
+
+@book{martha2010,
+	title={An{\'a}lise de Estruturas: Conceitos e M{\'e}todos B{\'a}sicos},
+	author={Martha, Luiz Fernando},
+	edition={1. ed.},
+	year={2010},
+	publisher={Elsevier},
+	address={Rio de Janeiro}
+}
+
+
+%-----------
+
+@phdthesis{tsuruta_2015,
+	author   = {TSURUTA, K. M.},
+	title    = {Investigação numérica e experimental de dispositivos piezelétricos combinando geração de energia e atenuação de vibrações},
+	school   = {Universidade Federal de Uberlândia},
+	year     = {2015},
+	type     = {Tese (Doutorado em Engenharias)},
+	address  = {Uberlândia, MG, BRASIL},
+	crossref = {https://doi.org/10.14393/ufu.te.2015.103}
+}
+
+@article{steffen_1996,
+	title={The balancing of flexible rotors},
+	author={{Steffen Jr.}, V and Lacerda, H. B.},
+	journal={MODAL ANALYSIS-The International Journal of Analytical and Experimental Modal Analysis},
+	volume={11},
+	number={1-2},
+	pages={96--105},
+	year={1996},
+	publisher={SOC EXPERIMENTAL MECHANICS 7 SCHOOL STREET, BETHEL, CT 06801}
+}
+
+@phdthesis{raimundo2025,
+	author = {{PEREIRA Neto}, R. V.},
+	title  = {Data Augmentation aplicado ao problema de balanceamento sem massas de teste em rotores flexíveis},
+	school = {Universidade Federal de Uberlândia},
+	year   = {2025},
+	type   = {Tese de Doutorado - Engenharia Mecânica, POSFEMEC/UFU - Programa de Pós-graduação em Engenharia Mecânica}
+}
+
+@article{cavalini_2017,
+	title={Dynamic analysis of a flexible rotor supported by hydrodynamic bearings with uncertain parameters},
+	author={{Cavalini Jr.}, A. A. and Silva, A. D. G. and Lara-Molina, F. A. and {Steffen Jr.}, V.},
+	journal={Meccanica},
+	volume={52},
+	pages={2931--2943},
+	year={2017},
+	publisher={Springer}
+}
+
+
+@mastersthesis {cavallini_2009,
+	author  = {{Cavallini Jr}, Aldemir Ap.},
+	title   = {Monitoramento da Integridade Estrutural de Sistemas Mecânicos via Observador de Estado Modal},
+	school  = {Faculdade de Engenharia - UNESP – Campus de Ilha Solteira},
+	year    = {2009},
+	type    = {Dissertação de Mestrado},
+	address = {Ilha Solteira – SP},
+	month   = {sep}
+}
+
+%@article{cavalini_2013,
+%	title={Detec{\c{c}}{\~a}o e identifica{\c{c}}{\~a}o de trincas transversais incipientes em eixos horizontais flex{\'\i}veis de m{\'a}quinas rotativas},
+%	author={{CAVALLINI JR.}, A. A.},
+%	year={2013},
+%	publisher={Universidade Federal de Uberl{\^a}ndia}
+%}
+
+@article{oliveira_1999,
+	title={T{\'e}cnicas de caracteriza{\c{c}}{\~a}o de excita{\c{c}}{\~o}es em m{\'a}quinas rotativas},
+	author={Oliveira, Ademyr Gon{\c{c}}alves},
+	year={1999},
+	publisher={Universidade Federal de Uberl{\^a}ndia}
+}
+
+@article{oliveira_2023,
+	title={Kriging-Based Surrogate Controller for Robust Control of a Flexible Rotor Supported by Active Magnetic Bearings},
+	author={Oliveira, M. V. F. and Sicchieri, Leonardo C and De Piemonte Dourado, Arinan and Cavallini Jr, Aldemir Ap and Steffen Jr, Valder},
+	journal={Journal of Engineering for Gas Turbines and Power},
+	volume={145},
+	number={7},
+	pages={071005},
+	year={2023},
+	publisher={American Society of Mechanical Engineers}
+}
+
+@phdthesis{cavalini2013,
+	title={Detec{\c{c}}{\~a}o e identifica{\c{c}}{\~a}o de trincas transversais incipientes em eixos horizontais flex{\'\i}veis de m{\'a}quinas rotativas},
+	author={{Cavalini Jr.}, Aldemir Aparecido},
+	school={Universidade Federal de Uberl{\^a}ndia},
+	year={2013},
+	address={Uberl{\^a}ndia},
+	type={Tese de Doutorado}
+}
+
+@mastersthesis{leocabral2023,
+	title={Balanceamento de M{\'a}quinas Rotativas utilizando Redes Neurais},
+	author={Cabral, Leonardo Dias da Silva},
+	school={Universidade Federal de Uberl{\^a}ndia},
+	year={2023},
+	address={Uberl{\^a}ndia},
+	type={Disserta{\c{c}}{\~a}o de Mestrado}
+}
+@phdthesis{stanley2025,
+	title={Novas Contribui{\c{c}}{\~o}es na Aplica{\c{c}}{\~a}o do Filtro de Kalman Aumentado para o Balanceamento de Rotores},
+	author={Rezende, Stanley Washington Ferreira de},
+	school={Universidade Federal de Uberl{\^a}ndia},
+	year={2025},
+	address={Uberl{\^a}ndia},
+	type={Tese de Doutorado}
+}
+
+@phdthesis{daniel2024,
+	title={Contribui{\c{c}}{\~a}o ao uso de Intelig{\^e}ncia Artificial para a detec{\c{c}}{\~a}o e diagn{\'o}stico de falhas em m{\'a}quinas rotativas},
+	author={Gon{\c{c}}alves, Daniel Ferreira},
+	school={Universidade Federal de Uberl{\^a}ndia},
+	year={2024},
+	address={Uberl{\^a}ndia},
+	type={Tese de Doutorado}
+}
+
+@phdthesis{sicchieri2024,
+	title={Modelagem Multif{\'i}sica de uma Unidade Geradora Hidrel{\'e}trica},
+	author={Sicchieri, Leonardo Campanine},
+	school={Universidade Federal de Uberl{\^a}ndia},
+	year={2024},
+	address={Uberl{\^a}ndia},
+	type={Tese de Doutorado}
+}
+
+@article{timoshenko1921,
+	title={On the correction for shear of the differential equation for transverse vibrations of prismatic bars},
+	author={Timoshenko, Stephen P.},
+	journal={Philosophical Magazine},
+	series={Series 6},
+	volume={41},
+	number={245},
+	pages={744--746},
+	year={1921},
+	publisher={Taylor \& Francis}
+}
+
+@book{timoshenko1928,
+	title={Vibration Problems in Engineering},
+	author={Timoshenko, Stephen P.},
+	year={1928},
+	publisher={D. Van Nostrand Company},
+	address={New York}
+}
+
+@article{timoshenko1922,
+	title={On the transverse vibrations of bars of uniform cross-section},
+	author={Timoshenko, Stephen P.},
+	journal={Philosophical Magazine},
+	series={Series 6},
+	volume={43},
+	number={253},
+	pages={125--131},
+	year={1922},
+	publisher={Taylor \& Francis}
+}
+
+@mastersthesis{timbo2018,
+	title={Impact of damper seal coefficients in rotor dynamics: uncertainties and optimization},
+	author={Silva, Raphael Timb{\'o}},
+	school={Universidade Federal do Rio de Janeiro, COPPE},
+	pages={69},
+	year={2018},
+	address={Rio de Janeiro},
+	type={Disserta{\c{c}}{\~a}o (Mestrado em Engenharia Mec{\^a}nica)}
+}
+
+%% --------  Referencias dicionadas  -------------------
+
+@book{norton2013,
+	author    = {Norton, Robert L.},
+	title     = {Kinematics and Dynamics of Machinery},
+	year      = {2013},
+	publisher = {McGraw-Hill},
+	address   = {New York}
+}
+
+@book{doughty1988,
+	author    = {Doughty, Samuel},
+	title     = {Mechanics of Machines},
+	year      = {1988},
+	publisher = {John Wiley \& Sons},
+	address   = {New York}
+}
+
+@article{liang2018b,
+	author    = {Liang, Xiang and Zuo, Ming J. and Pandey, Patel},
+	title     = {Dynamic modeling of gearboxes with faults: A review},
+	journal   = {Mechanical Systems and Signal Processing},
+	volume    = {98},
+	pages     = {213--234},
+	year      = {2018},
+	publisher = {Elsevier}
+}
+
+@book{colbourne1987,
+	author    = {Colbourne, John R.},
+	title     = {The Geometry of Involute Gears},
+	year      = {1987},
+	publisher = {Springer-Verlag},
+	address   = {Berlin}
+}
+
+
+@inbook{flores2014,
+	author = {Flores, Paulo},
+	year = {2014},
+	month = {01},
+	pages = {},
+	title = {Cinemática e Dinâmica de Engrenagens: 1. Aspetos Gerais sobre Engrenagens}
+}
+
+
+@article{wan2014,
+	title = {An improved time-varying mesh stiffness algorithm and dynamic modeling of gear-rotor system with tooth root crack},
+	journal = {Engineering Failure Analysis},
+	volume = {42},
+	pages = {157-177},
+	year = {2014},
+	issn = {1350-6307},
+	doi = {https://doi.org/10.1016/j.engfailanal.2014.04.005},
+	url = {https://www.sciencedirect.com/science/article/pii/S1350630714001125},
+	author = {Zhiguo Wan and Hongrui Cao and Yanyang Zi and Wangpeng He and Zhengjia He},
+}
+
+%% -------------------------------------------------------
+
+
+@mastersthesis{rossi2021,
+	author       = {Rossi, Fernanda Ferreira},
+	title        = {Desenvolvimento do modelo numérico de uma bancada de rotor flexível suportada por um mancal sem contato baseado em filme de ar espremido},
+	school       = {Programa de Pós-Graduação em Engenharia Mecânica - UFU},
+	year         = {2021},
+	type         = {Dissertação de Mestrado Acadêmico},
+	month        = {9}
+}
+
+@mastersthesis{russo1999,
+	author       = {Russo, Fábio Hildebrand},
+	title        = {Identificação das propriedades dinâmicas de mancais segmentados híbridos -- teoria e experimento},
+	school       = {Universidade Estadual de Campinas, Faculdade de Engenharia Mecânica},
+	year         = {1999},
+	address      = {Campinas, SP},
+	type         = {Dissertação (Mestrado)},
+	note         = {Orientador: Ilmar Ferreira Santos}
+}
+
+@mastersthesis{souto2000,
+	author       = {Souto, Carlos d'Andrade},
+	title        = {Estudo do comportamento dinâmico de máquinas rotativas através da análise modal complexa},
+	school       = {Universidade Estadual de Campinas, Faculdade de Engenharia Mecânica},
+	year         = {2000},
+	address      = {Campinas, SP},
+	type         = {Dissertação (Mestrado)},
+	note         = {Orientador: Milton Dias Júnior}
+}
