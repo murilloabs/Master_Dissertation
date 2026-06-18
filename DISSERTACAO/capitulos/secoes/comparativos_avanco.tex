@@ -5,7 +5,7 @@ Como o modelo implementado foi expandido pensando em 6 graus de liberdade por n�
 
 \subsection{Expansão para 6 Graus de Liberdade}
 
-Para verificar a expansão em 6 \textit{gdl}, realizada com o intuito de contemplar engrenagens helicoidais, foi verificado o deslocamento na direção axial. Este grau de liberdade foi utilizado como exemplo pois, engrenagens helicoidais produzem forças na direção axial do eixo, exigindo assim mancais que suportam essa carga.
+Para verificar a expansão em 6 \textit{gdl}, realizada com o intuito de contemplar engrenagens helicoidais, foi verificado o deslocamento na direção axial. Este grau de liberdade foi utilizado como exemplo pois engrenagens helicoidais produzem forças na direção axial do eixo, exigindo assim mancais que suportam essa carga.
 
 A Figura \ref{fig:replan_axial} mostra a resposta axial do sistema dinâmico da caixa de engrenagens da Petrobras. Na resposta temporal é possível observar que o sistema responde de maneira oscilatória e periódica. A análise no domínio da frequência mostra valores de frequência distintos dos encontrados anteriormente. Entretanto, a relação de múltiplo do número de dentes ainda é válida. Neste caso, a frequência de $5500$ rpm surge por ser $27$ vezes a frequência de $203$ rpm, que também aparece na análise.
 \begin{figure}[H]
@@ -53,7 +53,7 @@ A Tabela~\ref{tab:smooth_replan} apresenta um panorama das 4 simulações, valor
 	\end{threeparttable}
 \end{table}
 
-Analisando as 4 simulações percebe-se que, de fato, aumentar o valor de $\sigma$ torna a função mais próxima do modelo controle, assim como descrito por \citeonline{walha2006}, mas também aumenta o tempo de simulação como mostrado na diferença entre as simulações 3 e 4. Com um valor de $\sigma$ mais baixo como $1\times10^4$ o sistema dinâmico apresenta diferenças significativas com o controle não representando mais o sistema simulado. Portanto, devido a divergência do sistema dinâmico, apresenta o maior tempo de simulação.
+Analisando as 4 simulações percebe-se que, de fato, aumentar o valor de $\sigma$ torna a função mais próxima do modelo controle, assim como descrito por \citeonline{walha2006}, mas também aumenta o tempo de simulação como mostrado na diferença entre as simulações 3 e 4. Com um valor de $\sigma$ mais baixo como $1\times10^4$ o sistema dinâmico apresenta diferenças significativas com o controle não representando mais o sistema simulado. Portanto, devido a diferênça do sistema dinâmico, apresenta o maior tempo de simulação.
 
 Além disso, ao utilizar $\sigma=1\times10^5$ houve uma redução do tempo de simulação, em relação ao controle, de aproximadamente $7.3\%$. Vale lembrar que este ainda é um sistema mais simples uma vez que não considera a dinâmica completa de todo o trem de máquinas (motor - caixa de engrenagem - compressor/turbomáquina), apenas a dinâmica da caixa de engrenagem.
 
@@ -68,21 +68,21 @@ Para sistemas mais complexos, a suavização torna-se uma ferramenta interessant
 		
 		\begin{subfigure}{\textwidth}
 			\centering
-			\caption{Simulação com $\sigma=1\time10^4$}
+			\caption{Simulação com $\sigma=1\cdot 10^4$}
 			\label{subfig:smooth_1e4}
 			\includegraphics[width=\linewidth]{results/replan_smooth_1E4.png}
 		\end{subfigure}
 		\hspace{10pt} \\
 		\begin{subfigure}{\textwidth}
 			\centering
-			\caption{Simulação com $\sigma=5\time10^4$}
+			\caption{Simulação com $\sigma=5\cdot 10^4$}
 			\label{subfig:smooth_5e4}
 			\includegraphics[width=\linewidth]{results/replan_smooth_5E4.png}
 		\end{subfigure}
 		\hspace{10pt} \\
 		\begin{subfigure}{\textwidth}
 			\centering
-			\caption{Simulação com $\sigma=1\time10^5$}
+			\caption{Simulação com $\sigma=1\cdot 10^5$}
 			\label{subfig:smooth_1e5}
 			\includegraphics[width=\linewidth]{results/replan_smooth_1E5.png}
 		\end{subfigure}

@@ -91,7 +91,7 @@ O modelo implementado apresenta para cada velocidade de rotação utilizada, um 
 \end{figure}
 \newpage
 
-A primeira comparação entre os resultados presentes no artigo de \citeonline{yi2019} (pontos laranjas), o modelo implementado (linha contínua azul) e o valor de referência original estático determinado pelo projeto de tal conjunto de engrenagens (linha pontilhada preta) é feita na Figura~\ref{subfigure:comp_1000} e \ref{subfigure:comp_1000_2}. Nesta, é apresenta as comparações para as variáveis de Distância entre Centros (Figura~\ref{fig:paper_dist_cent_1000}), Ângulo de Pressão (Figura~\ref{fig:paper_pr_ang_1000}), Folga de \textit{Backlash} (Figura~\ref{fig:paper_backlash_1000}) e Razão de Contato (Figura~\ref{fig:paper_cotc_ratio_1000}) para a velocidade de $1000\,\mathrm{rpm}$. 
+A primeira comparação entre os resultados presentes no artigo de \citeonline{yi2019} (pontos laranjas), o modelo implementado (linha contínua azul) e o valor de referência original estático determinado pelo projeto de tal conjunto de engrenagens (linha pontilhada preta) é feita nas Figuras~\ref{subfigure:comp_1000} e \ref{subfigure:comp_1000_2}. Nesta, é apresenta as comparações para as variáveis de Distância entre Centros (Figura~\ref{fig:paper_dist_cent_1000}), Ângulo de Pressão (Figura~\ref{fig:paper_pr_ang_1000}), Folga de \textit{Backlash} (Figura~\ref{fig:paper_backlash_1000}) e Razão de Contato (Figura~\ref{fig:paper_cotc_ratio_1000}) para a velocidade de $1000\,\mathrm{rpm}$. 
 \begin{figure}[H]
 	\centering
 	\caption{Comparação Inicial para $1000\,\mathrm{rpm}$ - Parte 1}
@@ -424,7 +424,9 @@ Já para a velocidade de $6000\,\mathrm{rpm}$ ambos os modelos apresentam respos
 \newpage
 
 
-Além disso, o artigo de \citeonline{yi2019} apresenta o Diagrama de bifurcação desse sistema. Esse diagrama apresenta, para cada velocidade de rotação, a amplitude do movimento e a sua periodicidade. As linhas bem definidas indicam que o sistema apresenta oscilações de maneira periódica. Quando a velocidade passa de um certo limite o sistema entra no regime caótico aumentando bruscamente a amplitude de oscilação e perdendo a periodicidade. A Figura~\ref{subfigure:bifurcation_compar} apresenta a comparação dos diagramas de bifurcação do modelo implementado e do presente no artigo do \citeonline{yi2019}.
+Além disso, o artigo de \citeonline{yi2019} apresenta o Diagrama de bifurcação desse sistema. Esse diagrama mostra, para cada velocidade de rotação, a amplitude do movimento e a sua periodicidade. As linhas bem definidas indicam que o sistema apresenta oscilações de maneira periódica. Quando a velocidade passa de um certo limite o sistema entra no regime caótico aumentando bruscamente a amplitude de oscilação e perdendo a periodicidade. A Figura~\ref{subfigure:bifurcation_compar} apresenta a comparação dos diagramas de bifurcação do modelo implementado e do presente no artigo do \citeonline{yi2019}.
+
+Observa-se que no modelo de \citeonline{yi2019} apresenta um pico de amplitude na velocidade de $1.35\,\mathrm{Krpm}$ e a região caótica iniciando em $5.1\,\mathrm{Krpm}$. Já o modelo implementado apresenta o primeiro pico em $1.2\,\mathrm{Krpm}$, um segundo pico $1.8\,\mathrm{Krpm}$ e a região de caos a partir de $4.3\,\mathrm{Krpm}$, o que explica a diferença entre a implementação e o modelo base para a velocidade de $4500$ rpm.
 \begin{figure}[H]
 	\centering
 	\caption{Comparação do Diagrama de Bifurcação}
@@ -452,4 +454,3 @@ Além disso, o artigo de \citeonline{yi2019} apresenta o Diagrama de bifurcaçã
 	\end{minipage}
 \end{figure}
 
-Observa-se que no modelo de \citeonline{yi2019} apresenta um pico de amplitude na velocidade de $1.35\,\mathrm{Krpm}$ e a região caótica iniciando em $5.1\,\mathrm{Krpm}$. Já o modelo implementado apresenta o primeiro pico em $1.2\,\mathrm{Krpm}$, um segundo pico $1.8\,\mathrm{Krpm}$ e a região de caos a partir de $4.3\,\mathrm{Krpm}$. 

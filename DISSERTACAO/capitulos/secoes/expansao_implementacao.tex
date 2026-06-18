@@ -4,13 +4,13 @@
 \subsection{Expansão para 6 Graus de Liberdade}
 \label{subsec:6dof}
 
-Para poder implementar o modelo da folga de \textit{backlash} dinâmico proposto por \citeonline{yi2019} e poder utilizá-lo com o \textit{ROSS} foi necessário a expansão do modelo de 3 \textit{gdl} por nó, como mostrado na Equação~\ref{eq:vetor_q} para o sistema de 6 \textit{gld} por nó como apresentado na Equação~\ref{Eq:dof}. Dessa maneira foi adicionado a translação axial $z_i$ e as rotações em torno dos eixos $X$ e $Y$, ${\theta_x}_i$ e ${\theta_y}_i$ respectivamente. Portanto, a formulação agora utiliza os graus de liberdade  por nó dispostos conforme a Equação~\ref{eq:6dof}, sendo $i$ o nó em questão. Neste caso, $i=1$ representa a engrenagem pinhão e $i=2$ representa a  engrenagem coroa.
+Para poder implementar o modelo da folga de \textit{backlash} dinâmico proposto por~\citeonline{yi2019} e poder utilizá-lo com o \textit{ROSS} foi necessário a expansão do modelo de 3 \textit{gdl} por nó, como mostrado na Equação~\ref{eq:vetor_q} para o sistema de 6 \textit{gld} por nó como apresentado na Equação~\ref{Eq:dof}. Dessa maneira foi adicionado a translação axial $z_i$ e as rotações em torno dos eixos $X$ e $Y$, ${\theta_x}_i$ e ${\theta_y}_i$ respectivamente. Portanto, a formulação agora utiliza os graus de liberdade  por nó dispostos conforme a Equação~\ref{eq:6dof}, sendo $i$ o nó em questão. Neste caso, $i=1$ representa a engrenagem pinhão e $i=2$ representa a  engrenagem coroa.
 \begin{equation}
 	\{q(t)\} = \{x_i,y_i,z_i, {\theta_x}_i, {\theta_y}_i, {\theta_z}_i\}^{T}
 	\label{eq:6dof}
 \end{equation}
 
-Tal expansão não é exigida para o funcionamento do modelo, uma vez que poderia se atribuir valores nulos aos \textit{gdl} não presentes no modelo. Entretanto, a expansão foi  utilizada pois desta maneira é possível atribuir a este modelo a influência do ângulo de hélice do engrenamento. \citeonline{kubur2004} apresenta uma formulação para  o DTE que contempla o ângulo de hélice das engrenagens e os \textit{gdl} não considerado anteriormente. A Figura~\ref{fig:modelo_6gdl} apresenta um esquemático utilizado para a formulação e a Equação~\ref{eq:delta_3d} apresenta a formulação matemática utilizada em questão.
+Tal expansão não é exigida para o funcionamento do modelo, uma vez que poderia se atribuir valores nulos aos \textit{gdl} não presentes no modelo. Entretanto, a expansão foi  utilizada pois desta maneira é possível atribuir a este modelo a influência do ângulo de hélice do engrenamento.~\citeonline{kubur2004} apresenta uma formulação para  o DTE que contempla o ângulo de hélice das engrenagens e os \textit{gdl} não considerado anteriormente. A Figura~\ref{fig:modelo_6gdl} apresenta um esquemático utilizado para a formulação e a Equação~\ref{eq:delta_3d} apresenta a formulação matemática utilizada em questão.
 \begin{figure}[H]
 	\centering
 	\caption{Modelo de 6 \textit{gdl}}
@@ -21,7 +21,7 @@ Tal expansão não é exigida para o funcionamento do modelo, uma vez que poderi
 		\includegraphics[width=\linewidth]{figuras/modelo_kubur.png}
 		\par\vspace{0.3em}
 		\raggedright
-		{\small Fonte: Adaptado de \citeonline{kubur2004}}
+		{\small Fonte: Adaptado de~\citeonline{kubur2004}}
 	\end{minipage}
 \end{figure}
 \begin{equation}
@@ -32,7 +32,7 @@ Tal expansão não é exigida para o funcionamento do modelo, uma vez que poderi
 	\label{eq:delta_3d}
 \end{equation}
 
-Dessa forma, como agora o ângulo de hélice  está  incluído na modelagem do DTE, ele deve ser considerado também para o cálculo da folga de \textit{backlash} dinâmico $b_t$. \citeonline{mo2025} apresenta uma formulação de $b_t$ que contempla a característica de engrenagens helicoidais. Tal  adaptação do modelo de \citeonline{yi2019} considerando a formulação de \citeonline{mo2025} é apresentado na Equação~\ref{eq:bt_helicoidal}. 
+Dessa forma, como agora o ângulo de hélice  está  incluído na modelagem do DTE, ele deve ser considerado também para o cálculo da folga de \textit{backlash} dinâmico $b_t$.~\citeonline{mo2025} apresenta uma formulação de $b_t$ que contempla a característica de engrenagens helicoidais. Tal  adaptação do modelo de~\citeonline{yi2019} considerando a formulação de~\citeonline{mo2025} é apresentado na Equação~\ref{eq:bt_helicoidal}. 
 \begin{equation}
 	b_t = b_0 + (R_1 + R_2) (\mathrm{inv}(\alpha) - \mathrm{inv}(\alpha_0)) \cos\beta_h
 	\label{eq:bt_helicoidal}
@@ -47,7 +47,7 @@ Além disso, como foi feita a adição de \textit{gdl} e a inclusão do ângulo 
 	\label{eq:dbt_helicoidal}
 \end{equation}
 
-\text{Para as derivadas parciais do DTE (com } $\psi = \alpha - \beta $ \text{), definem-se os termos geométricos auxiliares:}
+As derivadas parciais do DTE (com $\psi = \alpha - \beta $), são apresentadas a seguir com as variáveis auxiliares $\Delta_{\text{trans}}$ e $\Delta_{\text{rot}}$.
 \begin{gather}
 	\begin{aligned}
 		\Delta_{\text{trans}} &= (x_1 - x_2) \cos\psi - (y_1 - y_2) \sin\psi \\
@@ -78,7 +78,7 @@ Além disso, como foi feita a adição de \textit{gdl} e a inclusão do ângulo 
 
 \subsection{Suavização da Função de \textit{Backlash}}
 
-Como a função da deformação efetiva na \textit{LOA} é dada por uma relação condicional, conforme apresentado na Equação~\ref{eq:f_delta}, os integradores numéricos pode apresentar dificuldade de convergência devido a não ser uma função bem comportada, ou seja, apresenta mudanças abruptas que dificultam a derivação.  Com isso em mente, \citeonline{walha2006} apresentam uma metodologia que utiliza funções trigonométricas para suavizar a não linearidade da Equação~\ref{eq:f_delta}. \citeonline{walha2006} utilizam funções de tangente hiperbólica em associação com a variável $\sigma$ que controla o quão suave e próxima à função original será a nova função. A Figura~\ref{fig:suavizacao} apresenta a suavização utilizada por \citeonline{walha2006} em seu estudo, onde ${\tilde{h}}_i$ representa $f$.
+Como a função da deformação efetiva na \textit{LOA} é dada por uma relação condicional, conforme apresentado na Equação~\ref{eq:f_delta} e Figura~\ref{fig:backlash_graph_kaplan}, os integradores numéricos podem apresentar dificuldade de convergência devido a não ser uma função bem comportada, ou seja, apresenta mudanças abruptas que dificultam a derivação.  Com isso em mente,~\citeonline{walha2006} apresentam uma metodologia que utiliza funções trigonométricas para suavizar a não linearidade da Equação~\ref{eq:f_delta}.~\citeonline{walha2006} utilizam funções de tangente hiperbólica em associação com a variável $\sigma$ que controla o quão suave e próxima à função original será a nova função. A Figura~\ref{fig:suavizacao} apresenta a suavização utilizada por~\citeonline{walha2006} em seu estudo, onde ${\tilde{h}}_i$ representa $f$.
 
 No código implementado há a opção de selecionar se será utilizado ou não o método de suavização. Por padrão, ao se utilizar esta metodologia à variável $\sigma$ é atribuída o valor de $10^4$.
 \begin{figure}[H]
@@ -91,11 +91,11 @@ No código implementado há a opção de selecionar se será utilizado ou não o
 		\includegraphics[width=\linewidth]{figuras/smooth.png}
 		\par\vspace{0.3em}
 		\raggedright
-		{\small Fonte: \citeonline{walha2006}}
+		{\small Fonte:~\citeonline{walha2006}}
 	\end{minipage}
 \end{figure}
 
-Com respeito à formulação utilizada as Equações~\ref{eq:smooth_g} apresentam as funções de tangente hiperbólica utilizadas. Com isso, temos uma nova formulação para $f$ disposto na Equação~\ref{eq:smooth_f}. 
+Com respeito à formulação de suavização, as Equações~\ref{eq:smooth_g} apresentam as funções de tangente hiperbólica utilizadas. Com isso, temos uma nova formulação para $f$ disposto na Equação~\ref{eq:smooth_f}. 
 \begin{gather}
 	g_1 = (\delta - b_t) \tanh(\sigma(\delta - b_t)), \quad g_2 = (\delta + b_t) \tanh(\sigma(\delta + b_t))
 	\label{eq:smooth_g}
