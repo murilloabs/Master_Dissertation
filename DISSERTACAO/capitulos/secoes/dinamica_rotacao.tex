@@ -1,8 +1,8 @@
 \section{Rotores e Dinâmica de Rotação}
 
-Classifica-se como rotor um equipamento mecânico que está sujeito à rotação, como eixos de motores, compressores, turbomáquinas, entre as mais diversas aplicações. Dessa forma, rotores são, geralmente, compostos por eixos, discos, engrenagens, mancais e selos \cite{Friswell2010}. Nesse sentido, como tais componentes são amplamente utilizados, o estudo destas máquinas torna-se de grande relevância para garantir a confiabilidade. 
+Classifica-se como rotor um equipamento mecânico que está sujeito à rotação, como eixos de motores, compressores, turbomáquinas, entre as mais diversas aplicações. Dessa forma, rotores são, geralmente, compostos por eixos, discos, engrenagens, mancais e selos~\cite{Friswell2010}. Nesse sentido, como tais componentes são amplamente utilizados, o estudo destas máquinas torna-se de grande relevância para garantir a confiabilidade. 
 
-A análise estática de rotores tem sua base nas teorias já fundamentadas da análise estrutural \cite{martha2010} e resistência dos materiais \cite{hibbeler2010}. Entretanto, quando se trata de análise dinâmica há diversas diferenças, isso pois ao se adicionar a velocidade de rotação $\Omega$ ao sistema diferentes fenômenos são observados. Entre eles, o principal é o Efeito Giroscópico, que representa o acoplamento de direções laterais devido à conservação do Momento Angular do sistema \cite{Lalanne1998}. Este é o mesmo efeito que promove, por exemplo, estabilidade para motocicletas e bicicletas ao se deslocarem em duas rodas.
+A análise estática de rotores tem sua base nas teorias já fundamentadas da análise estrutural~\cite{martha2010} e resistência dos materiais~\cite{hibbeler2010}. Entretanto, quando se trata de análise dinâmica há diversas diferenças, isso pois ao se adicionar a velocidade de rotação $\Omega$ ao sistema diferentes fenômenos são observados. Entre eles, o principal é o Efeito Giroscópico, que representa o acoplamento de direções laterais devido à conservação do Momento Angular do sistema~\cite{Lalanne1998}. Este é o mesmo efeito que promove, por exemplo, estabilidade para motocicletas e bicicletas ao se deslocarem em duas rodas.
 
 Além disso, ao girar em velocidade de rotação constante o sistema dinâmico e considerando o efeito giroscópico, agora, apresenta duas frequências naturais para cada modo de vibrar lateral. Com isso, surge o efeito da Precessão Direta, do inglês \textit{Forward} (\textit{FW}) ou Precessão Inversa do inglês \textit{Backward} (\textit{BW}). A precessão do tipo \textit{Forward} o ocorre quando a órbita desenhada pelo movimento do cento do eixo está no mesmo sentido de rotação do próprio eixo. Enquanto a precessão do tipo \textit{Backward} ocorre quando a órbita gira no sentido oposto à rotação do eixo. Assim como apresentado pela Figura~\ref{fig:precessao}.
 \begin{figure}[H]
@@ -30,13 +30,13 @@ A Figura~\ref{fig:campbell} apresenta o Diagrama de Campbell onde é possível v
 		\includegraphics[width=\linewidth]{figuras/campbell.png}
 		\par\vspace{0.3em}
 		\raggedright
-		{\small Fonte: Adaptado de \citeonline{Friswell2010}.}
+		{\small Fonte: Adaptado de~\citeonline{Friswell2010}.}
 	\end{minipage}
 \end{figure}
 
 \subsection{Modelagem de Rotores}
 
-A correta modelagem matemática é essencial para o desenvolver análises e resultados robustos, coerentes e confiáveis. Assim, um modelo de elementos finitos para rotores foi desenvolvido por \citeonline{cavalini2013} com base na modelagem apresentada por \citeonline{Lalanne1998} servindo como referência para diversos trabalhos. Tal modelo contempla quatro graus de liberdade por nó, a expansão para seis \textit{gdl} pro nó foi apresentada por \citeonline{Friswell2010} e adaptado por \citeonline{sicchieri2024} para o eixo coordenado referente, assim como mostrado na Equação~\ref{Eq:dof}.
+A correta modelagem matemática é essencial para o desenvolver análises e resultados robustos, coerentes e confiáveis. Assim, um modelo de elementos finitos para rotores foi desenvolvido por~\citeonline{cavalini2013} com base na modelagem apresentada por~\citeonline{Lalanne1998} é tido como referência para diversos trabalhos. Tal modelo contempla quatro graus de liberdade (\textit{gdl}) por nó, a expansão para seis \textit{gdl} pro nó foi apresentada por~\citeonline{Friswell2010} e adaptado por~\citeonline{sicchieri2024} para o eixo coordenado referente, assim como mostrado na Equação~\ref{Eq:dof}.
 
 O primeiro passo para a modelagem é definir a formulação da energia cinética e potencial para os elementos de eixo, discos, engrenagens, mancais e selos para posteriormente aplicar a metodologia de Lagrange e, enfim, obter as equações do movimentos. A Equação~\ref{eq:lagrange_rot} apresenta o formalismo da equação de Lagrange para um vetor $q$ com $N$ graus de liberdade (Equação~\ref{Eq:dof}). 
 \begin{equation}
@@ -47,7 +47,7 @@ O primeiro passo para a modelagem é definir a formulação da energia cinética
 
 Para este modelo, algumas considerações feitas são:
 \begin{itemize}
-	\item O eixo é representado como um elemento de viga com seção circular constante, de acordo com a Teoria de \citeonline{timoshenko1922}. É caracterizado por energia cinética e potencial, onde cada elemento possui dois nós e seis graus de liberdade por nó;
+	\item O eixo é representado como um elemento de viga com seção circular constante, de acordo com a Teoria de~\citeonline{timoshenko1922}. É caracterizado por energia cinética e potencial, onde cada elemento possui dois nós e seis graus de liberdade por nó;
 	\item O disco é um elemento rígido, logo possui apenas energia cinética;
 	\item Engrenagens podem ser representadas como elementos de disco e estes são adicionados em nós;
 	\item Os mancais e selos podem ser representados por um conjunto de molas e amortecedores lineares.
@@ -108,7 +108,7 @@ Com a Equação do Movimento (Equação~\ref{Eq:movement}) do sistema é possív
 
 \subsection{Desbalanceamento de Rotores}
 
-O desbalanceamento de rotores é uma condição na qual uma concentração de massa $m_u$, deslocada $e$ do centro do eixo de rotação, provoca uma força capaz que aumentar a amplitude de vibração e as órbitas de um rotor \cite{leocabral2023,daniel2024,stanley2025,raimundo2025}. A Figura~\ref{fig:desbalanceamento} apresenta um esquemático do posicionamento da massa excêntrica posicionada em um disco solidário ao eixo.
+O desbalanceamento de rotores é uma condição na qual uma concentração de massa $m_u$, deslocada $e$ do centro do eixo de rotação, provoca uma força capaz que aumentar a amplitude de vibração e as órbitas de um rotor~\cite{leocabral2023,daniel2024,stanley2025,raimundo2025}. A Figura~\ref{fig:desbalanceamento} apresenta um esquemático do posicionamento da massa excêntrica posicionada em um disco solidário ao eixo.
 \begin{figure}[H]
 	\centering
 	\caption{Representação esquemática do desbalanceamento}
@@ -130,7 +130,7 @@ O efeito do desbalanceamento pode ser  expresso  por uma amplitude $e m_u$ e fas
 	\label{eq:desb}
 \end{equation}
 
-Como essa força rotaciona junto ao eixo, ela induz forças dinâmicas senoidais nas direções ortogonais $X$ e $Y$, descritas respectivamente por:
+Como essa força rotaciona junto ao eixo, ela induz forças dinâmicas senoidais e cossenoidais nas direções ortogonais $X$ e $Y$, descritas respectivamente por:
 \begin{gather}
 	F_x(t) = m_u e \Omega^2 \cos(\Omega t + \varphi_u)
 	\label{eq:desbx}
@@ -139,18 +139,18 @@ Como essa força rotaciona junto ao eixo, ela induz forças dinâmicas senoidais
 	\label{eq:desby}
 \end{gather}
 
-Dessa forma, a aplicação da força do desbalanceamento é feita de maneira nodal nos graus de liberdade referentes \cite{stanley2025}. A influência do desbalanceamento é observável na frequência de $1X$ da velocidade de rotação $\Omega$ \cite{raimundo2025}. A Figura~\ref{fig:sensor_desb} apresenta um exemplo do posicionamento de sensores utilizados por \citeonline{stanley2025} e obtenção das respostas temporais. Com as duas respostas temporais é possível determinar a órbita referente a cada nó, assim como apresentado na Figura~\ref{fig:3dorbit}. 
+Dessa forma, a aplicação da força do desbalanceamento é feita de maneira nodal nos graus de liberdade referentes~\cite{stanley2025}. A influência do desbalanceamento é observável na frequência de $1X$ da velocidade de rotação $\Omega$~\cite{raimundo2025}. A Figura~\ref{fig:sensor_desb} apresenta um exemplo do posicionamento de sensores utilizados ($S_1$ e $S_2$) por~\citeonline{stanley2025} e obtenção das respostas temporais nas duas direções de observação. Com as duas respostas temporais é possível determinar a órbita referente a cada nó, assim como apresentado na Figura~\ref{fig:3dorbit}. 
 \begin{figure}[H]
 	\centering
 	\caption{Posicionamento de sensores e determinação da resposta temporal}
 	\label{fig:sensor_desb}
 	
-	\begin{minipage}{0.4\textwidth}
+	\begin{minipage}{0.5\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/sensor_desbalanc.png}
 		\par\vspace{0.3em}
 		\raggedright
-		{\small Fonte: \citeonline{stanley2025}}
+		{\small Fonte:~\citeonline{stanley2025}}
 	\end{minipage}
 \end{figure}
 \begin{figure}[H]
@@ -163,6 +163,6 @@ Dessa forma, a aplicação da força do desbalanceamento é feita de maneira nod
 		\includegraphics[width=\linewidth]{figuras/3dorbit.png}
 		\par\vspace{0.3em}
 		\raggedright
-		{\small Fonte: \citeonline{stanley2025}}
+		{\small Fonte:~\citeonline{stanley2025}}
 	\end{minipage}
 \end{figure}
