@@ -61,21 +61,20 @@ Dessa forma é possível determinar a razão de contato $c_r$ que representa o n
 
 No projeto de engrenagens é recomentada que o valor de $c_r$ varie entre $1$ e $2$, podendo em certos casos ser maior que o limite superior. Garantir que $c_r \ge 1$ impede a ocorrência de descontinuidades na transmissão de torque e potência além de prevenir choques abruptos entre dentes~\cite{shigley2020}. Entretanto, quanto maior o valor de $c_r$ mais rígido se torna o sistema, sendo exigido uma energia maior para seu movimento. 
 
- Sob o ponto de vista da dinâmica estrutural do sistema, o fato de $c_r$ não assumir um valor inteiro implica que o sistema alterna ciclicamente entre períodos de contato simples (um par de dentes) e contato duplo (dois pares de dentes). Essa alternância geométrica induz uma variação periódica na rigidez global do engrenamento. Portanto, desta forma, a rigidez associada ao engrenamento pode ser classificada como variante no tempo \textit{TVMS}, como será retratado em breve.
+ Sob o ponto de vista da dinâmica estrutural do sistema, o fato de $c_r$ não assumir um valor inteiro implica que o sistema alterna ciclicamente entre períodos de contato simples (um par de dentes) e contato duplo (dois pares de dentes). Essa alternância geométrica induz uma variação periódica na rigidez global do engrenamento. Portanto, desta forma, a rigidez associada ao engrenamento pode ser classificada como variante no tempo (\textit{Time Varying Mesh Stiffness}) (\textit{TVMS}), como será retratado em breve.
  
 \section{Modelagem Dinâmica e Acoplamento de Rotores Engrenados}
-A incorporação da dinâmica de engrenamentos na análise de rotores exige que os subsistemas individuais sejam acoplados nas matrizes globais (massa, amortecimento, rigidez e giroscópica).~\citeonline{ozguven1988} faz uma revisão dos primeiros modelos propostos para a modelagem dinâmica de sistema engrenados. Nesta seção será apresentado o modelo proposto por~\citeonline{kaplan2015}
+A incorporação da dinâmica de engrenamentos na análise de rotores exige que os subsistemas individuais sejam acoplados nas matrizes globais (massa, amortecimento, rigidez e giroscópica).~\citeonline{ozguven1988} faz uma revisão dos primeiros modelos propostos para a modelagem dinâmica de sistema engrenados. Nesta seção será apresentado o modelo proposto por~\citeonline{kaplan2015}, que é utilizado no \textit{ROSS}.
 
 Em sistemas tridimensionais, onde cada nó da malha possui seis graus de liberdade (translações $x, y, z$ e rotações $\theta_x, \theta_y, \theta_z$), a formulação das matrizes de acoplamento deve decompor a força de contato normal na linha de ação considerando a cinemática 3D~\cite{stringer2008}. Isso forma submatrizes interconectadas ($K_{ii}, K_{jj}, K_{ji}, K_{ij}$) que relacionam vibrações laterais e torcionais através da projeção vetorial governada pelo ângulo de pressão, o ângulo de hélice, e o ângulo de orientação espacial do acoplamento.
 
 \subsection{Rigidez de Acoplamento de Rotores Engrenados}
 
 Para realizar o movimento conjunto entre os rotores motor e movido, é necessário acoplar as matrizes dos dois rotores nos graus de liberdade correspondentes dos nós correspondentes, representados por $q_i$ e $q_j$. Dessa maneira, a equação do movimento pode ser modificada para Equação~\ref{Eq:mov-alt}, já contemplando a massa, rigidez e amortecimento dos dois rotores. A Figura~\ref{fig:mesh_repr} representa esquematicamente o engrenamento, mostrando que a rigidez de acoplamento das engrenagens $K_{mesh}$ é na direção da linha de ação e não na linha que liga os centros das duas engrenagens. A matriz de acoplamento da rigidez $[K_{mesh}]$ pode ser escrita de acordo com Equação~\ref{Eq:k_mesh}~\cite{stringer2008}. A Figura~\ref{fig:gear_repr} apresenta a representação do par engrenado em elementos finitos. As matrizes $K_{ii}$, $K_{ij}$, $K_{ji}$ e $K_{jj}$ são apresentadas na Equação~\ref{eq:k_matrices} de acordo com~\citeonline{stringer2008}.
-\begin{equation}
+\begin{gather}
 	[M]\{\ddot{q}(t)\}+([C]+\Omega [G])\{\dot{q}(t)\}+([K] + [K_{mesh}])\{q(t)\}=\{F(t)\}
 	\label{Eq:mov-alt}
-\end{equation}
-\begin{equation}
+\\
 	[K_{mesh}]
 	\begin{Bmatrix}
 		q_i \\
@@ -91,12 +90,12 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 		q_j
 	\end{Bmatrix}
 	\label{Eq:k_mesh}
-\end{equation}
+\end{gather}
 \begin{figure}[H]
 	\centering
 	\caption{Reapresentação do Engrenamento}
 	\label{fig:mesh_repr}
-	\begin{minipage}{0.8\textwidth}
+	\begin{minipage}{0.9\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/gear_mesh_spring.png}
 		\par\vspace{0.3em}
@@ -186,13 +185,13 @@ O parâmetro $K_m$ representa a rigidez do par engrenado ao longo da linha de a�
 \end{equation}
 onde $c_r$ representa a razão de contato do par engrenado, $w$ descreve a largura dos dentes das engrenagens, $E_1$ e $E_2$ são os módulos de elasticidade das engrenagens motriz e movida, respectivamente. Dessa forma, a rigidez do engrenamento é considerada como constante ao longo do tempo.
 
-Entretanto, devido à dinâmica do contato entre  os dentes, a rigidez associada ao engrenamento, na realidade, é uma grandeza variável no tempo e dependente da  razão de contato entre as engrenagens. A seguir será apresentado a primeira metodologia encontrada na literatura (Perfil Retangular) e o Perfil Completo atualmente utilizado.
+Entretanto, devido à dinâmica do contato entre  os dentes, a rigidez associada ao engrenamento, na realidade, é uma grandeza variável no tempo e dependente da  razão de contato entre as engrenagens. A seguir será apresentado uma das primeiras metodologias encontrada na literatura (Perfil Retangular) e o Perfil Completo atualmente utilizado.
 
 \subsection{Perfil Retangular de Rigidez de Engrenamento}
 
-Para se considerara a variação da rigidez do engrenamento ao longo do tempo, uma das primeiras considerações foi  utilização de um modelo de perfil retangular, assim como apresentado por~\citeonline{lin2002}. Tal modelagem simplifica a dinâmica de contato entre os dentes de um par engrenado,  mas ainda mantém sua característica principal, a variação da amplitude de rigidez e a periodicidade no tempo.
+Para se considerar a variação da rigidez do engrenamento ao longo do tempo, uma das primeiras considerações foi  utilização de um modelo de perfil retangular, assim como apresentado por~\citeonline{lin2002}. Tal modelagem simplifica a dinâmica de contato entre os dentes de um par engrenado,  mas ainda mantém sua característica principal, a variação da amplitude de rigidez e a periodicidade no tempo.
 
-\citeonline{kaplan2015} apresenta tal perfil retangular, de acordo com a modelagem de~\citeonline{lin2002}. A Equação~\ref{eq:stiffness_Kv} apresenta tal formulação, que pode ser descrita como a soma de uma parcela constante  $K_m$ e uma parcela variável $K_v$ (Equação~\ref{eq:stiffness_K}) que oscila por uma Série de Fourier com uma amplitude $K_a$ proporcional à $K_m$.
+\citeonline{kaplan2015} apresenta tal perfil retangular, de acordo com a modelagem de~\citeonline{lin2002}. A Equação~\ref{eq:stiffness_Kv} apresenta tal formulação, que pode ser descrita como a soma de uma parcela constante  $K_m$ e uma parcela variável $K_v$ (Equação~\ref{eq:stiffness_K}) que oscila por uma Série de Fourier com uma amplitude $K_a$ proporcional à $K_m$, com coeficientes $a^{(s)}$ e $b^{(s)}$ apresentados pela Equação~\ref{eq:coeficientes_ab}.
 \begin{gather} 
 	\label{eq:stiffness_K}
 	K = K_m + K_v(\Omega, t)
@@ -201,13 +200,13 @@ Para se considerara a variação da rigidez do engrenamento ao longo do tempo, u
 	K_v(t) = 2K_a \sum_{s=1}^{\infty} \left( a^{(s)} \sin(sZ_1\Omega_i t) + b^{(s)} \cos(sZ_1\Omega t) \right)
 \end{gather}
 \begin{align} \label{eq:coeficientes_ab}
-	a^{(s)} &= -\frac{2}{s\pi} \sin[s\pi(c_r - 2\beta)] \sin(s\pi c_r) \nonumber \\
-	b^{(s)} &= -\frac{2}{s\pi} \cos[s\pi(c_r - 2\beta)] \sin(s\pi c_r)
+	a^{(s)} &= -\frac{2}{s\pi} \sin[s\pi(c_r - 2p)] \sin(s\pi c_r) \nonumber \\
+	b^{(s)} &= -\frac{2}{s\pi} \cos[s\pi(c_r - 2p)] \sin(s\pi c_r)
 \end{align}
 
-$Z_1$ representa o número de dentes da engrenagem menor, $\Omega$ é a velocidade de rotação da engrenagem menor. $a^{(s)}$ e $b^{(s)}$ são os coeficientes da série de Fourier. $c_r$ é a razão de contato,  $\beta$ é o angulo de posição das engrenagens e $p$ representa a fase do engrenamento. A Figura~\ref{fig:rig_engr_kapl} apresenta o perfil retangular desejado para essa simplificação, já a Figura~\ref{fig:rig_engr1} apresenta a composição completa da Série de Fourier para essa função. Quando maior o número de temos $s$, mais suave é a função. 
+$Z_1$ representa o número de dentes da engrenagem menor, $\Omega$ é a velocidade de rotação da engrenagem menor. $a^{(s)}$ e $b^{(s)}$ são os coeficientes da série de Fourier. $c_r$ é a razão de contato e $p$ representa a fase do engrenamento. A Figura~\ref{fig:rig_engr_kapl} apresenta o perfil retangular desejado para essa simplificação, já a Figura~\ref{fig:rig_engr1} apresenta a composição completa da Série de Fourier para essa função. Quando maior o número de termos $s$, mais a função se aproxima de um perfil retangular. 
 
-Pode se observar como o valor da razão de contato $c_r$ influencia no período da função de rigidez. Esta variável indica a quantidade média de pares de dentes engrenados, ao longo do tempo há a alternância  entre um par e dois pares de dentes engrenados. Quando há somente um par o perfil de rigidez encontra seu valor mínimo, já com dois pares ele encontra seu valor máximo.
+Pela Figura~\ref{fig:rig_engr1} pode-se observar como o valor da razão de contato $c_r$ influencia no período das regiões de alta e baixa rigidez. Esta variável indica a quantidade média de pares de dentes engrenados, ao longo do tempo há a alternância  entre um par e dois pares de dentes engrenados. Quando há somente um par o perfil de rigidez encontra seu valor mínimo, já com dois pares ele encontra seu valor máximo.
 No \textit{ROSS} a implementação dessa função contempla uma correção para que ela não apresente as frequências maiores vinda da Série de Fourier e tenha, somente, o perfil retangular.
 \begin{figure}[H]
 	\centering
@@ -236,7 +235,7 @@ No \textit{ROSS} a implementação dessa função contempla uma correção para 
 
 \subsection{Perfil Completo de Rigidez de Engrenamento}
 
-O formato característico desse perfil tem origem da geometria do dente da engrenagem e do comportamento da malha de engrenamento. Como o perfil do dente não apresenta seção transversal uniforme a rigidez do engrenamento é alterada a cada passo de tempo devido ao contato entre os dentes acontecer em regiões de alteração da área de seção. Além disso,~\citeonline{ma2014} descreve que há outras rigidezes que influenciam neste calculo que serão apresentadas a seguir.
+O formato característico desse perfil tem origem da geometria envolvente do dente da engrenagem e do comportamento da malha de engrenamento. Como o perfil do dente não apresenta seção transversal uniforme a rigidez do engrenamento é alterada a cada passo de tempo durante o movimento devido ao contato entre os dentes acontecer em regiões diferentes da área de seção. Além disso,~\citeonline{ma2014} descreve que há outras rigidezes que influenciam neste calculo que serão apresentadas a seguir.
 
 A Figura~\ref{fig:rig_engr_lais} apresenta o comportamento deste perfil de rigidez. A periodicidade característica e a amplitude deste perfil tem correlação com a razão de contato $c_r$ do par engrenado que define a média de pares de dentes em contato. Quando há somente um par de dentes em contato a rigidez assume a região de menor valor. Ao passo que, quando há dois pares de dentes em contato as rigidezes se somam e, portanto, o perfil de rigidez apresenta a região de maior valor  assim como apresentado por~\citeonline{lais2022} e~\citeonline{chico2025}. Portanto, o perfil de rigidez $K_m$ é composto pelo par de dente anterior ${k_p}_{i-1}$, atual ${k_p}_{i}$ e posterior ${k_p}_{i+1}$.
 \begin{figure}[H]
@@ -252,7 +251,7 @@ A Figura~\ref{fig:rig_engr_lais} apresenta o comportamento deste perfil de rigid
 	\end{minipage}
 \end{figure}
 
-Para fazer a determinação do perfil apresentado na Figura~\ref{fig:rig_engr_lais} são consideradas diferentes rigidezes para os dentes das engrenagens. A rigidez total do engrenamento é calculada a partir da associação de rigidezes, onde $k_h$ é a Rigidez de Contato de Hertz, $k_b$ é a Rigidez à Flexão, $k_s$ ao Cisalhamento e $k_a$ à Compressão Axial. Adicionalmente, $k_f$ incorpora a rigidez do pé do dente na conexão com o corpo da engrenagem~\cite{ma2014}. Tal calculo é feito a partir de métodos analíticos com base na energia potencial, apresentados pela Equação~\ref{eq:componentes_energia} e Equação~\ref{eq:energia_total}. A Figura~\ref{fig:ma_gear_model} representa a modelagem utilizada por~\citeonline{ma2014}, onde a variável $\beta$ representa o ângulo de pressão de operação.
+Para fazer a determinação do perfil apresentado na Figura~\ref{fig:rig_engr_lais} são consideradas diferentes rigidezes para os dentes das engrenagens. A rigidez total do engrenamento é calculada a partir da associação de rigidezes, onde $k_h$ é a Rigidez de Contato de Hertz, $k_b$ é a Rigidez à Flexão, $k_s$ ao Cisalhamento e $k_a$ à Compressão Axial. Adicionalmente, $k_f$ incorpora a rigidez do pé do dente na conexão com o corpo da engrenagem~\cite{ma2014}. Tal calculo é feito a partir de métodos analíticos com base na energia potencial, apresentados pela Equação~\ref{eq:componentes_energia} e Equação~\ref{eq:energia_total}. A Figura~\ref{fig:ma_gear_model} representa a modelagem utilizada por~\citeonline{ma2014}, onde, nesta formulação, a variável $\beta$ representa o ângulo de pressão de operação.
 \begin{equation} \label{eq:componentes_energia}
 	U_h = \frac{F^2}{2k_h}, \ U_b = \frac{F^2}{2k_b}, \ U_s = \frac{F^2}{2k_s}, \ U_a = \frac{F^2}{2k_a}, \ U_f = \frac{F^2}{2k_f},
 \end{equation}

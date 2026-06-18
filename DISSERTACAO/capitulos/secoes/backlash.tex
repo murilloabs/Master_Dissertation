@@ -1,7 +1,7 @@
 \newpage
 \section{Folga de \textit{Backlash}}
 
-A folga de \textit{backlash} é a folga entre os dentes de duas engrenagens conectadas. Esta folga é projetada para a passagem de óleo lubrificante, expansão térmica e adequação às tolerâncias geométricas \cite{kaplan2015}.
+A folga de \textit{backlash} é a folga entre os dentes de duas engrenagens conectadas. Esta folga é projetada para a passagem de óleo lubrificante, expansão térmica, montagem e adequação às tolerâncias geométricas \cite{kaplan2015}.
 A Figura~\ref{fig:backlash_kaplan} representa o comportamento do engrenamento considerando a folga de \textit{backlash}. $\delta$ representa a deformação da Linha de Ação \textit{LOA} e $b_t$ é a folga de \textit{backlash} instantâneo. A deformação final da malha de engrenamento a cada passo de tempo $f(\delta (t), b_t)$ é apresentada pela Figura~\ref{fig:backlash_graph_kaplan} e é descrita de acordo com a Equação~\ref{eq:f_delta}. Essa formulação é adaptada de \citeonline{yi2019} de acordo com o sentido de referência dos graus de liberdade adotados no \textit{ROSS}.
 \begin{figure}[H]
 	\centering
@@ -28,7 +28,7 @@ A Figura~\ref{fig:backlash_kaplan} representa o comportamento do engrenamento co
 	\end{minipage}
 \end{figure}
 
-A Figura~\ref{fig:modelo_yi} apresenta o esquemático utilizado por \citeonline{yi2019} para a construção do modelo de \textinf{backlash} dinâmico que será apresentado. Este modelo de engrenamento e \textit{backlash} dinâmico é amplamente utilizado na literatura por diversos autores como \citeonline{zhu2025}, \citeonline{liu2023}, \citeonline{mo2025} entre outros.
+A Figura~\ref{fig:modelo_yi} apresenta o esquemático utilizado por \citeonline{yi2019} para a construção do modelo de \textinf{backlash} dinâmico que será apresentado. Este modelo de engrenamento e \textit{backlash} dinâmico é amplamente utilizado na literatura por diversos autores como \citeonline{zhu2025}, \citeonline{liu2023}, \citeonline{mo2025} entre outros que desenvolveram trabalhos que utilizam essa formulação para suas análises.
 \begin{figure}[H]
 	\centering
 	\caption{Modelo de Par Engrenado}
@@ -48,7 +48,7 @@ Primeiramente, a modelagem do engrenamento de \citeonline{yi2019} considera 3 gr
 	\label{eq:vetor_q}
 \end{equation}
 
-Por ser uma formulação dinâmica do engrenamento as variáveis são dependentes do tempo e variam a cada instante por dependerem diretamente e indiretamente das posições instantâneas e cada engrenagem $x_i, y_i (i=1,2)$. Dessa forma, é possível definir a distância entre centros $d$ entre as engrenagens conforme a Equação~\ref{eq:distancia_centro}. Com essa definição obtém-se a formulação do ângulo de posição $\beta$ (Equação~\ref{eq:angulo_posicao}), ângulo de pressão $\alpha$ (Equação~\ref{eq:alpha}) e razão de contato $c_r$ (Equação~\ref{eq:cr}). Onde $R_i$ é raios de base, ${R_a}_i$ é o raio de adendo de cada engrenagem $i=1,2$ e $p_b$ é o passo base do dente. 
+Por ser uma formulação dinâmica do engrenamento as variáveis são dependentes do tempo e variam a cada instante por estarem correlacionadas diretamente e indiretamente com as posições instantâneas e do centro de cada engrenagem $x_i, y_i (i=1,2)$. Dessa forma, é possível definir a distância entre centros $d$ entre as engrenagens conforme a Equação~\ref{eq:distancia_centro}. Com essa definição obtém-se a formulação do ângulo de posição $\beta$ (Equação~\ref{eq:angulo_posicao}), ângulo de pressão $\alpha$ (Equação~\ref{eq:alpha}) e razão de contato $c_r$ (Equação~\ref{eq:cr}). Onde $R_i$ é raios de base, ${R_a}_i$ é o raio de adendo de cada engrenagem $i=1,2$ e $p_b$ é o passo base do dente. 
 \begin{gather}
 	d = \sqrt{(x_2 - x_1 + d_0)^2 + (y_2 - y_1)^2}
 	\label{eq:distancia_centro}
@@ -63,13 +63,13 @@ Por ser uma formulação dinâmica do engrenamento as variáveis são dependente
 	\label{eq:cr}
 \end{gather}
 
-Para contabilizar o efeito do engrenamento e o acoplamento  entres os rotores e as engrenagens é necessário definir a deformação relacionada à Linha de Ação \textit{LOA}. Tal deformação é expressa pal variável $\delta$ e é dependente da posição de cada engrenagem  $x_i, y_i$, ângulo de pressão $\alpha$, raio da base $R_i$ e o deslocamento angular $\theta_i$ de cada engrenagem. Nesta definição também é incluído o valor do erro estático de deformação, um valor que não está associado à dinâmica do sistema e pode vim de fatores externos como a montagem do conjunto engrenado. A Equação~\ref{eq:delta} expressa a formulação de $\delta$.
+Para contabilizar o efeito do engrenamento e o acoplamento  entres os rotores e as engrenagens é necessário definir a deformação relacionada à Linha de Ação \textit{LOA}. Tal deformação é expressa pela variável $\delta$ e é dependente da posição de cada engrenagem  $x_i, y_i$, dos valores instantâneos do ângulo de pressão $\alpha$ e ângulo de posição $\beta$, raio da base $R_i$ e o deslocamento angular $\theta_i$ de cada engrenagem. Nesta definição também é incluído o valor do erro estático de deformação, um valor que não está associado à dinâmica do sistema e pode vim de fatores externos como a montagem do conjunto engrenado. A Equação~\ref{eq:delta} expressa a formulação de $\delta$.
 \begin{equation}
 	\delta(t) = (x_1 - x_2) \sin (\alpha - \beta) + (y_1 - y_2) \cos (\alpha - \beta) + R_1\theta_1 + R_2\theta_2 - e(t)
 	\label{eq:delta}
 \end{equation}
 
-A próxima etapa é a definição da força do engrenamento, para isso, é necessário definir a deformação efetiva da \textit{LOA} $f$ considerando o \textit{backlash} $b_t$ e sua velocidade associada $f_1$. A força do engrenamento  $F_m$ é, portanto, definida como o produto entre a rigidez do engrenamento $K_m$ pela deformação efetiva $f$ acrecida do valor de amortecimento, representado pelo produto do coeficiente de amortecimento $c_m$ pela velocidade associada à deformação efetiva $f_1$. Tais relações são apresentadas nas Equações~\ref{eq:Fm}, \ref{eq:cm}, \ref{eq:f_delta} e \ref{eq:f1_delta}.
+A próxima etapa é a definição da força do engrenamento, para isso, é necessário definir a deformação efetiva da \textit{LOA} $f$ e sua velocidade associada $f_1$, considerando o \textit{backlash} $b_t$. A força do engrenamento  $F_m$ é, portanto, definida como o produto entre a rigidez do engrenamento $K_m$ pela deformação efetiva $f$ acrecida do valor de amortecimento, representado pelo produto do coeficiente de amortecimento $c_m$ pela velocidade associada à deformação efetiva $f_1$. Tais relações são apresentadas nas Equações~\ref{eq:Fm}, \ref{eq:cm}, \ref{eq:f_delta} e \ref{eq:f1_delta}.
 Para o cálculo do $c_m$ é considerado o momento polar e de inércia $J_i$ e o raio de base $R_i$ de cada engrenagem assim como o valor do coeficiente de amortecimento  $\xi_m$, que de acordo com \citeonline{yi2019} varia entre 0.03 e 0.17.
 \begin{gather}
 	F_m = K_m f(\delta, b_t) + c_m f_1(\delta, b_t)
@@ -93,7 +93,7 @@ Para o cálculo do $c_m$ é considerado o momento polar e de inércia $J_i$ e o 
 	\label{eq:f1_delta}
 \end{gather}
 
-A folga de \textit{backlash} total é definida como a somatória entre a parcela inicial $b_0$ definida por projeto e a parcela dinâmica $\Delta b$ associada À dinâmica do sistema. A definição do \textit{backlash} é dada pelas Equações~\ref{eq:bt} e \ref{eq:delta_b}, onde $inv$ representa a função involuta do  ângulo de pressão instantâneo $\alpha$ e do inicial $\alpha_0$.
+A folga de \textit{backlash} total é definida como a somatória entre a parcela inicial $b_0$ definida por projeto e a parcela dinâmica $\Delta b$ associada à dinâmica do sistema. A definição do \textit{backlash} é dada pelas Equações~\ref{eq:bt} e \ref{eq:delta_b}, onde $inv$ representa a função involuta do  ângulo de pressão instantâneo $\alpha$ e do inicial $\alpha_0$.
 \begin{gather}
 	2b_t = 2b_0 + \Delta b % \cos \beta_h
 	\label{eq:bt}
@@ -102,7 +102,7 @@ A folga de \textit{backlash} total é definida como a somatória entre a parcela
 	\label{eq:delta_b}
 \end{gather}
 
-Para desenvolver as equações do movimento e solucionar a dinâmica do sistema, \citeonline{yi2019} formulou a energia cinética $T$ (Equação~\ref{eq:energia_cinetica}) e a energia potencial $U$ (Equação~\ref{eq:energia_potencial}) desse sistema em que $\boldsymbol{r}_i$ (Equação~\ref{eq:vetores_r1_r2}) é o vetor posição e $\omega_i$ é a velocidade angular de cada engrenagem.  Além disso é definida a função de dissipação $R$ (Equação~\ref{eq:dissipacao}). Vale ressaltar que as engrenagens estão associada à mancais com  coeficiente de rigidez $k_xi, k_yi$ e coeficientes de amortecimento ${c_x}_i$ e ${c_y}_i$.
+Para desenvolver as equações do movimento e solucionar a dinâmica do sistema, \citeonline{yi2019} formulou a energia cinética $T$ (Equação~\ref{eq:energia_cinetica}) e a energia potencial $U$ (Equação~\ref{eq:energia_potencial}) desse sistema em que $\boldsymbol{r}_i$ (Equação~\ref{eq:vetores_r1_r2}) é o vetor posição e $\omega_i$ é a velocidade angular de cada engrenagem.  Além disso, é definida a função de dissipação $R$ (Equação~\ref{eq:dissipacao}). Vale ressaltar que as engrenagens estão associada à mancais com  coeficiente de rigidez ${k_x}_i, {k_y}_i$ e coeficientes de amortecimento ${c_x}_i$ e ${c_y}_i$.
 \begin{gather}
 	\boldsymbol{r}_1 = x_1\boldsymbol{i} + y_1\boldsymbol{j}, \quad \boldsymbol{r}_2 = x_2\boldsymbol{i} + y_2\boldsymbol{j}
 	\label{eq:vetores_r1_r2}
@@ -117,9 +117,9 @@ Para desenvolver as equações do movimento e solucionar a dinâmica do sistema,
 	\label{eq:dissipacao}
 \end{gather}
 
-O vetor $Q$ (Equação~\ref{eq:vetor_forcas}) representa o vetor de forças generalizadas para esse sistema. Neste caso, como adaptação do modelo de \citeonline{yi2019}, são consideradas as forças de desbalanceamento (Equações~\ref{eq:desbal_eng1} e \ref{eq:desbal_eng2}) para cada engrenagem em vez da  excentricidade definida originalmente no modelo, uma vez que a representação física e matemática é a mesma. Além disso, é considerado o torque $T_i$ aplicado a cada engrenagem.
+O vetor $\{Q\}$ (Equação~\ref{eq:vetor_forcas}) representa o vetor de forças generalizadas para esse sistema. Neste caso, como adaptação do modelo de \citeonline{yi2019}, são consideradas as forças de desbalanceamento (Equações~\ref{eq:desbal_eng1} e \ref{eq:desbal_eng2}) para cada engrenagem em vez da  excentricidade definida originalmente no modelo, uma vez que a representação física e matemática é a mesma. Além disso, é considerado o torque $T_i$ aplicado a cada engrenagem.
 \begin{gather}
-	\boldsymbol{Q} = [F_{u1x} \ F_{u1y} \ T_1 \ F_{u2x} \ F_{u2y} \ -T_2]^{\mathrm{T}}
+	\{Q\} = [F_{u1x} \ F_{u1y} \ T_1 \ F_{u2x} \ F_{u2y} \ -T_2]^{\mathrm{T}}
 	\label{eq:vetor_forcas}
 \\
 	\begin{cases} 
