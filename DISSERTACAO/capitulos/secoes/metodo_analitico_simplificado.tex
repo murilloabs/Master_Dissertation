@@ -2,7 +2,7 @@
 \section{Método Analítico Simplificado}
 \label{section:modelo_analitico}
 
-Para compreender melhor a dinâmica de sistema engrenados considerando a folga de \textit{backlash}, foi desenvolvido um modelo analítico simplificado. Este modelo, assim como apresentado na Figura~\ref{fig:modelo_simplificado}, mostra as duas engrenagens $(i = 1,2)$ suportadas por seus respectivos mancais de rigidez $K$ nas direções $x$ e $y$ e conectadas por um mola de rigidez $K_m$ ao longo da Linha de Ação da engrenagem (\textit{Line of Action - LOA}). Cada engrenagem apresenta uma massa $m$, um raio de base $R_1 = R_2 = R$ e momento polar de inércia $J_1 = J_2 = J$.
+Para compreender melhor a dinâmica de sistema engrenados considerando a folga de \textit{backlash}, foi desenvolvido um modelo analítico simplificado. Este modelo, conforme apresentado na Figura~\ref{fig:modelo_simplificado}, mostra as duas engrenagens $(i = 1,2)$ suportadas por seus respectivos mancais de rigidez $K$ nas direções $x$ e $y$ e conectadas por um mola de rigidez $K_m$ ao longo da Linha de Ação da engrenagem (\textit{Line of Action - LOA}). Cada engrenagem apresenta uma massa $m$, um raio de base $R_1 = R_2 = R$ e momento polar de inércia $J_1 = J_2 = J$.
 \begin{figure}[H]
 	\centering
 	\caption{Modelo analítico simplificado}
@@ -17,9 +17,9 @@ Para compreender melhor a dinâmica de sistema engrenados considerando a folga d
 	\end{minipage}
 \end{figure}
 
-Nesta formulação é feita a alteração dos 6 graus de liberdade $x_1, y_1, \theta_1, x_2, y_2, \theta_2$ para 3 graus de liberdade $\xi_{rel}, \eta_{rel}, u_{rel}$. Onde $\xi_{rel}$ representa a translação relativa perpendicular à linha de ação \textit{LOA}, $\eta_{rel}$ representa a translação relativa perpendicular à \textit{LOA} e $u_{rel}$ representa o deslocamento linear relativo ao longo da \textit{LOA} associado à torção das engrenagens. 
+Nesta formulação é feita a alteração dos 6 graus de liberdade $x_1, y_1, \theta_1, x_2, y_2, \theta_2$ para 3 graus de liberdade $\xi_{rel}, \eta_{rel}, u_{rel}$, onde $\xi_{rel}$ representa a translação relativa perpendicular à linha de ação \textit{LOA}, $\eta_{rel}$ representa a translação relativa perpendicular à \textit{LOA} e $u_{rel}$ representa o deslocamento linear relativo ao longo da \textit{LOA} associado à torção das engrenagens. 
 
-Com isso em mente, define-se as coordenadas de $\xi_i, \eta_i, u_i$ para cada engrenagem $i = 1, 2$, assim como mostrado nas Equações~\ref{eq:coord_transform} sendo $\alpha$ o ângulo de pressão do conjunto engrenado.
+Com isso em mente, define-se as coordenadas de $\xi_i, \eta_i, u_i$ para cada engrenagem $i = 1, 2$, assim como mostrado nas Equações~\ref{eq:coord_transform}, sendo $\alpha$ o ângulo de pressão do conjunto engrenado.
 \begin{equation}
 	\xi_i = x_i \cos\alpha - y_i \sin\alpha, \quad \eta_i = x_i \sin\alpha + y_i \cos\alpha, \quad u_i = R_i \theta_i \quad (i = 1, 2)
 	\label{eq:coord_transform}
@@ -35,7 +35,7 @@ A definição das coordenadas relativas é apresentada na Equação~\ref{eq:coor
 	\label{eq:coord_relativas}
 \end{equation}
 
-Para se obter as equações do movimento para as coordenadas relativas primeiro escreve-se as equações do movimento para as coordenadas $\xi_i, \eta_i, u_i$ $(i = 1, 2)$ conforme apresentado pela Equação~\ref{eq:sistema_movimento_fundamental}. Para as coordenadas $\xi_i$ não há força de engrenamento perpendicular à \textit{LOA}. Já para as coordenadas de $\eta_i$ existe a ação e reação da força de engrenamento paralela à \textit{LOA}. Se tratando das coordenadas $u_i$ a força de engrenamento é traduzida em torque e por isso é multiplicada pelo valor do raio de base.  
+Para se obter as equações do movimento para as coordenadas relativas, primeiro escreve-se as equações do movimento para as coordenadas $\xi_i, \eta_i, u_i$ $(i = 1, 2)$ conforme apresentado pela Equação~\ref{eq:sistema_movimento_fundamental}. Para as coordenadas $\xi_i$ não há força de engrenamento perpendicular à \textit{LOA}. Já para as coordenadas $\eta_i$ existe a ação e reação da força de engrenamento paralela à \textit{LOA}. Tratando-se das coordenadas $u_i$, a força de engrenamento é traduzida em torque e por isso é multiplicada pelo valor do raio de base.  
 \begin{equation}
 	\begin{aligned}
 		m\ddot{\eta}_1 + K\eta_1 + F_M &= 0 \\
@@ -48,7 +48,7 @@ Para se obter as equações do movimento para as coordenadas relativas primeiro 
 	\label{eq:sistema_movimento_fundamental}
 \end{equation}
 
-Considerando a mudança de coordenada de $\theta_i$ para $u_i$ e adotando a massa equivalente à torção $M_{eq_i}$ (Equações~\ref{eq:transformacao_u} e \ref{eq:inercia_eq_resumo}). E aplicando-se a relação de coordenadas relativas (Equação~\ref{eq:coord_relativas}) às Equações de movimento da Equação~\ref{eq:sistema_movimento_fundamental} são obtidas as relações presentes na Equação~\ref{eq:sistema_movimento_relativo_Fm}.
+Considerando a mudança de coordenadas de $\theta_i$ para $u_i$ e adotando a massa equivalente à torção $M_{eq_i}$ (Equações~\ref{eq:transformacao_u} e \ref{eq:inercia_eq_resumo}), e aplicando-se a relação de coordenadas relativas (Equação~\ref{eq:coord_relativas}) às Equações de movimento da Equação~\ref{eq:sistema_movimento_fundamental}, são obtidas as relações dadas pela Equação~\ref{eq:sistema_movimento_relativo_Fm}.
 \begin{gather}
 	u_i = R_i\theta_i \implies \ddot{\theta}_i = \frac{\ddot{u}_i}{R_i}
 	\label{eq:transformacao_u}
@@ -64,7 +64,7 @@ Considerando a mudança de coordenada de $\theta_i$ para $u_i$ e adotando a mass
 	\label{eq:sistema_movimento_relativo_Fm}
 \end{gather}
 
-Considerando a definição da força $F_m$ de acordo com a Equação~\ref{eq:forca_engrenamento_simples} e realizando as operações algébricas necessárias obtêm-se as equações de movimento para as coordenadas generalizadas $\xi_{rel}, \eta_{rel}, u_{rel}$ (Equações~\ref{eq:sistema_movimento_relativo}).
+Considerando a definição da força $F_m$ de acordo com a Equação~\ref{eq:forca_engrenamento_simples} e realizando as operações algébricas necessárias, obtêm-se as equações de movimento para as coordenadas generalizadas $\xi_{rel}, \eta_{rel}, u_{rel}$ (Equações~\ref{eq:sistema_movimento_relativo}).
 \begin{gather}
 	F_m = K_m \delta, \quad \delta = \eta_{rel} + u_{rel}
 	\label{eq:forca_engrenamento_simples}
@@ -77,7 +77,7 @@ Considerando a definição da força $F_m$ de acordo com a Equação~\ref{eq:for
 	\label{eq:sistema_movimento_relativo}
 \end{gather}
 
-Dessa maneira, é possível escrever as equações de forma matricial assim como mostrado pela Equação~\ref{eq:matriz_sistema_detalhado}.
+Dessa maneira, é possível escrever as equações na forma matricial, como mostrado pela Equação~\ref{eq:matriz_sistema_detalhado}.
 \begin{equation}
 	\begin{bmatrix} 
 		m & 0 & 0 \\ 

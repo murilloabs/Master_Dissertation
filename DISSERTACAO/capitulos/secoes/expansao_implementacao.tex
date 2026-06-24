@@ -4,13 +4,13 @@
 \subsection{Expansão para 6 Graus de Liberdade}
 \label{subsec:6dof}
 
-Para poder implementar o modelo da folga de \textit{backlash} dinâmico proposto por~\citeonline{yi2019} e poder utilizá-lo com o \textit{ROSS} foi necessário a expansão do modelo de 3 \textit{gdl} por nó, como mostrado na Equação~\ref{eq:vetor_q} para o sistema de 6 \textit{gld} por nó como apresentado na Equação~\ref{Eq:dof}. Dessa maneira foi adicionado a translação axial $z_i$ e as rotações em torno dos eixos $X$ e $Y$, ${\theta_x}_i$ e ${\theta_y}_i$ respectivamente. Portanto, a formulação agora utiliza os graus de liberdade  por nó dispostos conforme a Equação~\ref{eq:6dof}, sendo $i$ o nó em questão. Neste caso, $i=1$ representa a engrenagem pinhão e $i=2$ representa a  engrenagem coroa.
+Para poder implementar o modelo da folga de \textit{backlash} dinâmico proposto por~\citeonline{yi2019} e poder utilizá-lo com o \textit{ROSS} foi necessário a expansão do modelo de 3 \textit{gdl} por nó, como mostrado na Equação~\ref{eq:vetor_q} para o sistema de 6 \textit{gld} por nó como apresentado na Equação~\ref{Eq:dof}. Dessa maneira foi adicionada a translação axial $z_i$ e as rotações em torno dos eixos $X$ e $Y$, ${\theta_x}_i$ e ${\theta_y}_i$, respectivamente. Portanto, a formulação agora utiliza os graus de liberdade  por nó dispostos conforme a Equação~\ref{eq:6dof}, sendo $i$ o nó considerado. Neste caso, $i=1$ representa a engrenagem pinhão e $i=2$ representa a  engrenagem coroa.
 \begin{equation}
 	\{q(t)\} = \{x_i,y_i,z_i, {\theta_x}_i, {\theta_y}_i, {\theta_z}_i\}^{T}
 	\label{eq:6dof}
 \end{equation}
 
-Tal expansão não é exigida para o funcionamento do modelo, uma vez que poderia se atribuir valores nulos aos \textit{gdl} não presentes no modelo. Entretanto, a expansão foi  utilizada pois desta maneira é possível atribuir a este modelo a influência do ângulo de hélice do engrenamento.~\citeonline{kubur2004} apresenta uma formulação para  o DTE que contempla o ângulo de hélice das engrenagens e os \textit{gdl} não considerado anteriormente. A Figura~\ref{fig:modelo_6gdl} apresenta um esquemático utilizado para a formulação e a Equação~\ref{eq:delta_3d} apresenta a formulação matemática utilizada em questão.
+Tal expansão não é exigida para o funcionamento do modelo, uma vez que seria possível atribuir valores nulos aos \textit{gdl} não presentes no modelo. Entretanto, a expansão foi  utilizada pois desta maneira pode-se atribuir a este modelo a influência do ângulo de hélice do engrenamento.~\citeonline{kubur2004} apresentam uma formulação para  o DTE que contempla o ângulo de hélice das engrenagens e os \textit{gdl} não considerados anteriormente. A Figura~\ref{fig:modelo_6gdl} apresenta o esquema utilizado e a Equação~\ref{eq:delta_3d} apresenta a formulação matemática correspondente.
 \begin{figure}[H]
 	\centering
 	\caption{Modelo de 6 \textit{gdl}}
@@ -38,7 +38,7 @@ Dessa forma, como agora o ângulo de hélice  está  incluído na modelagem do D
 	\label{eq:bt_helicoidal}
 \end{equation}
 
-Além disso, como foi feita a adição de \textit{gdl} e a inclusão do ângulo de hélice, é necessária a correção das equações do movimento (Equação~\ref{eq:sistema_movimento_expandido}) uma vez que agora as derivadas  $\partial_{q_i}$ contemplam mais graus de liberdade e as funções $\delta$ e $b_t$ apresentam mais mais variáveis. As Equações~\ref{eq:dbt_helicoidal} até \ref{eq:ddelta_thetaz} apresenta a formulação dessas derivadas.
+Além disso, como foi feita a adição de \textit{gdl} e a inclusão do ângulo de hélice, é necessária a correção das equações do movimento (Equação~\ref{eq:sistema_movimento_expandido}) uma vez que agora as derivadas  $\partial_{q_i}$ contemplam mais graus de liberdade e as funções $\delta$ e $b_t$ apresentam mais variáveis. As Equações~\ref{eq:dbt_helicoidal} até \ref{eq:ddelta_thetaz} apresentam a formulação dessas derivadas.
 \begin{equation}
 	\begin{aligned}
 		\partial_{x_i}b_t &= (R_1 + R_2) \tan^2\alpha \cdot \partial_{x_i}\alpha \cdot \cos\beta_h \\
@@ -78,9 +78,9 @@ As derivadas parciais do DTE (com $\psi = \alpha - \beta $), são apresentadas a
 
 \subsection{Suavização da Função de \textit{Backlash}}
 
-Como a função da deformação efetiva na \textit{LOA} é dada por uma relação condicional, conforme apresentado na Equação~\ref{eq:f_delta} e Figura~\ref{fig:backlash_graph_kaplan}, os integradores numéricos podem apresentar dificuldade de convergência devido a não ser uma função bem comportada, ou seja, apresenta mudanças abruptas que dificultam a derivação.  Com isso em mente,~\citeonline{walha2006} apresentam uma metodologia que utiliza funções trigonométricas para suavizar a não linearidade da Equação~\ref{eq:f_delta}.~\citeonline{walha2006} utilizam funções de tangente hiperbólica em associação com a variável $\sigma$ que controla o quão suave e próxima à função original será a nova função. A Figura~\ref{fig:suavizacao} apresenta a suavização utilizada por~\citeonline{walha2006} em seu estudo, onde ${\tilde{h}}_i$ representa $f$.
+Como a função da deformação efetiva na \textit{LOA} é dada por uma relação condicional, conforme apresentado na Equação~\ref{eq:f_delta} e Figura~\ref{fig:backlash_graph_kaplan}, os integradores numéricos podem apresentar dificuldade de convergência por não ser uma função bem comportada, ou seja, apresenta mudanças abruptas que dificultam a derivação.  Com isso em mente,~\citeonline{walha2006} apresentam uma metodologia que utiliza funções trigonométricas para suavizar a não linearidade da Equação~\ref{eq:f_delta}.~\citeonline{walha2006} utilizam funções de tangente hiperbólica em associação com a variável $\sigma$ que controla o quão suave e próxima à função original será a nova função. A Figura~\ref{fig:suavizacao} apresenta a suavização utilizada por~\citeonline{walha2006} em seu estudo, onde ${\tilde{h}}_i$ representa $f$.
 
-No código implementado há a opção de selecionar se será utilizado ou não o método de suavização. Por padrão, ao se utilizar esta metodologia à variável $\sigma$ é atribuída o valor de $10^4$.
+No código implementado há a opção de selecionar se será utilizado ou não o citado método de suavização. Por padrão, ao se utilizar esta metodologia à variável $\sigma$ se atribui o valor de $10^4$.
 \begin{figure}[H]
 	\centering
 	\caption{Exemplo de suavização e relação com $\sigma$}
@@ -95,7 +95,7 @@ No código implementado há a opção de selecionar se será utilizado ou não o
 	\end{minipage}
 \end{figure}
 
-Com respeito à formulação de suavização, as Equações~\ref{eq:smooth_g} apresentam as funções de tangente hiperbólica utilizadas. Com isso, temos uma nova formulação para $f$ disposto na Equação~\ref{eq:smooth_f}. 
+Com respeito à formulação de suavização, as Equações~\ref{eq:smooth_g} apresentam as funções de tangente hiperbólica utilizadas. Com isso, temos uma nova formulação para $f$ disposta na Equação~\ref{eq:smooth_f}. 
 \begin{gather}
 	g_1 = (\delta - b_t) \tanh(\sigma(\delta - b_t)), \quad g_2 = (\delta + b_t) \tanh(\sigma(\delta + b_t))
 	\label{eq:smooth_g}
@@ -104,7 +104,7 @@ Com respeito à formulação de suavização, as Equações~\ref{eq:smooth_g} ap
 	\label{eq:smooth_f}
 \end{gather}
 
-Dessa forma, com essa nova definição da função  $f$ é necessário derivá-la em relação ao tempo para obter  a função $f_1$ que representa a velocidade da deformação da linha de ação. A Equação~\ref{eq:smooth_f1} apresenta a formulação de $f_1$, a Equação~\ref{eq:chain_rule_f} apresenta a formulação da regra da cadeia para as derivadas $\partial_{q_i}$ e a Equação~\ref{eq:smooth_df} apresenta a expressão destas derivadas.
+Dessa forma, com essa nova definição da função $f$, é necessário derivá-la em relação ao tempo para obter  a função $f_1$ que representa a velocidade da deformação da linha de ação. A Equação~\ref{eq:smooth_f1} apresenta a formulação de $f_1$, a Equação~\ref{eq:chain_rule_f} apresenta a formulação da regra da cadeia para as derivadas $\partial_{q_i}$, e a Equação~\ref{eq:smooth_df} apresenta a expressão destas derivadas.
 
 
 \begin{gather}
