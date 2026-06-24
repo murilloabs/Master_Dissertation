@@ -36,7 +36,7 @@ Em seguida, avalia-se o resíduo dinâmico $\{R\}$ do sistema. Para satisfazer o
 
 Sendo $[M]$, $[C]$ e $[K]$ as matrizes de massa, amortecimento e rigidez; $\{F_{ext}\}$ as forças externas e $\{F_{nl}\}$ as forças não lineares. 
 
-Para anular o resíduo iterativamente, aplica-se o método de Newton-Raphson. A correção dos estados exige a inversão da matriz Jacobiana $[J]$ que, devido à complexidade analítica, é construída numericamente:
+Para anular o resíduo iterativamente, aplica-se o método de Newton-Raphson. A correção dos estados exige a inversão da matriz Jacobiana $[J]$ que, devido à complexidade analítica, é construída numericamente \cite{jacobiano}:
 \begin{equation}
 	[J] = [M] + \gamma \Delta t [C] + \beta \Delta t^2 [K] - \frac{\partial \{F_{nl}\}}{\partial \{\ddot{q}\}}
 \end{equation}

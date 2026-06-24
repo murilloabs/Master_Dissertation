@@ -38,22 +38,23 @@ A Figura~\ref{fig:campbell} apresenta o conhecido Diagrama de Campbell, onde é 
 
 A modelagem matemática é essencial para desenvolver análises capazes de prever o comportamento dinâmico dos sistemas rotativos. Assim, um modelo de elementos finitos para rotores foi desenvolvido por~\citeonline{cavalini2013} com base na modelagem apresentada por~\citeonline{Lalanne1998}, sendo usado como referência para diversos trabalhos. Tal modelo contempla quatro graus de liberdade (\textit{gdl}) por nó, sendo que a expansão para seis \textit{gdl} pro nó foi apresentada por~\citeonline{Friswell2010} e adaptado por~\citeonline{sicchieri2024} para o sistema representado pela Equação~\ref{Eq:dof}.
 
-O primeiro passo para a modelagem é definir a formulação da energia cinética e potencial para os elementos de eixo, discos, engrenagens, mancais e selos para posteriormente aplicar a metodologia de Lagrange e, enfim, obter as equações do movimentos. A Equação~\ref{eq:lagrange_rot} apresenta o formalismo da equação de Lagrange para um vetor $q$ com $N$ graus de liberdade (Equação~\ref{Eq:dof}). 
+O primeiro passo para a modelagem é definir a formulação da energia cinética e potencial para os elementos de eixo, discos, engrenagens, mancais e selos para, posteriormente, aplicar a metodologia de Lagrange e, enfim, obter as equações do movimento. A Equação~\ref{eq:lagrange_rot} apresenta o formalismo de Lagrange para sistema dinâmico com $N$ graus de liberdade. 
 \begin{equation}
-	\frac{\mathrm{d} }{\mathrm{d} t}\left ( \frac{\partial T}{\partial \dot{q_i}} \right )-\frac{\partial T}{\partial q_i} + \frac{\partial U}{\partial q_i}=F_{qi}
+	\frac{\mathrm{d} }{\mathrm{d} t}\left ( \frac{\partial T}{\partial \dot{q_i}} \right )-\frac{\partial T}{\partial q_i} + \frac{\partial U}{\partial q_i}=Q_{i}
 	\label{eq:lagrange_rot}
 	\quad (i = 1, 2, ... N)
 \end{equation}
+onde $Q_{i}$ é o vetor de esforços generalizados que, neste caso, contempla também efeitos do amortecimento pela aplicação do trabalho virtual.
 
-Para este modelo, algumas considerações feitas são:
+Para este modelo, algumas considerações são necessárias:
 \begin{itemize}
-	\item O eixo é representado como um elemento de viga com seção circular constante, de acordo com a Teoria de~\citeonline{timoshenko1922}. É caracterizado por energia cinética e potencial, onde cada elemento possui dois nós e seis graus de liberdade por nó;
+	\item O eixo é representado como um elemento de viga com seção circular constante, de acordo com a Teoria de~\citeonline{timoshenko1922}. É caracterizado pelas energias cinética ($T$) e potencial ($U$), onde cada elemento possui dois nós e seis graus de liberdade por nó;
 	\item O disco é um elemento rígido, logo possui apenas energia cinética;
 	\item Engrenagens podem ser representadas como elementos de disco e estes são adicionados em nós;
 	\item Os mancais e selos podem ser representados por um conjunto de molas e amortecedores lineares.
 \end{itemize}
 
-Assim, realizando o procedimento matemático necessário, obtêm-se a equação diferencial que representa o comportamento dinâmico de um rotor dada pela Equação~\ref{Eq:movement}. Em que a velocidade de rotação é representada por $\Omega$.
+Assim, realizando o procedimento matemático necessário, obtêm-se a equação diferencial que representa o comportamento dinâmico de um rotor dada pela Equação~\ref{Eq:movement}, onde a velocidade de rotação é representada por $\Omega$.
 %\begin{equation}
 %	[M]\{\ddot{q}(t)\}+([C]+\Omega [G])\{\dot{q}(t)\}+[K]\{q(t)\}=\{F(t)\}
 %	\label{Eq:movement}
@@ -67,15 +68,14 @@ Assim, realizando o procedimento matemático necessário, obtêm-se a equação 
 	[M]\{\ddot{q}(t)\}+([C]+\Omega [G])\{\dot{q}(t)\}+[K]\{q(t)\}=\{F(t)\} \label{Eq:movement} \\
 	\{q\} = \{q_0, q_1, q_2, ..., q_N\}^{T} \quad (i = 1, 2, ... N) \label{Eq:dof}
 \end{gather}
-onde $[M]$, $[C]$, $[G]$ e $[K]$ são as matrizes de massa, amortecimento, efeito giroscópico e rigidez, respectivamente, e $\{\ddot{q}(t)\}$, $\{\dot{q}(t)\}$, $\{q(t)\}$, e $\{F(t)\}$ são os vetores de aceleração, velocidade, deslocamento e força de entrada de todo o sistema, respectivamente, de acordo com os \textit{gdl} por nó dados pela Equação~\ref{Eq:dof}.
+onde $[M]$, $[C]$, $[G]$ e $[K]$ são as matrizes de massa, amortecimento, efeito giroscópico e rigidez, respectivamente, e $\{\ddot{q}(t)\}$, $\{\dot{q}(t)\}$, $\{q(t)\}$, e $\{F(t)\}$ são os vetores de aceleração, velocidade, deslocamento e força de excitação, respectivamente, de acordo com os \textit{gdl} por nó definidos pela Equação~\ref{Eq:dof}.
 \begin{equation}
 	\{q_i\} = \{x_i,y_i,z_i, {\theta_x}_i, {\theta_y}_i, {\theta_z}_i\}^{T}
 	\label{Eq:dof}
 \end{equation}
+sendo que $x_i$, $y_i$ e $z_i$ correspondem às translações horizontal, vertical e axial, respectivamente. As variáveis ${\theta_x}_i$, ${\theta_y}_i$ e ${\theta_z}_i$ representam a rotação no plano $yz$, a rotação no plano $xz$, e a torção, respectivamente.
 
-Onde $x_i$, $y_i$ e $z_i$ correspondem às translações horizontal, vertical e axial, respectivamente. As variáveis ${\theta_x}_i$, ${\theta_y}_i$ e ${\theta_z}_i$ representam a flexão no plano $yz$, a flexão no plano $xz$ e a torção, respectivamente.
-
-A Figura~\ref{subfigure:modelo} apresenta uma representação de um rotor com mancais $B1$ e $B2$, disco $D1$ e velocidade $\Omega$. A sua modelagem matemática é feita com coeficientes de amortecimento ${C_b}_1$, ${C_b}_2$ e de rigidez ${K_b}_1$ e ${K_b}_2$.
+A Figura~\ref{subfigure:modelo} mostra a representação de um rotor com mancais $B1$ e $B2$, disco $D1$ e velocidade $\Omega$. A sua modelagem matemática é feita considerando os coeficientes de amortecimento ${C_b}_1$, ${C_b}_2$ e de rigidez ${K_b}_1$ e ${K_b}_2$.
 \begin{figure}[H]
 	\centering
 	\caption{Representação do modelo de rotor}
@@ -86,14 +86,14 @@ A Figura~\ref{subfigure:modelo} apresenta uma representação de um rotor com ma
 		
 		\begin{subfigure}{0.45\textwidth}
 			\centering
-			\caption{Esquema de rotor}
+			\caption{Esquema do rotor}
 			\label{fig:rotor1}
 			\includegraphics[width=\linewidth]{figuras/rotor1.png}
 		\end{subfigure}
 		\hspace{10pt}
 		\begin{subfigure}{0.45\textwidth}
 			\centering
-			\caption{Representação do modelo}
+			\caption{Modelo físico}
 			\label{fig:rotors}
 			\includegraphics[width=\linewidth]{figuras/rotor2.png}
 		\end{subfigure}
@@ -104,11 +104,11 @@ A Figura~\ref{subfigure:modelo} apresenta uma representação de um rotor com ma
 	\end{minipage}
 \end{figure}
 
-Com a Equação do Movimento (Equação~\ref{Eq:movement}) do sistema é possível determinar a resposta deste à forças aplicadas no vetor ${F(t)}$, determinar as frequências naturais, funções de resposta em frequência, resposta de desbalanceamento e diversas outras análises de dinâmica de rotação. 
+Com a Equação do Movimento (Equação~\ref{Eq:movement}) do sistema é possível determinar a resposta à excitação ${F(t)}$, determinar as frequências naturais, funções de resposta em frequência, resposta de desbalanceamento e diversas outras análises de dinâmica comuns à rotação. 
 
 \subsection{Desbalanceamento de Rotores}
 
-O desbalanceamento de rotores é uma condição na qual uma concentração de massa $m_u$, deslocada $e$ do centro do eixo de rotação, provoca uma força capaz que aumentar a amplitude de vibração e as órbitas de um rotor~\cite{leocabral2023,daniel2024,stanley2025,raimundo2025}. A Figura~\ref{fig:desbalanceamento} apresenta um esquemático do posicionamento da massa excêntrica posicionada em um disco solidário ao eixo.
+O desbalanceamento de rotores é uma condição na qual uma concentração de massa $m_u$, deslocada de uma distância $e$ do centro do eixo de rotação, provoca uma força capaz que aumentar a amplitude de vibração também observado pelas órbitas do rotor~\cite{leocabral2023,daniel2024,stanley2025,raimundo2025}. A Figura~\ref{fig:desbalanceamento} apresenta um esquema do posicionamento da massa excêntrica existente em um disco solidário ao eixo.
 \begin{figure}[H]
 	\centering
 	\caption{Representação esquemática do desbalanceamento}
@@ -124,13 +124,13 @@ O desbalanceamento de rotores é uma condição na qual uma concentração de ma
 \end{figure}
 
 
-O efeito do desbalanceamento pode ser  expresso  por uma amplitude $e m_u$ e fase $\varphi_u$, que juntas, geram a força de desbalanceamento, proporcional ao quadrado da velocidade de rotação $\Omega$ , assim como mostrado pela Equação~\ref{eq:desb}. 
+O efeito da massa excêntrica em rotação pode ser expresso pelo desbalanceamento, definido como uma magnitude $m_u e$ e fase $\varphi_u$, que geram a força de desbalanceamento que é proporcional ao quadrado da velocidade de rotação $\Omega$, conforme mostrado pela Equação~\ref{eq:desb}. 
 \begin{equation}
 	F_u = m_u e \Omega^2
 	\label{eq:desb}
 \end{equation}
 
-Como essa força rotaciona junto ao eixo, ela induz forças dinâmicas senoidais e cossenoidais nas direções ortogonais $X$ e $Y$, descritas respectivamente por:
+Como tal força rotaciona junto ao eixo, ela produz componentes nas direções ortogonais $X$ e $Y$, descritas respectivamente por:
 \begin{gather}
 	F_x(t) = m_u e \Omega^2 \cos(\Omega t + \varphi_u)
 	\label{eq:desbx}
@@ -139,7 +139,7 @@ Como essa força rotaciona junto ao eixo, ela induz forças dinâmicas senoidais
 	\label{eq:desby}
 \end{gather}
 
-Dessa forma, a aplicação da força do desbalanceamento é feita de maneira nodal nos graus de liberdade referentes~\cite{stanley2025}. A influência do desbalanceamento é observável na frequência de $1X$ da velocidade de rotação $\Omega$~\cite{raimundo2025}. A Figura~\ref{fig:sensor_desb} apresenta um exemplo do posicionamento de sensores utilizados ($S_1$ e $S_2$) por~\citeonline{stanley2025} e obtenção das respostas temporais nas duas direções de observação. Com as duas respostas temporais é possível determinar a órbita referente a cada nó, assim como apresentado na Figura~\ref{fig:3dorbit}. 
+Dessa forma, a aplicação da força do desbalanceamento é feita nos graus de liberdade considerados~\cite{stanley2025}. A influência do desbalanceamento é observável na frequência de $1X$ da velocidade de rotação $\Omega$~\cite{raimundo2025}. A Figura~\ref{fig:sensor_desb} apresenta um exemplo do posicionamento de sensores utilizados ($S_1$ e $S_2$) por~\citeonline{stanley2025} e a obtenção das respostas temporais nas duas direções de observação. Com as duas respostas temporais é possível determinar a órbita referente a cada nó, assim como apresentado na Figura~\ref{fig:3dorbit}. 
 \begin{figure}[H]
 	\centering
 	\caption{Posicionamento de sensores e determinação da resposta temporal}
@@ -155,7 +155,7 @@ Dessa forma, a aplicação da força do desbalanceamento é feita de maneira nod
 \end{figure}
 \begin{figure}[H]
 	\centering
-	\caption{Representação esquemática do desbalanceamento.}
+	\caption{Órbita do rotor devi ao desbalanceamento.}
 	\label{fig:3dorbit}
 	
 	\begin{minipage}{0.5\textwidth}
