@@ -210,7 +210,7 @@ Pela Figura~\ref{fig:rig_engr1} pode-se observar como o valor da razão de conta
 No \textit{ROSS} a implementação dessa função contempla uma correção para que ela não apresente as frequências maiores vindas da Série de Fourier e tenha, somente, o perfil retangular.
 \begin{figure}[H]
 	\centering
-	\caption{Perfil de rigidez do engrenamento correlacionado com razão de contato}
+	\caption{Perfil retangular de rigidez do engrenamento}
 	\label{fig:rig_engr_kapl}
 	\begin{minipage}{0.7\textwidth}
 		\centering
@@ -222,7 +222,7 @@ No \textit{ROSS} a implementação dessa função contempla uma correção para 
 \end{figure}
 \begin{figure}[H]
 	\centering
-	\caption{Perfil de rigidez do engrenamento correlacionado com razão de contato}
+	\caption{Influência da razão de contato no perfil de rigidez}
 	\label{fig:rig_engr1}
 	\begin{minipage}{0.7\textwidth}
 		\centering
@@ -274,7 +274,7 @@ Para fazer a determinação do perfil apresentado na Figura~\ref{fig:rig_engr_la
 
 Portanto, a rigidez do engrenamento é determinada pela Equação~\ref{eq:rigidez_malha}, considerando as duas engrenagens.
 \begin{equation} \label{eq:rigidez_malha}
-	K_m = \frac{1}{\frac{1}{k_h} + \frac{1}{k_{b1}} + \frac{1}{k_{s1}} + \frac{1}{k_{a1}} + \frac{1}{k_{f1}} + \frac{1}{k_{b2}} + \frac{1}{k_{s2}} + \frac{1}{k_{a2}} + \frac{1}{k_{f2}}}.
+	K_m = \frac{1}{\frac{1}{k_h} + \frac{1}{k_{b1}} + \frac{1}{k_{s1}} + \frac{1}{k_{a1}} + \frac{1}{k_{f1}} + \frac{1}{k_{b2}} + \frac{1}{k_{s2}} + \frac{1}{k_{a2}} + \frac{1}{k_{f2}}}
 \end{equation}
 
 A Equação~\ref{eq:kh} apresenta a formulação para Rigidez do Contato de Hertz, onde $E$ é o Módulo de de Elasticidade, $w$ é a espessura do dente e $\nu$ é o Coeficiente de Poisson.
@@ -284,30 +284,30 @@ A Equação~\ref{eq:kh} apresenta a formulação para Rigidez do Contato de Hert
 
 A Equação~\ref{eq:kf} apresenta o cálculo da rigidez associada à rigidez do pé do dente na conexão com o corpo da engrenagem. As variáveis $u_f$, $S_f$, $L^*$, $M^*$, $P^*$ e $Q^*$ são apresentados por~\citeonline{sainsot2004}.
 \begin{equation} \label{eq:kf}
-	\frac{1}{k_f} = \frac{\cos^2 \beta}{Ew} \left\{ L^* \left(\frac{u_f}{S_f}\right)^2 + M^* \left(\frac{u_f}{S_f}\right) + P^*(1 + Q^* \tan^2 \beta) \right\},
+	\frac{1}{k_f} = \frac{\cos^2 \beta}{Ew} \left\{ L^* \left(\frac{u_f}{S_f}\right)^2 + M^* \left(\frac{u_f}{S_f}\right) + P^*(1 + Q^* \tan^2 \beta) \right\}
 \end{equation}
 
 A partir da teoria de vigas é possível determinar a rigidez associada à flexão, cisalhamento e compressão axial. As Equações~\ref{eq:Ua},~\ref{eq:Ub} e~\ref{eq:Us} apresentam a formulação da energia potencial.
 \begin{equation} \label{eq:Ua}
-	U_a = \frac{F^2}{2k_a} = \int_{y_D}^{y_C} \frac{F_a^2}{2EA_{y1}} dy_1 + \int_{y_C}^{y_\beta} \frac{F_a^2}{2EA_{y2}} dy_2,
+	U_a = \frac{F^2}{2k_a} = \int_{y_D}^{y_C} \frac{F_a^2}{2EA_{y1}} dy_1 + \int_{y_C}^{y_\beta} \frac{F_a^2}{2EA_{y2}} dy_2
 \end{equation}
 \begin{equation} \label{eq:Ub}
-	U_b = \frac{F^2}{2k_b} = \int_{y_D}^{y_C} \frac{M_1^2}{2EI_{y1}} dy_1 + \int_{y_C}^{y_\beta} \frac{M_2^2}{2EI_{y2}} dy_2,
+	U_b = \frac{F^2}{2k_b} = \int_{y_D}^{y_C} \frac{M_1^2}{2EI_{y1}} dy_1 + \int_{y_C}^{y_\beta} \frac{M_2^2}{2EI_{y2}} dy_2
 \end{equation}
 \begin{equation} \label{eq:Us}
-	U_s = \frac{F^2}{2k_s} = \int_{y_D}^{y_C} \frac{1.2F_b^2}{2GA_{y1}} dy_1 + \int_{y_C}^{y_\beta} \frac{1.2F_b^2}{2GA_{y2}} dy_2,
+	U_s = \frac{F^2}{2k_s} = \int_{y_D}^{y_C} \frac{1.2F_b^2}{2GA_{y1}} dy_1 + \int_{y_C}^{y_\beta} \frac{1.2F_b^2}{2GA_{y2}} dy_2
 \end{equation}
 sendo que $F_b = F \cos \beta$, $F_a = F \sin \beta$, $x_\beta$ é a distância entre o ponto de contato e a linha central do dente, $y_\beta$ é a distância entre o ponto de contato e o ponto de origem na direção horizontal, $G = \frac{E}{2(1+\nu)}$ é o módulo de cisalhamento, $y_1, y_2$ representam as coordenadas horizontais de um ponto arbitrário na curva de transição e na curva da involuta, $y_C, y_D$ denotam o ponto inicial e o ponto final da curva de transição, $I_{y1}, A_{y1}, I_{y2}, A_{y2}$ representam o momento de inércia de área e a área da seção transversal, respectivamente; os torques $M_1 = F_b(y_\beta - y_1) - F_a x_\beta$ e $M_2 = F_b(y_\beta - y_2) - F_a x_\beta$ denotam o efeito de flexão de $F_b$ e $F_a$ na parte das curvas de transição e evolvente.
 
 Neste cálculo é adotado o deslocamento angular. De acordo com as características da curva da involuta e da curva de transição, $x_\beta, y_\beta, x_1, y_1, x_2, y_2, I_{y1}, I_{y2}, A_{y1}$ e $A_{y2}$ podem ser expressos como funções dos ângulos $\gamma$, $\beta$ ou $\tau$ como apresentado por~\citeonline{ma2014}, e então as rigidezes à compressão axial, à flexão e ao cisalhamento podem ser escritas conforme as Equações~\ref{eq:inv_ka}, \ref{eq:inv_kb} e \ref{eq:inv_ks}.
 \begin{equation} \label{eq:inv_ka}
-	\frac{1}{k_a} = \int_{\frac{\pi}{2}}^{\alpha} \frac{\sin^2 \beta}{EA_{y1}} \frac{dy_1}{d\gamma} d\gamma + \int_{\tau_c}^{\beta} \frac{\sin^2 \beta}{EA_{y2}} \frac{dy_2}{d\tau} d\tau,
+	\frac{1}{k_a} = \int_{\frac{\pi}{2}}^{\alpha} \frac{\sin^2 \beta}{EA_{y1}} \frac{dy_1}{d\gamma} d\gamma + \int_{\tau_c}^{\beta} \frac{\sin^2 \beta}{EA_{y2}} \frac{dy_2}{d\tau} d\tau
 \end{equation}
 \begin{equation} \label{eq:inv_kb}
-	\frac{1}{k_b} = \int_{\frac{\pi}{2}}^{\alpha} \frac{[\cos \beta(y_\beta - y_1) - x_\beta \sin \beta]^2}{EI_{y1}} \frac{dy_1}{d\gamma} d\gamma + \int_{\tau_c}^{\beta} \frac{(\cos \beta(y_\beta - y_2) - x_\beta \sin \beta)^2}{EI_{y2}} \frac{dy_2}{d\tau} d\tau,
+	\frac{1}{k_b} = \int_{\frac{\pi}{2}}^{\alpha} \frac{[\cos \beta(y_\beta - y_1) - x_\beta \sin \beta]^2}{EI_{y1}} \frac{dy_1}{d\gamma} d\gamma + \int_{\tau_c}^{\beta} \frac{(\cos \beta(y_\beta - y_2) - x_\beta \sin \beta)^2}{EI_{y2}} \frac{dy_2}{d\tau} d\tau
 \end{equation}
 \begin{equation} \label{eq:inv_ks}
-	\frac{1}{k_s} = \int_{\frac{\pi}{2}}^{\alpha} \frac{1.2 \cos^2 \beta}{GA_{y1}} \frac{dy_1}{d\gamma} d\gamma + \int_{\tau_c}^{\beta} \frac{1.2 \cos^2 \beta}{GA_{y2}} \frac{dy_2}{d\tau} d\tau,
+	\frac{1}{k_s} = \int_{\frac{\pi}{2}}^{\alpha} \frac{1.2 \cos^2 \beta}{GA_{y1}} \frac{dy_1}{d\gamma} d\gamma + \int_{\tau_c}^{\beta} \frac{1.2 \cos^2 \beta}{GA_{y2}} \frac{dy_2}{d\tau} d\tau
 \end{equation}
 
 
