@@ -56,7 +56,7 @@ Além disso, o passo base ($p_b$), define a distância entre dentes consecutivos
 Dessa forma é possível determinar a razão de contato $c_r$ que representa o número médio de pares de dentes em contato, ou seja, que compartilham o carregamento ao longo da Linha de Ação \textit{LOA}. A Equação~\ref{eq:razao_contato} representa a sua formulação. 
 \begin{equation}
 	\label{eq:razao_contato}
-	c_r = \frac{[\sqrt{R_{a1}^2 - R_1^2} + \sqrt{R_{a2}^2 - R_2^2} - d_0 \sin \alpha_0]}{p_b}
+	c_r = \frac{\left( \sqrt{R_{a1}^2 - R_1^2} + \sqrt{R_{a2}^2 - R_2^2} - d_0 \sin \alpha \right)}{p_b}
 \end{equation}
 
 No projeto de engrenagens é recomentado que o valor de $c_r$ varie entre $1$ e $2$, podendo em certos casos ser maior que o limite superior. Garantir que $c_r \ge 1$ impede a ocorrência de descontinuidades na transmissão de torque e potência, além de prevenir choques abruptos entre dentes~\cite{shigley2020}. Entretanto, quanto maior o valor de $c_r$ mais rígido se torna o sistema, sendo exigido uma energia maior para seu movimento. 
@@ -279,7 +279,7 @@ Portanto, a rigidez do engrenamento é determinada pela Equação~\ref{eq:rigide
 
 A Equação~\ref{eq:kh} apresenta a formulação para Rigidez do Contato de Hertz, onde $E$ é o Módulo de de Elasticidade, $w$ é a espessura do dente e $\nu$ é o Coeficiente de Poisson.
 \begin{equation} \label{eq:kh}
-	k_h = \frac{\pi E w}{4(1 - \nu^2)},
+	k_h = \frac{\pi E w}{4(1 - \nu^2)}
 \end{equation}
 
 A Equação~\ref{eq:kf} apresenta o cálculo da rigidez associada à rigidez do pé do dente na conexão com o corpo da engrenagem. As variáveis $u_f$, $S_f$, $L^*$, $M^*$, $P^*$ e $Q^*$ são apresentados por~\citeonline{sainsot2004}.
