@@ -22,7 +22,18 @@ import pickle
 from scipy.interpolate import CubicSpline
 from scipy.integrate import cumulative_trapezoid
 
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from matplotlib.patches import Polygon
+from scipy.signal import detrend  # <-- A MÁGICA QUE SALVA A CÂMERA
+from scipy.interpolate import CubicSpline
 
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from matplotlib.patches import Polygon
+from matplotlib.ticker import MaxNLocator, FormatStrFormatter
 
 
 # Tenta importar o tqdm para a barra de progresso no terminal. 
@@ -1176,6 +1187,272 @@ class Backlash:
         if not use_multirotor_coupling_stiffness:
             self.multirotor.gear_mesh_stiffness = 0
             self.multirotor.update_mesh_stiffness = False
+
+    def animate_gears(self, scale=150, frames=400, interval=30, revolutions=1, start_time=None, save_path=None):
+        """
+        Animação de Excelência (Artigo/Dissertação):
+        - Eixos formatados com 2 casas decimais (FormatStrFormatter).
+        - Grid principal altamente discretizado.
+        - Pinhão (Verde Escuro) e Coroa (Amarelo).
+        - Dentes NUNCA se atravessam (Trava Cinemática Visual no Raio de Base).
+        - Loop Infinito Perfeito (endpoint=False).
+        """
+        g1, g2 = self.gears[0], self.gears[1]
+        z1, z2 = g1.n_teeth, g2.n_teeth
+        mod = g1.module
+        alpha = g1.pr_angle 
+        b0 = getattr(self, 'b0', 0.0) 
+        
+        Rp1, Rp2 = g1.pitch_diameter / 2, g2.pitch_diameter / 2
+        Rb1 = Rp1 * np.cos(alpha) 
+        Rb2 = Rp2 * np.cos(alpha) 
+        d0 = Rp1 + Rp2  
+        ori = getattr(self.multirotor, 'orientation_angle', 0.0)
+        
+        # ---------------------------------------------------------
+        # 1. TEMPO DE LOOP PERFEITO
+        # ---------------------------------------------------------
+        T_rev = (2 * np.pi) / self.speed_driving_gear
+        
+        if start_time is None:
+            t_start = max(0, self.time[-1] - (revolutions * T_rev))
+        else:
+            t_start = start_time
+            
+        t_end = t_start + (revolutions * T_rev)
+        t_start = np.clip(t_start, self.time[0], self.time[-1])
+        t_end = np.clip(t_end, self.time[0], self.time[-1])
+        
+        t_frames = np.linspace(t_start, t_end, frames, endpoint=False)
+
+        # ---------------------------------------------------------
+        # 2. INTERPOLAÇÃO DA VIBRAÇÃO
+        # ---------------------------------------------------------
+        x1_raw = np.interp(t_frames, self.time, self.backlash_results['x1'])
+        y1_raw = np.interp(t_frames, self.time, self.backlash_results['y1'])
+        x2_raw = np.interp(t_frames, self.time, self.backlash_results['x2'])
+        y2_raw = np.interp(t_frames, self.time, self.backlash_results['y2'])
+        t1_raw = np.interp(t_frames, self.time, self.backlash_results['t1'])
+        t2_raw = np.interp(t_frames, self.time, self.backlash_results['t2'])
+        
+        fm_raw = np.interp(t_frames, self.time, self.backlash_results['Fm'])
+        delta_raw = np.interp(t_frames, self.time, self.backlash_results['delta'])
+        bt_raw = np.interp(t_frames, self.time, self.backlash_results['bt'])
+
+        x1_mean, y1_mean = np.mean(x1_raw), np.mean(y1_raw)
+        x2_mean, y2_mean = np.mean(x2_raw), np.mean(y2_raw)
+        t1_mean, t2_mean = np.mean(t1_raw), np.mean(t2_raw)
+
+        x1_dyn, y1_dyn = (x1_raw - x1_mean), (y1_raw - y1_mean)
+        x2_dyn, y2_dyn = (x2_raw - x2_mean), (y2_raw - y2_mean)
+        
+        cx1 = x1_dyn * scale
+        cy1 = y1_dyn * scale
+        cx2_nom, cy2_nom = d0 * np.cos(ori), d0 * np.sin(ori)
+        cx2 = cx2_nom + (x2_dyn * scale)
+        cy2 = cy2_nom + (y2_dyn * scale)
+
+        # ---------------------------------------------------------
+        # 3. MOTOR FÍSICO ANTI-OVERLAP
+        # ---------------------------------------------------------
+        dx_vis = (x1_dyn - x2_dyn) * scale
+        dy_vis = (y1_dyn - y2_dyn) * scale
+        phi1_dyn = (t1_raw - t1_mean) * scale
+        
+        delta_mean = np.mean(delta_raw)
+        delta_dyn = delta_raw - delta_mean
+        delta_vis = delta_mean + (delta_dyn * scale)
+        
+        delta_vis_capped = np.clip(delta_vis, -bt_raw, bt_raw)
+        
+        phi2_dyn = (delta_vis_capped - dx_vis * np.sin(alpha) - dy_vis * np.cos(alpha) - Rb1 * phi1_dyn) / Rb2
+        
+        phi1 = (self.speed_driving_gear * t_frames) + t1_mean + phi1_dyn
+        phi2 = -(self.speed_driving_gear * (z1 / z2) * t_frames) + t2_mean + phi2_dyn
+
+        # ---------------------------------------------------------
+        # 4. GERADOR DE PERFIL INVOLUTO
+        # ---------------------------------------------------------
+        def gerar_perfil_involuto(Rp, z, modulo, ang_pressao, b0_linear, offset_fase=0):
+            Rb = Rp * np.cos(ang_pressao)
+            Ra = Rp + modulo
+            Rf = Rp - 1.25 * modulo
+            inv = lambda a: np.tan(a) - a
+            pitch_angle = 2 * np.pi / z
+            reducao_angular_b0 = b0_linear / (2 * Rp * np.cos(ang_pressao)) if b0_linear else 0.0
+            half_base = (np.pi / (2 * z)) + inv(ang_pressao) - reducao_angular_b0
+            max_param = np.arccos(Rb / Ra)
+            t_vals = np.linspace(0, max_param, 15)
+            r_inv = Rb / np.cos(t_vals)
+            th_inv = inv(t_vals)
+            r_poly, th_poly = [], []
+            for i in range(z):
+                offset = i * pitch_angle + offset_fase
+                th_root_start = offset - pitch_angle + half_base
+                th_root_end = offset - half_base
+                r_poly.extend([Rf, Rf])
+                th_poly.extend([th_root_start, th_root_end])
+                if Rf < Rb:
+                    r_poly.append(Rb)
+                    th_poly.append(th_root_end)
+                r_poly.extend(r_inv)
+                th_poly.extend(offset - half_base + th_inv)
+                r_poly.extend(r_inv[::-1])
+                th_poly.extend(offset + half_base - th_inv[::-1])
+                if Rf < Rb:
+                    r_poly.append(Rb)
+                    th_poly.append(offset + half_base)
+            r_poly.append(r_poly[0])
+            th_poly.append(th_poly[0])
+            return np.array(r_poly) * np.cos(th_poly), np.array(r_poly) * np.sin(th_poly)
+
+        bt_mean = np.mean(bt_raw)
+        base_x1, base_y1 = gerar_perfil_involuto(Rp1, z1, mod, alpha, bt_mean, offset_fase=ori)
+        base_x2, base_y2 = gerar_perfil_involuto(Rp2, z2, mod, alpha, bt_mean, offset_fase=ori + np.pi - (np.pi/z2))
+
+        # ---------------------------------------------------------
+        # 5. DASHBOARD DUPLO (Formatação Limpa e Discretizada)
+        # ---------------------------------------------------------
+        fig = plt.figure(figsize=(15, 7.5))
+        gs = fig.add_gridspec(2, 3) 
+        
+        # -- TELA PRINCIPAL (Engrenagens) --
+        ax_gears = fig.add_subplot(gs[:, 0:2])
+        ax_gears.set_aspect('equal')
+        Ra1, Ra2 = Rp1 + 1.25*mod, Rp2 + 1.25*mod
+        margem = max(Ra1, Ra2) * 0.15
+        ax_gears.set_xlim(-Ra1 - margem, d0 + Ra2 + margem)
+        ax_gears.set_ylim(-max(Ra1, Ra2) - margem, max(Ra1, Ra2) + margem)
+        
+        # DISCRETIZAÇÃO MELHORADA E CASAS DECIMAIS LIMITADAS
+        ax_gears.xaxis.set_major_locator(MaxNLocator(14))
+        ax_gears.yaxis.set_major_locator(MaxNLocator(14))
+        ax_gears.xaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+        ax_gears.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+        ax_gears.grid(True, linestyle=':', alpha=0.5)
+        
+        ax_gears.set_title("Dinâmica de Engrenamento e Vibração", fontsize=13, fontweight='bold')
+        ax_gears.set_xlabel("Posição Horizontal (m)", fontsize=10)
+        ax_gears.set_ylabel("Posição Vertical (m)", fontsize=10)
+        
+        poly1 = Polygon(np.column_stack((base_x1, base_y1)), closed=True, fill=True, color='#228B22', alpha=0.9, ec='black', lw=0.8)
+        poly2 = Polygon(np.column_stack((base_x2, base_y2)), closed=True, fill=True, color='#FFD700', alpha=0.9, ec='black', lw=0.8)
+        ax_gears.add_patch(poly1)
+        ax_gears.add_patch(poly2)
+
+        orbit1_main, = ax_gears.plot([], [], color='darkgreen', lw=2.5, alpha=0.8)
+        orbit2_main, = ax_gears.plot([], [], color='darkgoldenrod', lw=2.5, alpha=0.8)
+        mesh_line, = ax_gears.plot([], [], 'k-', lw=1.5, zorder=5)
+        center_pts, = ax_gears.plot([], [], 'ko', markersize=7, zorder=6) 
+        
+        texto_info = ax_gears.text(0.02, 0.97, '', transform=ax_gears.transAxes, fontsize=11, family='monospace',
+                                verticalalignment='top', bbox=dict(facecolor='white', alpha=0.95, edgecolor='black'))
+
+        # Vetor de tempo para os eixos X cravados
+        time_ticks = np.linspace(t_frames[0], t_frames[-1], 6)
+
+        # -- SUB-GRÁFICO 1: DTE E FOLGA --
+        ax_dte = fig.add_subplot(gs[0, 2])
+        delta_um = delta_raw * 1e6
+        bt_um = bt_raw * 1e6
+        min_dte_y = min(np.min(delta_um), np.min(bt_um) * 0.8) 
+        max_dte_y = max(np.max(delta_um), np.max(bt_um))
+        margin_dte = (max_dte_y - min_dte_y) * 0.15 if max_dte_y > min_dte_y else 1.0
+        
+        ax_dte.set_xlim(t_frames[0], t_frames[-1])
+        ax_dte.set_ylim(min_dte_y - margin_dte, max_dte_y + margin_dte)
+        
+        # FORMATANDO AS CASAS DECIMAIS E MARCADORES
+        ax_dte.set_xticks(time_ticks)
+        ax_dte.xaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+        ax_dte.yaxis.set_major_locator(MaxNLocator(8))
+        
+        ax_dte.set_title("Erro de Transmissão (δ) vs Folga", fontsize=11, fontweight='bold')
+        ax_dte.set_ylabel("Deslocamento (μm)", fontsize=9)
+        ax_dte.grid(True, linestyle=':', alpha=0.6)
+        
+        line_bt, = ax_dte.plot([], [], 'r--', lw=1.5, alpha=0.7, label='+bt (Folga)')
+        line_dte, = ax_dte.plot([], [], 'b-', lw=2.0, label='δ (DTE)')
+        pt_dte,   = ax_dte.plot([], [], 'bo', markersize=6)
+        ax_dte.legend(loc="upper right", fontsize=8)
+
+        # -- SUB-GRÁFICO 2: FORÇA Fm --
+        ax_fm = fig.add_subplot(gs[1, 2])
+        min_fm = np.min(fm_raw)
+        max_fm = np.max(fm_raw)
+        margin_fm = (max_fm - min_fm) * 0.15 if max_fm > min_fm else 100.0
+        
+        ax_fm.set_xlim(t_frames[0], t_frames[-1])
+        ax_fm.set_ylim(max(0, min_fm - margin_fm), max_fm + margin_fm)
+        
+        # FORMATANDO AS CASAS DECIMAIS E MARCADORES
+        ax_fm.set_xticks(time_ticks)
+        ax_fm.xaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+        ax_fm.yaxis.set_major_locator(MaxNLocator(8))
+        
+        ax_fm.set_title("Força de Engrenamento Fm", fontsize=11, fontweight='bold')
+        ax_fm.set_ylabel("Força (N)", fontsize=9)
+        ax_fm.set_xlabel("Tempo (s)", fontsize=9)
+        ax_fm.grid(True, linestyle=':', alpha=0.6)
+        
+        line_fm, = ax_fm.plot([], [], color='purple', lw=2.0)
+        pt_fm,   = ax_fm.plot([], [], 'mo', markersize=6) 
+        
+        fig.tight_layout()
+
+        # ---------------------------------------------------------
+        # 6. ATUALIZAÇÃO DOS FRAMES
+        # ---------------------------------------------------------
+        def update(i):
+            c1, s1 = np.cos(phi1[i]), np.sin(phi1[i])
+            poly1.set_xy(np.column_stack((base_x1*c1 - base_y1*s1 + cx1[i], base_x1*s1 + base_y1*c1 + cy1[i])))
+            
+            c2, s2 = np.cos(phi2[i]), np.sin(phi2[i])
+            poly2.set_xy(np.column_stack((base_x2*c2 - base_y2*s2 + cx2[i], base_x2*s2 + base_y2*c2 + cy2[i])))
+            
+            orbit1_main.set_data(cx1[:i+1], cy1[:i+1])
+            orbit2_main.set_data(cx2[:i+1], cy2[:i+1])
+            
+            fm_atual = fm_raw[i]
+            
+            if fm_atual > 0.1:
+                mesh_line.set_color('#333333') 
+                mesh_line.set_linestyle('-')
+                mesh_line.set_linewidth(2.5)
+                estado = "CONTATO"
+            else:
+                mesh_line.set_color('#B0B0B0') 
+                mesh_line.set_linestyle('--')
+                mesh_line.set_linewidth(1.5)
+                estado = "FOLGA (BKL)"
+
+            mesh_line.set_data([cx1[i], cx2[i]], [cy1[i], cy2[i]])
+            center_pts.set_data([cx1[i], cx2[i]], [cy1[i], cy2[i]])
+            
+            texto = (f"Tempo   : {t_frames[i]:.4f} s\n"
+                    f"Escala  : {scale}x\n"
+                    f"Estado  : {estado}\n"
+                    f"Fm      : {fm_atual:.1f} N\n"
+                    f"DTE (δ) : {delta_raw[i] * 1e6:.2f} μm")
+            texto_info.set_text(texto)
+
+            line_bt.set_data(t_frames[:i+1], bt_um[:i+1])
+            line_dte.set_data(t_frames[:i+1], delta_um[:i+1])
+            pt_dte.set_data([t_frames[i]], [delta_um[i]])
+            
+            line_fm.set_data(t_frames[:i+1], fm_raw[:i+1])
+            pt_fm.set_data([t_frames[i]], [fm_raw[i]])
+            
+            return poly1, poly2, orbit1_main, orbit2_main, mesh_line, center_pts, texto_info, line_bt, line_dte, pt_dte, line_fm, pt_fm
+
+        ani = FuncAnimation(fig, update, frames=frames, interval=interval, blit=True)
+
+        if save_path:
+            print(f"Renderizando Dashboard Final com Escalas Refinadas... Aguarde.")
+            ani.save(save_path, writer='pillow')
+            print(f"--> Animação salva em: {save_path}")
+        else:
+            plt.show()
 
     def init_backlash_results(self):
         """Inicializa o dicionário global que armazena os dados instantâneos."""

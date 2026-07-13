@@ -305,7 +305,7 @@ A deformação da \textit{LOA}, $\delta$, denominada no artigo como \textit{DTE}
 	\caption{Comparação de $F_m$ para $3000\,\mathrm{rpm}$}
 	\label{fig:fm_3000}
 	
-	\begin{minipage}{0.7\textwidth}
+	\begin{minipage}{0.65\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{validation_plots/Fig_10f_DMF.pdf}
 		\par\vspace{0.3em}
@@ -314,7 +314,8 @@ A deformação da \textit{LOA}, $\delta$, denominada no artigo como \textit{DTE}
 	\end{minipage}
 \end{figure}
 
-Como é possível observar, o modelo implementado proposto neste trabalho apresenta uma coerência significativa com os resultados apresentados por \citeonline{yi2019}. Há, de fato, uma variação no cálculo da Deformação da \textit{LOA}, $\delta$, e por consequência na Força do Engrenamento, $F_m$. Tal diferença deve-se ao fato de o modelo implementado considerar a expansão para 6 \textit{gdl}, assim, adicionando termos na formulação de $\delta$, conforme se vê na Equação~\ref{eq:delta_3d}, Subseção~\ref{subsec:6dof}. 
+Como é possível observar, o modelo implementado proposto neste trabalho apresenta uma coerência significativa com os resultados apresentados por \citeonline{yi2019}. Observa-se uma variação na Força do Engrenamento, $F_m$, que está relacionada à pequenas variações da Deformação na \textit{LOA}, $\delta$.% e a cálculos numéricos da rigidez e do amortecimento.
+%Tal diferença deve-se ao fato de o modelo implementado considerar a expansão para 6 \textit{gdl}, assim, adicionando termos na formulação de $\delta$, conforme se vê na Equação~\ref{eq:delta_3d}, Subseção~\ref{subsec:6dof}. 
 
 Observa-se ainda, que mesmo com a variação no valor de $\delta$ e em $F_m$, a característica dinâmica do sistema mantêm-se condizente ao apresentado por \citeonline{yi2019}, conforme se verifica na Resposta de Vibração da coordenada $x_1$, para as duas velocidades. Isso se deve a influência das matrizes de massa, rigidez e amortecimento que caracterizam o sistema.
 
