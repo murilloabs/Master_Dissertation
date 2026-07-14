@@ -31,7 +31,7 @@ A Figura~\ref{fig:backlash_kaplan} demonstra o comportamento do engrenamento con
 A Figura~\ref{fig:modelo_yi} o esquema utilizado por \citeonline{yi2019} para a construção do modelo de \textit{backlash} dinâmico que será apresentado. Este modelo de engrenamento e \textit{backlash} dinâmico são amplamente utilizados na literatura por diversos autores como \citeonline{zhu2025}, \citeonline{liu2023}, \citeonline{mo2025} entre outros que desenvolveram trabalhos que utilizam uma formulação semelhante.
 \begin{figure}[H]
 	\centering
-	\caption{Modelo de Par Engrenado}
+	\caption{Modelo do Par Engrenado}
 	\label{fig:modelo_yi}
 	\begin{minipage}{0.5\textwidth}
 		\centering
@@ -63,13 +63,13 @@ Por ser uma formulação dinâmica do engrenamento as variáveis são dependente
 	\label{eq:cr}
 \end{gather}
 
-Para contabilizar o efeito do engrenamento e o acoplamento  entres os rotores e as engrenagens é necessário definir a deformação relacionada à Linha de Ação \textit{LOA}. Tal deformação é expressa pela variável $\delta$ e é dependente da posição de cada engrenagem  $x_i, y_i$, dos valores instantâneos do ângulo de pressão $\alpha$ e ângulo de posição $\beta$, raio da base $R_i$ e o deslocamento angular $\theta_i$ de cada engrenagem. Nesta definição também é incluído o valor do erro estático de deformação, um valor que não está associado à dinâmica do sistema e pode vir de fatores externos como a montagem do conjunto engrenado. A Equação~\ref{eq:delta} expressa a formulação de $\delta$.
+Para contabilizar o efeito do engrenamento e o acoplamento  entres os rotores e as engrenagens é necessário definir a deformação relacionada à Linha de Ação \textit{LOA}. Tal deformação, também chamada de DTE, é expressa pela variável $\delta$ e é dependente da posição de cada engrenagem  $x_i, y_i$, dos valores instantâneos do ângulo de pressão $\alpha$ e ângulo de posição $\beta$, raio da base $R_i$ e o deslocamento angular $\theta_i$ de cada engrenagem. Nesta definição também é incluído o valor do erro estático de deformação, um valor que não está associado à dinâmica do sistema e pode vir de fatores externos como a montagem do conjunto engrenado. A Equação~\ref{eq:delta} expressa a formulação de $\delta$.
 \begin{equation}
 	\delta(t) = (x_1 - x_2) \sin (\alpha - \beta) + (y_1 - y_2) \cos (\alpha - \beta) + R_1\theta_1 + R_2\theta_2 - e(t)
 	\label{eq:delta}
 \end{equation}
 
-A próxima etapa é a definição da força do engrenamento; para isso, é necessário definir a deformação efetiva da \textit{LOA} $f$ e sua velocidade associada $f_1$, considerando o \textit{backlash} $b_t$. A força do engrenamento  $F_m$ é, portanto, definida como o produto entre a rigidez do engrenamento $K_m$ pela deformação efetiva $f$ acrescida do valor do amortecimento, representado pelo produto do coeficiente de amortecimento $c_m$ pela velocidade associada à deformação efetiva $f_1$. Tais relações são apresentadas nas Equações~\ref{eq:Fm}, \ref{eq:cm}, \ref{eq:f_delta} e \ref{eq:f1_delta}.
+A próxima etapa é a definição da força do engrenamento; para isso, é necessário definir a deformação efetiva da \textit{LOA} $f$ e sua velocidade associada $f_1$, considerando o \textit{backlash} $b_t$. A força do engrenamento $F_m$ é, portanto, definida como o produto entre a rigidez do engrenamento $K_m$ pela deformação efetiva $f$ acrescida do valor do amortecimento, representado pelo produto do coeficiente de amortecimento $c_m$ pela velocidade associada à deformação efetiva $f_1$. Tal força também pode ser chamada de DMF. Tais relações são apresentadas nas Equações~\ref{eq:Fm}, \ref{eq:cm}, \ref{eq:f_delta} e \ref{eq:f1_delta}.
 Para o cálculo do $c_m$ é considerado o momento polar e de inércia $J_i$ e o raio de base $R_i$ de cada engrenagem, assim como o valor do coeficiente de amortecimento  $\xi_m$, que de acordo com \citeonline{yi2019} varia entre 0.03 e 0.17.
 \begin{gather}
 	F_m = K_m f(\delta, b_t) + c_m f_1(\delta, b_t)
