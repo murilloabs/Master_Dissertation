@@ -1,13 +1,13 @@
 \newpage
 \section{Engrenagens}
 
-Engrenagens são componentes mecânicos com a função de transmissão de potência, torque e velocidade entre eixos conectados. Trata-se de componentes fundamentais em sistemas rotativos, garantindo acoplamento cinemático entre eixos girantes~\cite{shigley2020, norton2020}. A seguir serão apresentadas as principais variáveis do projeto e geometria de engrenagens para a análise dinâmica e estudos realizados neste trabalho. Além disso, será apresentada uma discussão sobre a rigidez associada ao engrenamento e sua variação no tempo. Posteriormente, será desenvolvida a formulação da folga de \textit{backlash} dinâmica, objeto de estudo desta dissertação.
+Engrenagens são componentes mecânicos com a função de transmissão de potência, torque e velocidade entre eixos conectados. Trata-se de componentes fundamentais em sistemas rotativos, garantindo acoplamento cinemático entre eixos girantes~\cite{shigley2020, norton2020}. A seguir serão apresentadas as principais variáveis do projeto e geometria de engrenagens para a análise dinâmica e estudos realizados neste trabalho. Além disso, será apresentada uma discussão sobre a rigidez associada ao engrenamento e sua variação no tempo. Posteriormente, será desenvolvida a formulação da folga de \textit{backlash} dinâmica, objeto de estudo desta dissertação. A Figura~\ref{fig:gear_exepmlos} apresentas exemplos dos tipos de engrenagens.
 \begin{figure}[H]
 	\centering
 	\caption{Representação dos tipos de engrenagens}
-	\label{fig:gear_esquema}
+	\label{fig:gear_exepmlos}
 	
-	\begin{minipage}{0.6\textwidth}
+	\begin{minipage}{0.5\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/gear.png}
 		\par\vspace{0.3em}
@@ -43,6 +43,7 @@ A Figura~\ref{fig:gear_esquema} apresenta o esquema de uma engrenagem de dentes 
 \end{figure}
 
 Cada engrenagem, independente do seu tipo, apresenta quatro diâmetros principais que são de raiz, de base, de adendo e o primitivo. O diâmetro de raiz $2R_r$ é onde se inicia o dente. O raio de adendo ($R_a$) é o diâmetro máximo da engrenagem, ou seja, na extremidade do dente. Este dado, é necessário para o cálculo da razão de contato $c_r$ (Equação~\ref{eq:razao_contato}). Adotando-se o perfil padrão de dente inteiro sem modificação geométrica, recomendado por~\citeonline{dudley2021} e normalizado pela~\citeonline{agma2004} (AGMA), o adendo é tomado como igual ao módulo normal $m$, conforme apresentado por~\citeonline{shigley2020}, resultando na Equação~\ref{eq:raios_adendo}.
+
 \begin{equation}
 	R_{a1} = R_{p1} + m, \quad R_{a2} = R_{p2} + m
 	\label{eq:raios_adendo}
@@ -108,7 +109,7 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 	\centering
 	\caption{Representação do Engrenamento}
 	\label{fig:mesh_repr}
-	\begin{minipage}{0.9\textwidth}
+	\begin{minipage}{0.8\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/gear_mesh_spring.png}
 		\par\vspace{0.3em}
@@ -128,61 +129,67 @@ Para realizar o movimento conjunto entre os rotores motor e movido, é necessár
 		{\small Fonte:~\citeonline{stringer2008}}
 	\end{minipage}
 \end{figure}
+As variáveis $q$ indicam as coordenadas generalizadas e os índices $i$ e $j$ representam os índices dos nós onde as engrenagens estão posicionadas. O parâmetro $\varphi$ representa o ângulo de orientação entre as engrenagens, $\beta_h$ é o ângulo de hélice das engrenagens e $\alpha_n$ representa o ângulo de pressão normal do par engrenado. Os ângulos $\phi_x$, $\phi_y$ e $\phi_z$ são mostrados na Figura.~\ref{fig:force_component}, que representa a decomposição das forças no ponto de contato das engrenagens~\cite{kaplan_paper_2013}.
+
 \begin{equation}
-	\label{eq:k_matrices} % Adiciona um rótulo para referenciar o conjunto de equações
+	\label{eq:k_matrices}
 	\begin{gathered}
 		\resizebox{0.9\linewidth}{!}{
-			$[K_{ii}] = 
+			$K_{ii} = 
 			\begin{bmatrix}
-				(s\phi_c\phi_x + c\phi_c\phi_x)^2 & (s\phi_c\phi_x + c\phi_c\phi_x)(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_x + c\phi_c\phi_x) & & & & \text{sym} \\
-				(s\phi_c\phi_c + c\phi_c\phi_c)^2 & (s\phi_c\phi_c + c\phi_c\phi_c)(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_c + c\phi_c\phi_c) & & & \\
-				c\phi_z(s\phi_c\phi_x + c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z^2 & c^2\phi_c^2r_i^2 & & \\
-				-c\phi_c\phi_x r_i (s\phi_c\phi_x + c\phi_c\phi_x) & -c\phi_c\phi_x r_i (s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c\phi_x c\phi_z r_i & s\phi_c^2 c\phi_z^2 r_i^2 & c\phi_c^2 c\phi_z^2 r_i^2 & \\
-				-c\phi_c\phi_c r_i (s\phi_c\phi_x + c\phi_c\phi_x) & -c\phi_c\phi_c r_i (s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c\phi_c c\phi_z r_i & s\phi_c^2 c\phi_z^2 r_i^2 & c\phi_c^2 c\phi_z^2 r_i^2 & c\phi_c^2 c\phi_z^2 r_i^2 \\
-				-c\phi_c\phi_x r_i & -c\phi_c\phi_c r_i & -c\phi_c\phi_z r_i & -s\phi_c\phi_x c\phi_z^2 r_i & -s\phi_c\phi_c c\phi_z^2 r_i & c\phi_c^2 c\phi_z^2 r_i^2 \\
-			\end{bmatrix}$
-		}
-		\\[1.5em] % Aumentei o espaçamento entre as matrizes para melhor leitura
-		\resizebox{0.9\linewidth}{!}{
-			$[K_{ij}] = 
-			\begin{bmatrix}
-				-(s\phi_c\phi_x + c\phi_c\phi_y)^2 & -c\phi_c\phi_z(s\phi_c\phi_x + c\phi_c\phi_y) & [K_{ij}]_{1,1} & [K_{ij}]_{3,1} & & \\
-				-(s\phi_c\phi_y + c\phi_c\phi_y)^2 & -(s\phi_c\phi_y - c\phi_c\phi_x)^2 & [K_{ij}]_{1,2} & [K_{ij}]_{3,2} & -c\phi_c\phi_x r_i(s\phi_c\phi_x + c\phi_c\phi_y) & \\
-				-c\phi_c\phi_z(s\phi_c\phi_y + c\phi_c\phi_y) & -c\phi_c\phi_z(s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c^2 & -c\phi_c^2 r_j & c\phi_c^2 r_i & s\phi_c^2 c\phi_z^2 r_j \\
-				-s\phi_c\phi_z^2 r_j & s\phi_c\phi_x c\phi_z r_j & -c\phi_c\phi_y r_j(s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c^2 r_j & -c\phi_c\phi_x^3 r_i & -c\phi_c^2 c\phi_z^2 r_i \\
-				c\phi_c\phi_x r_i(s\phi_c\phi_x + c\phi_c\phi_y) & c\phi_c\phi_x r_i(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_c\phi_x c\phi_z r_i & -c\phi_c^2\phi_x c\phi_z r_i & c\phi_c\phi_x c\phi_z r_j & -s\phi_c^2 c\phi_z^2 r_i r_j \\
-				c\phi_c\phi_c r_i(s\phi_c\phi_x + c\phi_c\phi_y) & c\phi_c\phi_c r_i(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_c\phi_c c\phi_z r_i & -c\phi_c^2\phi_c c\phi_z r_i & c\phi_c\phi_c c\phi_z r_j & c\phi_c^2 c\phi_z^2 r_i r_j \\
-				c\phi_c\phi_z r_i & -c\phi_c\phi_z r_i & -c\phi_c^2\phi_z r_i & -c\phi_c^2\phi_z r_j & -c\phi_c^2\phi_z r_i r_j & -c\phi_c^2\phi_z r_i r_j
+				(s\varphi c\phi_x + c\varphi c\phi_y)^2 & & & & & \text{sym} \\
+				(s\varphi c\phi_x + c\varphi c\phi_y)(s\varphi c\phi_y - c\varphi c\phi_x) & (s\varphi c\phi_y - c\varphi c\phi_x)^2 & & & & \\
+				c\phi_z(s\varphi c\phi_x + c\varphi c\phi_y) & c\phi_z(s\varphi c\phi_y - c\varphi c\phi_x) & c\phi_z^2 & & & \\
+				s\varphi c\phi_z r_i(s\varphi c\phi_x + c\varphi c\phi_y) & s\varphi c\phi_z r_i(s\varphi c\phi_y - c\varphi c\phi_x) & s\varphi c\phi_z^2 r_i & (s\varphi c\phi_z r_i)^2 & & \\
+				-c\varphi c\phi_z r_i(s\varphi c\phi_x + c\varphi c\phi_y) & -c\varphi c\phi_z r_i(s\varphi c\phi_y - c\varphi c\phi_x) & -c\varphi c\phi_z^2 r_i & -c\varphi s\varphi(c\phi_z r_i)^2 & (c\varphi c\phi_z r_i)^2 & \\
+				-c\phi_x r_i(s\varphi c\phi_x + c\varphi c\phi_y) & -c\phi_x r_i(s\varphi c\phi_y - c\varphi c\phi_x) & -c\phi_x c\phi_z r_i & -s\varphi c\phi_x c\phi_z r_i^2 & c\varphi c\phi_x c\phi_z r_i^2 & (c\phi_x r_i)^2
 			\end{bmatrix}$
 		}
 		\\[1.5em]
 		\resizebox{0.9\linewidth}{!}{
-			$[K_{jj}] = 
+			$K_{ji} = 
 			\begin{bmatrix}
-				(s\phi_c\phi_x + c\phi_c\phi_x)^2 & (s\phi_c\phi_x + c\phi_c\phi_x)(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_x + c\phi_c\phi_x) & & & & \text{sym} \\
-				(s\phi_c\phi_c + c\phi_c\phi_c)^2 & (s\phi_c\phi_c + c\phi_c\phi_c)(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_c + c\phi_c\phi_c) & & & \\
-				c\phi_z(s\phi_c\phi_x + c\phi_c\phi_x) & c\phi_z(s\phi_c\phi_y - c\phi_c\phi_x) & c\phi_z^2 & c^2\phi_c^2r_j^2 & & \\
-				-c\phi_c\phi_x r_j (s\phi_c\phi_x + c\phi_c\phi_x) & -c\phi_c\phi_x r_j (s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c\phi_x c\phi_z r_j & s\phi_c^2 c\phi_z^2 r_j^2 & c\phi_c^2 c\phi_z^2 r_j^2 & \\
-				-c\phi_c\phi_c r_j (s\phi_c\phi_x + c\phi_c\phi_x) & -c\phi_c\phi_c r_j (s\phi_c\phi_y - c\phi_c\phi_x) & -c\phi_c\phi_c c\phi_z r_j & s\phi_c^2 c\phi_z^2 r_j^2 & c\phi_c^2 c\phi_z^2 r_j^2 & c\phi_c^2 c\phi_z^2 r_j^2 \\
-				-c\phi_c\phi_x r_j & -c\phi_c\phi_c r_j & -c\phi_c\phi_z r_j & -s\phi_c\phi_x c\phi_z^2 r_j & -s\phi_c\phi_c c\phi_z^2 r_j & c\phi_c^2 c\phi_z^2 r_j^2 \\
+				-(s\varphi c\phi_x + c\varphi c\phi_y)^2 & [K_{ji}]_{2,1} & [K_{ji}]_{3,1} & -s\varphi c\phi_z r_i(s\varphi c\phi_x + c\varphi c\phi_y) & c\varphi c\phi_z r_i(s\varphi c\phi_x + c\varphi c\phi_y) & c\phi_x r_i(s\varphi c\phi_x + c\varphi c\phi_y) \\
+				-(s\varphi c\phi_x + c\varphi c\phi_y)(s\varphi c\phi_y - c\varphi c\phi_x) & -(s\varphi c\phi_y - c\varphi c\phi_x)^2 & [K_{ji}]_{3,2} & -s\varphi c\phi_z r_i(s\varphi c\phi_y - c\varphi c\phi_x) & c\varphi c\phi_z r_i(s\varphi c\phi_y - c\varphi c\phi_x) & c\phi_x r_i(s\varphi c\phi_y - c\varphi c\phi_x) \\
+				-c\phi_z(s\varphi c\phi_x + c\varphi c\phi_y) & -c\phi_z(s\varphi c\phi_y - c\varphi c\phi_x) & -c\phi_z^2 & -s\varphi c\phi_z^2 r_i & c\varphi c\phi_z^2 r_i & c\phi_x c\phi_z r_i \\
+				-s\varphi c\phi_z r_j(s\varphi c\phi_x + c\varphi c\phi_y) & -s\varphi c\phi_z r_j(s\varphi c\phi_y - c\varphi c\phi_x) & -s\varphi c\phi_z^2 r_j & -(s\varphi c\phi_z)^2 r_i r_j & c\varphi s\varphi c\phi_z^2 r_i r_j & s\varphi c\phi_x c\phi_z r_i r_j \\
+				c\varphi c\phi_z r_j(s\varphi c\phi_x + c\varphi c\phi_y) & c\varphi c\phi_z r_j(s\varphi c\phi_y - c\varphi c\phi_x) & c\varphi c\phi_z^2 r_j & c\varphi s\varphi c\phi_z^2 r_i r_j & -(c\varphi c\phi_z)^2 r_i r_j & -c\varphi c\phi_x c\phi_z r_i r_j \\
+				-c\phi_x r_j(s\varphi c\phi_x + c\varphi c\phi_y) & -c\phi_x r_j(s\varphi c\phi_y - c\varphi c\phi_x) & -c\phi_x c\phi_z r_j & -s\varphi c\phi_x c\phi_z r_i r_j & c\varphi c\phi_x c\phi_z r_i r_j & c\phi_x^2 r_i r_j
+			\end{bmatrix}$
+		}
+		\\[1.5em]
+		\resizebox{0.9\linewidth}{!}{
+			$K_{jj} = 
+			\begin{bmatrix}
+				(s\varphi c\phi_x + c\varphi c\phi_y)^2 & & & & & \text{sym} \\
+				(s\varphi c\phi_x + c\varphi c\phi_y)(s\varphi c\phi_y - c\varphi c\phi_x) & (s\varphi c\phi_y - c\varphi c\phi_x)^2 & & & & \\
+				c\phi_z(s\varphi c\phi_x + c\varphi c\phi_y) & c\phi_z(s\varphi c\phi_y - c\varphi c\phi_x) & c\phi_z^2 & & & \\
+				s\varphi c\phi_z r_j(s\varphi c\phi_x + c\varphi c\phi_y) & s\varphi c\phi_z r_j(s\varphi c\phi_y - c\varphi c\phi_x) & s\varphi c\phi_z^2 r_j & (s\varphi c\phi_z r_j)^2 & & \\
+				-c\varphi c\phi_z r_j(s\varphi c\phi_x + c\varphi c\phi_y) & -c\varphi c\phi_z r_j(s\varphi c\phi_y - c\varphi c\phi_x) & -c\varphi c\phi_z^2 r_j & -c\varphi s\varphi(c\phi_z r_j)^2 & (c\varphi c\phi_z r_j)^2 & \\
+				c\phi_x r_j(s\varphi c\phi_x + c\varphi c\phi_y) & c\phi_x r_j(s\varphi c\phi_y - c\varphi c\phi_x) & c\phi_x c\phi_z r_j & s\varphi c\phi_x c\phi_z r_j^2 & -c\varphi c\phi_x c\phi_z r_j^2 & (c\phi_x r_j)^2
 			\end{bmatrix}$
 		}
 	\end{gathered}
 \end{equation}
+%\begin{align*}
+%	s\varphi &= \sin\varphi, & s\varphi^2 &= (\sin\varphi)^2 \\
+%	c\varphi &= \cos\varphi, & c\varphi^2 &= (\cos\varphi)^2
+%\end{align*}
+%\begin{align*}
+%	\cos\phi_x &= \cos\beta_h \cos\alpha_n & \cos\phi_y &= \sin\alpha_n &   \cos\phi_z &= \sin\beta_h \sin\alpha_n
+%\end{align*}
 \begin{align*}
-	s\varphi &= \sin\varphi, & s\varphi^2 &= (\sin\varphi)^2 \\
-	c\varphi &= \cos\varphi, & c\varphi^2 &= (\cos\varphi)^2
-\end{align*}
-\begin{align*}
-	\cos\phi_x &= \cos\beta_h \cos\alpha_n & \cos\phi_y &= \sin\alpha_n &   \cos\phi_z &= \sin\beta_h \sin\alpha_n
+	s\varphi &= \sin\varphi & s\varphi^2 &= (\sin\varphi)^2 & \cos\phi_x &= \cos\beta_h \cos\alpha_n \\
+	c\varphi &= \cos\varphi & c\varphi^2 &= (\cos\varphi)^2 & \cos\phi_y &= \sin\alpha_n \\
+	&& && \cos\phi_z &= \sin\beta_h \sin\alpha_n
 \end{align*}
 
-As variáveis $q$ indicam as coordenadas generalizadas e os índices $i$ e $j$ representam os índices dos nós onde as engrenagens estão posicionadas. O parâmetro $\varphi$ representa o ângulo de orientação entre as engrenagens, $\beta_h$ é o ângulo de hélice das engrenagens e $\alpha_n$ representa o ângulo de pressão normal do par engrenado. Os ângulos $\phi_x$, $\phi_y$ e $\phi_z$ são mostrados na Figura.~\ref{fig:force_component}, que representa a decomposição das forças no ponto de contato das engrenagens~\cite{kaplan_paper_2013}.
+%As variáveis $q$ indicam as coordenadas generalizadas e os índices $i$ e $j$ representam os índices dos nós onde as engrenagens estão posicionadas. O parâmetro $\varphi$ representa o ângulo de orientação entre as engrenagens, $\beta_h$ é o ângulo de hélice das engrenagens e $\alpha_n$ representa o ângulo de pressão normal do par engrenado. Os ângulos $\phi_x$, $\phi_y$ e $\phi_z$ são mostrados na Figura.~\ref{fig:force_component}, que representa a decomposição das forças no ponto de contato das engrenagens~\cite{kaplan_paper_2013}.
 \begin{figure}[H]
 	\centering
 	\caption{Decomposição das forças no ponto de contato das engrenagens.}
 	\label{fig:force_component}
-	\begin{minipage}{0.9\textwidth}
+	\begin{minipage}{0.8\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/force_component.png}
 		\par\vspace{0.3em}
@@ -216,7 +223,7 @@ Para se considerar a variação da rigidez do engrenamento ao longo do tempo, um
 	a^{(s)} &= -\frac{2}{s\pi} \sin[s\pi(c_r - 2p)] \sin(s\pi c_r) \nonumber \\
 	b^{(s)} &= -\frac{2}{s\pi} \cos[s\pi(c_r - 2p)] \sin(s\pi c_r)
 \end{align}
-
+\newpage
 $Z_1$ representa o número de dentes da engrenagem menor, $\Omega$ é a velocidade de rotação da engrenagem menor, $a^{(s)}$ e $b^{(s)}$ são os coeficientes da série de Fourier, $c_r$ é a razão de contato e $p$ representa a fase do engrenamento. A Figura~\ref{fig:rig_engr_kapl} apresenta o perfil retangular desejado para essa simplificação; já a Figura~\ref{fig:rig_engr1} apresenta a composição completa da Série de Fourier para essa função. Quanto maior o número de termos $s$, mais a função se aproxima de um perfil retangular. 
 
 Pela Figura~\ref{fig:rig_engr1} pode-se observar como o valor da razão de contato $c_r$ influencia no período das regiões de alta e baixa rigidez. Esta variável indica a quantidade média de pares de dentes engrenados, sendo que ao longo do tempo há a alternância  entre um par e dois pares de dentes engrenados. Quando há somente um par, o perfil de rigidez encontra seu valor mínimo, já com dois pares ele encontra seu valor máximo.
@@ -290,6 +297,7 @@ Portanto, a rigidez do engrenamento é determinada pela Equação~\ref{eq:rigide
 	K_m = \frac{1}{\frac{1}{k_h} + \frac{1}{k_{b1}} + \frac{1}{k_{s1}} + \frac{1}{k_{a1}} + \frac{1}{k_{f1}} + \frac{1}{k_{b2}} + \frac{1}{k_{s2}} + \frac{1}{k_{a2}} + \frac{1}{k_{f2}}}
 \end{equation}
 
+\newpage
 A Equação~\ref{eq:kh} apresenta a formulação para Rigidez do Contato de Hertz, onde $E$ é o Módulo de de Elasticidade, $w$ é a espessura do dente e $\nu$ é o Coeficiente de Poisson.
 \begin{equation} \label{eq:kh}
 	k_h = \frac{\pi E w}{4(1 - \nu^2)}
@@ -313,6 +321,7 @@ A partir da teoria de vigas é possível determinar a rigidez associada à flex�
 sendo que $F_b = F \cos \beta$, $F_a = F \sin \beta$, $x_\beta$ é a distância entre o ponto de contato e a linha central do dente, $y_\beta$ é a distância entre o ponto de contato e o ponto de origem na direção horizontal, $G = \frac{E}{2(1+\nu)}$ é o módulo de cisalhamento, $y_1, y_2$ representam as coordenadas horizontais de um ponto arbitrário na curva de transição e na curva da involuta, $y_C, y_D$ denotam o ponto inicial e o ponto final da curva de transição, $I_{y1}, A_{y1}, I_{y2}, A_{y2}$ representam o momento de inércia de área e a área da seção transversal, respectivamente; os torques $M_1 = F_b(y_\beta - y_1) - F_a x_\beta$ e $M_2 = F_b(y_\beta - y_2) - F_a x_\beta$ denotam o efeito de flexão de $F_b$ e $F_a$ na parte das curvas de transição e evolvente.
 
 Neste cálculo é adotado o deslocamento angular. De acordo com as características da curva da involuta e da curva de transição, $x_\beta, y_\beta, x_1, y_1, x_2, y_2, I_{y1}, I_{y2}, A_{y1}$ e $A_{y2}$ podem ser expressos como funções dos ângulos $\gamma$, $\beta$ ou $\tau$ como apresentado por~\citeonline{ma2014}, e então as rigidezes à compressão axial, à flexão e ao cisalhamento podem ser escritas conforme as Equações~\ref{eq:inv_ka}, \ref{eq:inv_kb} e \ref{eq:inv_ks}.
+\newpage
 \begin{equation} \label{eq:inv_ka}
 	\frac{1}{k_a} = \int_{\frac{\pi}{2}}^{\alpha} \frac{\sin^2 \beta}{EA_{y1}} \frac{dy_1}{d\gamma} d\gamma + \int_{\tau_c}^{\beta} \frac{\sin^2 \beta}{EA_{y2}} \frac{dy_2}{d\tau} d\tau
 \end{equation}

@@ -110,13 +110,16 @@ Dessa forma, com essa nova definição da função $f$, é necessário derivá-l
 \begin{gather}
 	f_1(\delta, b_t) = \partial_{\delta} f \cdot \dot{\delta} + \partial_{b_t} f \cdot \dot{b}_t
 	\label{eq:smooth_f1}
-\\
+\\[1em]
 	\partial_{q_i} f = \partial_{\delta} f \cdot \partial_{q_i}\delta + \partial_{b_t} f \cdot \partial_{q_i}b_t
 	\label{eq:chain_rule_f}
-\\
+\\[1em]
 	\begin{aligned}
 		\partial_{\delta} f &= 1 + \frac{1}{2} \bigg[ \tanh(\sigma(\delta - b_t)) + \sigma(\delta - b_t)(1 - \tanh^2(\sigma(\delta - b_t))) \\
-		&\quad - \tanh(\sigma(\delta + b_t)) - \sigma(\delta + b_t)(1 - \tanh^2(\sigma(\delta + b_t))) \bigg] \\
+		&\quad - \tanh(\sigma(\delta + b_t)) - \sigma(\delta + b_t)(1 - \tanh^2(\sigma(\delta + b_t))) \bigg]
+	\end{aligned}		
+ \\[1em]
+ 	\begin{aligned}
 		\partial_{b_t} f &= \frac{1}{2} \bigg[ -\tanh(\sigma(\delta - b_t)) - \sigma(\delta - b_t)(1 - \tanh^2(\sigma(\delta - b_t))) \\
 		&\quad - \tanh(\sigma(\delta + b_t)) - \sigma(\delta + b_t)(1 - \tanh^2(\sigma(\delta + b_t))) \bigg]
 	\end{aligned}

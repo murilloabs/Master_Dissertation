@@ -32,7 +32,7 @@ A Tabela~\ref{tab:modelo_yi} apresenta os principais parâmetros utilizados no m
 	% Tabela com 80% da largura da página
 	\begin{tabularx}{0.8\textwidth}{X r}
 		\hline
-		Parâmetro & Valor \\
+		\textbf{Parâmetro} & \textbf{Valor} \\
 		\hline
 		\multicolumn{2}{l}{\textbf{Geometria e Propriedades Físicas}} \\
 		\hline
@@ -321,8 +321,45 @@ Como é possível observar, o modelo implementado proposto neste trabalho aprese
 
 Observa-se ainda, que mesmo com a variação no valor de $\delta$ e em $F_m$, a característica dinâmica do sistema mantêm-se condizente ao apresentado por \citeonline{yi2019}, conforme se verifica na Resposta de Vibração da coordenada $x_1$, para as duas velocidades. Isso se deve a influência das matrizes de massa, rigidez e amortecimento que caracterizam o sistema.
 
-Além disso, ao observar as respostas em  frequência nota-se que há dois destaques e seus harmônicos: a velocidade de rotação $\Omega$ da simulação e a frequência correspondente ao  número de dentes multiplicado pela velocidade de rotação $Z\times\Omega$. Esse valor aparece por ser a frequência principal do perfil de rigidez variante no  tempo, o que faz sentido, uma vez que contabiliza as variações de rigidez pelos dentes em contato durante a rotação.
+Como é possível observar, o modelo implementado proposto neste trabalho apresenta uma coerência significativa com os resultados apresentados por \citeonline{yi2019}. Observa-se uma variação na Força do Engrenamento, $F_m$, que está relacionada à pequenas variações da Deformação na \textit{LOA}, $\delta$.
 
+Observa-se ainda, que mesmo com a variação no valor de $\delta$ e em $F_m$, a característica dinâmica do sistema mantêm-se condizente ao apresentado por \citeonline{yi2019}, conforme se verifica na Resposta de Vibração da coordenada $x_1$, para as duas velocidades. Isso se deve a influência das matrizes de massa, rigidez e amortecimento que caracterizam o sistema.
+
+Além disso, ao observar as respostas em  frequência nota-se que há dois destaques e seus harmônicos: a velocidade de rotação $\Omega$ da simulação e a frequência correspondente ao  número de dentes multiplicado pela velocidade de rotação $Z\times\Omega$. Esse valor aparece por ser a frequência principal do perfil de rigidez variante no  tempo, o que faz sentido, uma vez que contabiliza as variações de rigidez pelos dentes em contato durante a rotação.
+\newpage
+A análise quantitativa apresentada na Tabela \ref{tab:metricas_validacao} está alinhada matematicamente com as observações dos gráficos. A coordenada de deslocamento $x_1$ demonstra um excelente ajuste em relação à referência, apresentando os menores erros relativos da análise (um NRMSE de apenas $8,03\%$ a 1000 rpm e $7,21\%$ a 3000 rpm). Por outro lado, verifica-se que os maiores desvios concentram-se na Força Dinâmica de Engrenamento ($F_m$), atingindo um erro normalizado de até $23,88\%$. Esse comportamento estatístico evidencia que a formulação numérica da força de engrenamento é altamente sensível, refletindo diretamente as pequenas divergências propagadas pelo cálculo da deformação na linha de ação ($\delta$), a qual registrou um erro médio absoluto (MAE) em torno de $2,117\,\mu\text{m}$ a $2,225\,\mu\text{m}$. Observa-se ainda que as métricas de erro tendem a diminuir ligeiramente com o incremento da rotação para 3000 rpm, sugerindo uma melhor estabilidade do modelo avaliado em regimes operacionais mais elevados.
+\begin{table}[H]
+	\centering
+	% Aumenta o espaçamento entre as colunas para alargar a tabela
+	\setlength{\tabcolsep}{1.5em} 
+	
+	\begin{threeparttable}
+		\caption{Métricas estatísticas de validação do modelo implementado}
+		\label{tab:metricas_validacao}
+		
+		\begin{tabular}{lcccc}
+			\hline
+			\textbf{Variável} & \textbf{Rotação (rpm)} & \textbf{MAE} & \textbf{RMSE} & \textbf{NRMSE (\%)} \\
+			\hline
+			\multirow{2}{*}{$x_1$ [$\mu$m]} & 1000  & $1.334$ & $1.556$ & $8.030$ \\
+			& 3000  & $1.129$ & $1.423$ & $7.210$ \\
+			\hline
+			\multirow{2}{*}{$\delta$ [$\mu$m]} & 1000  & $2.225$ & $2.699$ & $14.580$ \\
+			& 3000  & $2.117$ & $2.634$ & $11.380$ \\
+			\hline
+			\multirow{2}{*}{$F_m$ (DMF) [kN]} & 1000 & $1.158$ & $1.500$ & $23.880$ \\
+			& 3000  & $1.097$ & $1.439$ & $22.150$ \\
+			\hline
+		\end{tabular}
+		
+		\begin{tablenotes}[flushleft]
+			\scriptsize
+			\item \textbf{Obs:} MAE (\textit{Mean Absolute Error} -- Erro Médio Absoluto); RMSE (\textit{Root Mean Square Error} -- Raiz do Erro Quadrático Médio); NRMSE (\textit{Normalized Root Mean Square Error} -- Erro Quadrático Médio Normalizado).
+			\item \textbf{Fonte:} Elaborado pelo autor.
+		\end{tablenotes}
+		
+	\end{threeparttable}
+\end{table}
 %\newpage
 
 Apesar da coerência para as primeiras velocidades, para a rotação de $4500\,\mathrm{rpm}$ o modelo implementado já apresenta divergências significativas ao se comparar com os resultados do artigo de referência. A Figura~\ref{subfigure:comp_4500} apresenta a comparação com os resultados obtidos por \citeonline{yi2019}. Já a Figura~\ref{fig:dashboard_4500} apresenta o painel de resultados principais do modelo implementado. Observa-se que, para a velocidade considerada, o modelo de \citeonline{yi2019} apresenta uma resposta periódica, o que não foi observado no modelo implementado.
