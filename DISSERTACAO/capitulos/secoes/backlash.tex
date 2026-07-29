@@ -1,13 +1,40 @@
 \newpage
 \section{Folga Dinâmica de \textit{Backlash}}
 
-A folga de \textit{backlash} é a folga entre os dentes de duas engrenagens conectadas. Esta folga é projetada para a passagem de óleo lubrificante, expansão térmica, montagem e adequação às tolerâncias geométricas \cite{kaplan2015}.
+A folga de \textit{backlash} é a folga entre os dentes de duas engrenagens conectadas. Esta folga é projetada para a passagem de óleo lubrificante, expansão térmica, montagem e adequação às tolerâncias geométricas \cite{kaplan2015}. A Figura~\ref{fig:sem_backlash} apresenta um par engrenado sem a folga de \textit{backlash} ao passo que a Figura~\ref{fig:com_backlash} apresenta um par engrenado com a folga de \textit{backlash}.
+\begin{figure}[H]
+	\centering
+	\caption{Representação do \textit{backlash}}
+	\label{subfigure:backlash_repr}
+	
+	\begin{minipage}{0.9\textwidth}
+		\centering
+		
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Par engrenado sem \textit{backlash}}
+			\label{fig:sem_backlash}
+			\includegraphics[width=\linewidth]{figuras/sem_backlash.png}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\caption{Par engrenado com \textit{backlash}}
+			\label{fig:com_backlash}
+			\includegraphics[width=\linewidth]{figuras/backlash.png}
+		\end{subfigure}
+		
+		\par\vspace{0.5em}
+		\raggedright
+		{\small Fonte: Adaptado de \url{}https://www.chamolgear.com/helical-gear-backlash/.}
+	\end{minipage}
+\end{figure}
 A Figura~\ref{fig:backlash_kaplan} demonstra o comportamento do engrenamento considerando a folga de \textit{backlash}. $\delta$ representa a deformação da Linha de Ação \textit{LOA} e $b_t$ é a folga de \textit{backlash} instantâneo. A deformação final da malha de engrenamento a cada passo de tempo $f(\delta (t), b_t)$ é apresentada pela Figura~\ref{fig:backlash_graph_kaplan} e é descrita de acordo com a Equação~\ref{eq:f_delta}. Essa formulação é adaptada de \citeonline{yi2019} de acordo com o sentido de referência dos graus de liberdade adotados no \textit{ROSS}.
 \begin{figure}[H]
 	\centering
 	\caption{Representação da folga de \textit{backlash}}
 	\label{fig:backlash_kaplan}
-	\begin{minipage}{0.7\textwidth}
+	\begin{minipage}{0.8\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{figuras/backlash_kaplan.png}
 		\par\vspace{0.3em}
@@ -28,7 +55,8 @@ A Figura~\ref{fig:backlash_kaplan} demonstra o comportamento do engrenamento con
 	\end{minipage}
 \end{figure}
 
-A Figura~\ref{fig:modelo_yi} o esquema utilizado por \citeonline{yi2019} para a construção do modelo de \textit{backlash} dinâmico que será apresentado. Este modelo de engrenamento e \textit{backlash} dinâmico são amplamente utilizados na literatura por diversos autores como \citeonline{zhu2025}, \citeonline{liu2023}, \citeonline{mo2025} entre outros que desenvolveram trabalhos que utilizam uma formulação semelhante.
+A Figura~\ref{fig:modelo_yi} o esquema utilizado por \citeonline{yi2019} para a construção do modelo de \textit{backlash} dinâmico que será apresentado. Este modelo de engrenamento e \textit{backlash} dinâmico são amplamente utilizados na literatura. Como exemplo, \citeonline{mo2025} desenvolveu um modelo de fricção entre dentes de uma engrenagens helicoidal. \citeonline{zhu2025} utilizou a metodologia aplicando técnica de fractais e a morfologia da superfície do dente. Além disso, \citeonline{liu2023} considerou efeitos de deslizamento entre as engrenagens. Outros trabalhos também foram desenvolvido utilizando a formulação de \citeonline{yi2019}.
+%por diversos autores como \citeonline{zhu2025}, \citeonline{liu2023}, \citeonline{mo2025}, entre outros que desenvolveram trabalhos que utilizam uma formulação semelhante.
 \begin{figure}[H]
 	\centering
 	\caption{Modelo do Par Engrenado}

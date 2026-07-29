@@ -1,0 +1,28 @@
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}
+		\caption{Métricas estatísticas de validação do modelo analítico (Domínio do Tempo)}
+		\label{tab:metricas_validacao}
+		
+		\begin{tabular}{llccc}
+			\hline
+			Variável & Rotação & MAE & RMSE & NRMSE (\%) \\
+			\hline
+			$x_1$ ($\mu$m) & 1000 rpm & $1.3341$ & $1.5555$ & $8.03$ \\
+			 & 3000 rpm & $1.1285$ & $1.4228$ & $7.21$ \\
+			\hline
+			$\delta$ ($\mu$m) & 1000 rpm & $2.2251$ & $2.6990$ & $14.58$ \\
+			 & 3000 rpm & $2.1174$ & $2.6338$ & $11.38$ \\
+			\hline
+			DMF (kN) & 1000 rpm & $1.1580$ & $1.5002$ & $23.88$ \\
+			 & 3000 rpm & $1.0974$ & $1.4388$ & $22.15$ \\
+			\hline
+		\end{tabular}
+		
+		\begin{tablenotes}[para, flushleft]
+			\small
+			\item Fonte: Elaborado pelo autor.
+		\end{tablenotes}
+		
+	\end{threeparttable}
+\end{table}
